@@ -40,7 +40,7 @@
     }
 
     header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 1.5rem;
     }
@@ -157,6 +157,62 @@
       box-shadow: 0 0 0 1px #58a6ff;
     }
 
+    /* Sub-row for Belt Colors */
+    .belt-filter-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      background: rgba(22, 27, 34, 0.6);
+      border: 1px solid rgba(48, 54, 61, 0.6);
+      border-radius: 8px;
+      align-items: center;
+      transition: all 0.25s ease;
+    }
+
+    .belt-filter-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-right: 0.35rem;
+    }
+
+    .belt-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 0.28rem 0.65rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .belt-btn:hover {
+      color: #fff;
+      border-color: #8b949e;
+    }
+
+    .belt-btn.active {
+      font-weight: 700;
+      color: #fff;
+      border-color: #58a6ff;
+      background: #21262d;
+    }
+
+    /* Belt button specific accents */
+    .belt-btn[data-belt="White"].active { border-color: #f0f6fc; }
+    .belt-btn[data-belt="Orange"].active { border-color: #fb923c; color: #fb923c; }
+    .belt-btn[data-belt="Blue"].active { border-color: #60a5fa; color: #60a5fa; }
+    .belt-btn[data-belt="Yellow"].active { border-color: #facc15; color: #facc15; }
+    .belt-btn[data-belt="Green"].active { border-color: #4ade80; color: #4ade80; }
+    .belt-btn[data-belt="Brown"].active { border-color: #d97706; color: #d97706; }
+    .belt-btn[data-belt*="Dan"].active { border-color: #e50914; color: #f87171; }
+
     .view-toggle {
       display: flex;
       background: var(--card-bg);
@@ -190,7 +246,7 @@
       margin: 1.25rem 0;
     }
 
-    /* Grid Layout (Detailed) */
+    /* Grid Layout */
     .kata-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -307,7 +363,7 @@
       gap: 0.25rem;
     }
 
-    /* Concise List View Mode (Default) */
+    /* List View Mode (Default) */
     .kata-list.concise-view {
       display: flex;
       flex-direction: column;
@@ -512,9 +568,26 @@
         </div>
 
         <div class="view-toggle">
-          <button class="view-btn active" id="viewBtnConcise" onclick="setViewMode('concise')">☰ Concise</button>
+          <button class="view-btn active" id="viewBtnConcise" onclick="setViewMode('concise')">☰ List</button>
           <button class="view-btn" id="viewBtnCards" onclick="setViewMode('cards')">☷ Cards</button>
         </div>
+      </div>
+
+      <!-- Belt Colors Sub-Filter (shown when Kata is selected) -->
+      <div class="belt-filter-row" id="beltFilterRow">
+        <span class="belt-filter-label">Belt:</span>
+        <button class="belt-btn active" data-belt="ALL" onclick="setBeltFilter('ALL')">All</button>
+        <button class="belt-btn" data-belt="White" onclick="setBeltFilter('White')">White</button>
+        <button class="belt-btn" data-belt="Orange" onclick="setBeltFilter('Orange')">Orange</button>
+        <button class="belt-btn" data-belt="Blue" onclick="setBeltFilter('Blue')">Blue</button>
+        <button class="belt-btn" data-belt="Yellow" onclick="setBeltFilter('Yellow')">Yellow</button>
+        <button class="belt-btn" data-belt="Green" onclick="setBeltFilter('Green')">Green</button>
+        <button class="belt-btn" data-belt="Brown" onclick="setBeltFilter('Brown')">Brown</button>
+        <button class="belt-btn" data-belt="Dan 1" onclick="setBeltFilter('Dan 1')">Dan 1</button>
+        <button class="belt-btn" data-belt="Dan 2" onclick="setBeltFilter('Dan 2')">Dan 2</button>
+        <button class="belt-btn" data-belt="Dan 3" onclick="setBeltFilter('Dan 3')">Dan 3</button>
+        <button class="belt-btn" data-belt="Dan 4" onclick="setBeltFilter('Dan 4')">Dan 4</button>
+        <button class="belt-btn" data-belt="Dan 5" onclick="setBeltFilter('Dan 5')">Dan 5</button>
       </div>
     </header>
 
@@ -530,6 +603,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -556,6 +631,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="1"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -582,6 +659,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="2"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -608,6 +687,8 @@
            data-is-seminar="1"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-order="22"
+           data-original-index="3"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -634,6 +715,8 @@
            data-is-seminar="1"
            data-kata-name="Bassai"
            data-belt="Dan 1"
+           data-order="23"
+           data-original-index="4"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -660,6 +743,8 @@
            data-is-seminar="1"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
+           data-order="27"
+           data-original-index="5"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -686,6 +771,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="6"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -712,6 +799,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="7"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -738,6 +827,8 @@
            data-is-seminar="1"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="8"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -764,6 +855,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="9"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -790,6 +883,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="10"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -816,6 +911,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="11"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -842,6 +939,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="12"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -868,6 +967,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="13"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -894,6 +995,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="14"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -920,6 +1023,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="15"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -946,6 +1051,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="16"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -972,6 +1079,8 @@
            data-is-seminar="1"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="17"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -998,6 +1107,8 @@
            data-is-seminar="0"
            data-kata-name="Seipai"
            data-belt="Dan 2"
+           data-order="25"
+           data-original-index="18"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1024,6 +1135,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="19"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1050,6 +1163,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="20"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1076,6 +1191,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="21"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1102,6 +1219,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="22"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1128,6 +1247,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="23"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1154,6 +1275,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="24"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1180,6 +1303,8 @@
            data-is-seminar="1"
            data-kata-name="Kanku"
            data-belt="Dan 3"
+           data-order="26"
+           data-original-index="25"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1206,6 +1331,8 @@
            data-is-seminar="1"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-order="22"
+           data-original-index="26"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1232,6 +1359,8 @@
            data-is-seminar="1"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
+           data-order="13"
+           data-original-index="27"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1258,6 +1387,8 @@
            data-is-seminar="0"
            data-kata-name="Garyu"
            data-belt="Dan 1"
+           data-order="21"
+           data-original-index="28"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1284,6 +1415,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="29"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1310,6 +1443,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="30"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1336,6 +1471,8 @@
            data-is-seminar="0"
            data-kata-name="Tekki sono san"
            data-belt="Dan 1"
+           data-order="24"
+           data-original-index="31"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1362,6 +1499,8 @@
            data-is-seminar="0"
            data-kata-name="Tekki sono ni"
            data-belt="Brown"
+           data-order="19"
+           data-original-index="32"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1388,6 +1527,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="33"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1414,6 +1555,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="34"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1440,6 +1583,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="35"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1466,6 +1611,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="36"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1492,6 +1639,8 @@
            data-is-seminar="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
+           data-order="27"
+           data-original-index="37"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1518,6 +1667,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="38"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1544,6 +1695,8 @@
            data-is-seminar="1"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-order="16"
+           data-original-index="39"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1570,6 +1723,8 @@
            data-is-seminar="1"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
+           data-order="6"
+           data-original-index="40"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1596,6 +1751,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="41"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1622,6 +1779,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="42"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1648,6 +1807,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="43"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1674,6 +1835,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="44"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1700,6 +1863,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="45"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1726,6 +1891,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="46"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1752,6 +1919,8 @@
            data-is-seminar="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
+           data-order="26"
+           data-original-index="47"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1778,6 +1947,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="48"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1804,6 +1975,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="49"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1830,6 +2003,8 @@
            data-is-seminar="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-order="16"
+           data-original-index="50"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1856,6 +2031,8 @@
            data-is-seminar="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
+           data-order="15"
+           data-original-index="51"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1882,6 +2059,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="52"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1908,6 +2087,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="53"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1934,6 +2115,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="54"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1960,6 +2143,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="55"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -1986,6 +2171,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="56"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2012,6 +2199,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="57"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2038,6 +2227,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="58"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2064,6 +2255,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="59"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2090,6 +2283,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="60"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2116,6 +2311,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="61"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2142,6 +2339,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="62"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2168,6 +2367,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="63"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2194,6 +2395,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
+           data-order="14"
+           data-original-index="64"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2220,6 +2423,8 @@
            data-is-seminar="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
+           data-order="11"
+           data-original-index="65"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2246,6 +2451,8 @@
            data-is-seminar="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
+           data-order="23"
+           data-original-index="66"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2272,6 +2479,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
+           data-order="12"
+           data-original-index="67"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2298,6 +2507,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
+           data-order="10"
+           data-original-index="68"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2324,6 +2535,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
+           data-order="8"
+           data-original-index="69"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2350,6 +2563,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
+           data-order="7"
+           data-original-index="70"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2376,6 +2591,8 @@
            data-is-seminar="0"
            data-kata-name=""
            data-belt=""
+           data-order="999"
+           data-original-index="71"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2402,6 +2619,8 @@
            data-is-seminar="0"
            data-kata-name="Tekki sono ichi"
            data-belt="Green"
+           data-order="17"
+           data-original-index="72"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2428,6 +2647,8 @@
            data-is-seminar="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-order="22"
+           data-original-index="73"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2454,6 +2675,8 @@
            data-is-seminar="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-order="16"
+           data-original-index="74"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2480,6 +2703,8 @@
            data-is-seminar="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
+           data-order="15"
+           data-original-index="75"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2506,6 +2731,8 @@
            data-is-seminar="0"
            data-kata-name="Sanchin"
            data-belt="Blue"
+           data-order="9"
+           data-original-index="76"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2532,6 +2759,8 @@
            data-is-seminar="0"
            data-kata-name="Saifa"
            data-belt="Brown"
+           data-order="20"
+           data-original-index="77"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2558,6 +2787,8 @@
            data-is-seminar="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
+           data-order="18"
+           data-original-index="78"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2584,6 +2815,8 @@
            data-is-seminar="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
+           data-order="11"
+           data-original-index="79"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2610,6 +2843,8 @@
            data-is-seminar="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
+           data-order="13"
+           data-original-index="80"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2636,6 +2871,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
+           data-order="14"
+           data-original-index="81"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2662,6 +2899,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
+           data-order="12"
+           data-original-index="82"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2688,6 +2927,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
+           data-order="10"
+           data-original-index="83"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2714,6 +2955,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
+           data-order="8"
+           data-original-index="84"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2740,6 +2983,8 @@
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
+           data-order="7"
+           data-original-index="85"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2766,6 +3011,8 @@
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
+           data-order="6"
+           data-original-index="86"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2792,6 +3039,8 @@
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono Ni"
            data-belt="Orange"
+           data-order="5"
+           data-original-index="87"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2818,6 +3067,8 @@
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono Ichi"
            data-belt="White"
+           data-order="3"
+           data-original-index="88"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2844,6 +3095,8 @@
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono San"
            data-belt="Orange"
+           data-order="4"
+           data-original-index="89"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2870,6 +3123,8 @@
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono Ni"
            data-belt="White"
+           data-order="2"
+           data-original-index="90"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2896,6 +3151,8 @@
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono Ichi"
            data-belt="White"
+           data-order="1"
+           data-original-index="91"
            onclick="handleCardClick(this)">
         <div class="card-main">
           <div class="card-header">
@@ -2936,9 +3193,10 @@
   </div>
 
   <script>
-    // Hardcoded 28 Katas mapping with belts and keywords
+    // Hardcoded 28 Katas mapping with order, belts and keywords
     const KATA_MAP = [
   {
+    "order": 1,
     "name": "Taikyoku Sono Ichi",
     "belt": "White",
     "keywords": [
@@ -2947,6 +3205,7 @@
     ]
   },
   {
+    "order": 2,
     "name": "Taikyoku Sono Ni",
     "belt": "White",
     "keywords": [
@@ -2955,6 +3214,7 @@
     ]
   },
   {
+    "order": 3,
     "name": "Sokugi Taikyoku Sono Ichi",
     "belt": "White",
     "keywords": [
@@ -2963,6 +3223,7 @@
     ]
   },
   {
+    "order": 4,
     "name": "Taikyoku Sono San",
     "belt": "Orange",
     "keywords": [
@@ -2971,6 +3232,7 @@
     ]
   },
   {
+    "order": 5,
     "name": "Sokugi Taikyoku Sono Ni",
     "belt": "Orange",
     "keywords": [
@@ -2979,6 +3241,7 @@
     ]
   },
   {
+    "order": 6,
     "name": "Sokugi Taikyoku Sono San",
     "belt": "Orange",
     "keywords": [
@@ -2987,6 +3250,7 @@
     ]
   },
   {
+    "order": 7,
     "name": "Pinan Sono Ichi",
     "belt": "Blue",
     "keywords": [
@@ -2995,6 +3259,7 @@
     ]
   },
   {
+    "order": 8,
     "name": "Pinan Sono Ni",
     "belt": "Blue",
     "keywords": [
@@ -3003,6 +3268,7 @@
     ]
   },
   {
+    "order": 9,
     "name": "Sanchin",
     "belt": "Blue",
     "keywords": [
@@ -3010,6 +3276,7 @@
     ]
   },
   {
+    "order": 10,
     "name": "Pinan Sono San",
     "belt": "Yellow",
     "keywords": [
@@ -3018,6 +3285,7 @@
     ]
   },
   {
+    "order": 11,
     "name": "Yantsu",
     "belt": "Yellow",
     "keywords": [
@@ -3026,6 +3294,7 @@
   },
   {
     "name": "Pinan Sono Yon",
+    "order": 12,
     "belt": "Yellow",
     "keywords": [
       "pinan sono yon",
@@ -3033,6 +3302,7 @@
     ]
   },
   {
+    "order": 13,
     "name": "Tsuki no Kata",
     "belt": "Yellow",
     "keywords": [
@@ -3042,6 +3312,7 @@
     ]
   },
   {
+    "order": 14,
     "name": "Pinan Sono Go",
     "belt": "Green",
     "keywords": [
@@ -3050,6 +3321,7 @@
     ]
   },
   {
+    "order": 15,
     "name": "Gekisai sono ichi",
     "belt": "Green",
     "keywords": [
@@ -3058,6 +3330,7 @@
     ]
   },
   {
+    "order": 16,
     "name": "Gekisai sono ni",
     "belt": "Green",
     "keywords": [
@@ -3066,6 +3339,7 @@
     ]
   },
   {
+    "order": 17,
     "name": "Tekki sono ichi",
     "belt": "Green",
     "keywords": [
@@ -3074,6 +3348,7 @@
     ]
   },
   {
+    "order": 18,
     "name": "Gekisai sono san",
     "belt": "Brown",
     "keywords": [
@@ -3083,6 +3358,7 @@
     ]
   },
   {
+    "order": 19,
     "name": "Tekki sono ni",
     "belt": "Brown",
     "keywords": [
@@ -3091,6 +3367,7 @@
     ]
   },
   {
+    "order": 20,
     "name": "Saifa",
     "belt": "Brown",
     "keywords": [
@@ -3098,6 +3375,7 @@
     ]
   },
   {
+    "order": 21,
     "name": "Garyu",
     "belt": "Dan 1",
     "keywords": [
@@ -3105,6 +3383,7 @@
     ]
   },
   {
+    "order": 22,
     "name": "Seienchin",
     "belt": "Dan 1",
     "keywords": [
@@ -3112,6 +3391,7 @@
     ]
   },
   {
+    "order": 23,
     "name": "Bassai",
     "belt": "Dan 1",
     "keywords": [
@@ -3119,6 +3399,7 @@
     ]
   },
   {
+    "order": 24,
     "name": "Tekki sono san",
     "belt": "Dan 1",
     "keywords": [
@@ -3127,6 +3408,7 @@
     ]
   },
   {
+    "order": 25,
     "name": "Seipai",
     "belt": "Dan 2",
     "keywords": [
@@ -3134,6 +3416,7 @@
     ]
   },
   {
+    "order": 26,
     "name": "Kanku",
     "belt": "Dan 3",
     "keywords": [
@@ -3141,6 +3424,7 @@
     ]
   },
   {
+    "order": 27,
     "name": "Sushiho",
     "belt": "Dan 4",
     "keywords": [
@@ -3148,6 +3432,7 @@
     ]
   },
   {
+    "order": 28,
     "name": "Tensho",
     "belt": "Dan 5",
     "keywords": [
@@ -3159,8 +3444,11 @@
     const allCards = Array.from(document.querySelectorAll('.kata-card'));
     const kataGrid = document.getElementById('kataGrid');
     const statsBar = document.getElementById('statsBar');
+    const beltFilterRow = document.getElementById('beltFilterRow');
+    
     let currentCategory = 'KATA'; // Default is Kata
-    let currentView = 'concise';   // Default is Concise list
+    let currentBelt = 'ALL';      // Default is All belts
+    let currentView = 'concise';   // Default is List
     let pendingVideoUrl = '';
 
     function handleCardClick(card) {
@@ -3199,6 +3487,26 @@
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === 'btn-' + cat);
       });
+
+      // Show/Hide Belt filter row only when Kata is active
+      if (cat === 'KATA') {
+        beltFilterRow.style.display = 'flex';
+      } else {
+        beltFilterRow.style.display = 'none';
+        currentBelt = 'ALL';
+        document.querySelectorAll('.belt-btn').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-belt') === 'ALL');
+        });
+      }
+
+      filterKata();
+    }
+
+    function setBeltFilter(belt) {
+      currentBelt = belt;
+      document.querySelectorAll('.belt-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-belt') === belt);
+      });
       filterKata();
     }
 
@@ -3217,15 +3525,38 @@
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       let count = 0;
 
+      // When Kata filter is active, sort DOM elements by Kata order 1 -> 28
+      if (currentCategory === 'KATA') {
+        allCards.sort((a, b) => {
+          const orderA = parseInt(a.getAttribute('data-order') || '999', 10);
+          const orderB = parseInt(b.getAttribute('data-order') || '999', 10);
+          if (orderA !== orderB) return orderA - orderB;
+          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+        });
+      } else {
+        // Restore original catalog order
+        allCards.sort((a, b) => {
+          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+        });
+      }
+
+      // Re-append sorted cards in fragment
+      const fragment = document.createDocumentFragment();
+
       allCards.forEach(card => {
         const title = card.getAttribute('data-title') || '';
         const isKata = card.getAttribute('data-is-kata') === '1';
         const isSeminar = card.getAttribute('data-is-seminar') === '1';
+        const cardBelt = card.getAttribute('data-belt') || '';
 
-        // Check category condition
+        // Category filter
         let matchesCategory = false;
         if (currentCategory === 'KATA') {
           matchesCategory = isKata;
+          // Apply belt color sub-filter
+          if (currentBelt !== 'ALL' && cardBelt.toLowerCase() !== currentBelt.toLowerCase()) {
+            matchesCategory = false;
+          }
         } else if (currentCategory === 'SEMINAR') {
           matchesCategory = isSeminar || title.includes('seminar');
         } else if (currentCategory === 'REST') {
@@ -3234,19 +3565,23 @@
           matchesCategory = true;
         }
 
-        // Check text search
+        // Search filter
         const matchesQuery = !q || title.includes(q);
 
         if (matchesCategory && matchesQuery) {
-          card.style.display = currentView === 'concise' ? 'flex' : 'flex';
+          card.style.display = 'flex';
           count++;
         } else {
           card.style.display = 'none';
         }
+
+        fragment.appendChild(card);
       });
 
+      kataGrid.appendChild(fragment);
+
       const labelMap = {
-        'KATA': 'Kata videos',
+        'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos (ordered #1 to #28)'),
         'SEMINAR': 'Seminar videos',
         'REST': 'All the rest videos',
         'ALL': 'all videos'
@@ -3254,7 +3589,7 @@
       statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos');
     }
 
-    // Apply default filter on load
+    // Apply default filter and sorting on load
     filterKata();
   </script>
 </body>
