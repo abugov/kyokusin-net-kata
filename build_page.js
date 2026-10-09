@@ -61,7 +61,7 @@ const html = `<!DOCTYPE html>
     }
 
     header {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 1.5rem;
     }
@@ -154,72 +154,6 @@ const html = `<!DOCTYPE html>
       background: #21262d;
       color: #fff;
       border-color: #8b949e;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.85rem 1.25rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.9rem;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #e50914;
-      display: inline-block;
-    }
-
-    .status-dot.online {
-      background: #2ea043;
-      box-shadow: 0 0 8px rgba(46, 160, 67, 0.4);
-    }
-
-    .status-right {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .btn-small {
-      padding: 0.4rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: #21262d;
-      color: var(--text);
-      transition: all 0.2s;
-    }
-
-    .btn-small:hover {
-      background: #30363d;
-      color: #fff;
-    }
-
-    .btn-small.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    .btn-small.primary:hover {
-      background: #f40612;
     }
 
     .stats {
@@ -317,7 +251,7 @@ const html = `<!DOCTYPE html>
       gap: 0.25rem;
     }
 
-    /* Modal */
+    /* Clean Modal */
     .modal-backdrop {
       position: fixed;
       top: 0;
@@ -354,7 +288,7 @@ const html = `<!DOCTYPE html>
     }
 
     .modal-body {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.55;
       margin-bottom: 1.25rem;
@@ -366,7 +300,7 @@ const html = `<!DOCTYPE html>
       padding: 0.75rem 1rem;
       border-radius: 6px;
       margin-bottom: 1.5rem;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text);
     }
 
@@ -375,6 +309,46 @@ const html = `<!DOCTYPE html>
       gap: 0.75rem;
       justify-content: flex-end;
       flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .btn-action.cancel {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: transparent;
+    }
+
+    .btn-action.cancel:hover {
+      color: #fff;
+    }
+
+    .btn-action.continue {
+      background: #21262d;
+      color: var(--text);
+    }
+
+    .btn-action.continue:hover {
+      background: #30363d;
+      color: #fff;
+    }
+
+    .btn-action.login {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-action.login:hover {
+      background: #f40612;
     }
 
     @media (max-width: 640px) {
@@ -412,17 +386,6 @@ const html = `<!DOCTYPE html>
       </div>
     </header>
 
-    <div class="status-bar">
-      <div class="status-left">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="statusLabel">Login Status: Not Logged In</span>
-      </div>
-      <div class="status-right">
-        <button class="btn-small" onclick="toggleLoginState()">Toggle "Logged In"</button>
-        <button class="btn-small primary" onclick="openLoginWindow()">Go to Login Page</button>
-      </div>
-    </div>
-
     <div class="stats" id="statsBar">Showing ${kataList.length} of ${kataList.length} videos</div>
 
     <div class="kata-list" id="kataGrid">
@@ -430,24 +393,24 @@ ${cardsHtml}
     </div>
   </div>
 
-  <!-- Auth Prompt Modal -->
+  <!-- Prompt Modal on Clicking PRIME / MEMBER Video -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal-card">
       <div class="modal-head">
-        <span>🔐</span>
-        <span id="modalTitle">Login Required</span>
+        <span>🥋</span>
+        <span id="modalTitle">Member / Prime Video</span>
       </div>
       <div class="modal-body">
-        This is a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> video on Kyokushin Online.<br><br>
-        If you are not logged in with your Google / Kyokushin member account, the video player will stay stuck on <em>"Loading..."</em>.
+        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> or <strong style="color:#3b82f6">MEMBER</strong> account on Kyokushin Online.<br><br>
+        Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
       </div>
       <div class="modal-target">
-        Selected Kata: <strong id="modalKataName"></strong>
+        Video: <strong id="modalKataName"></strong>
       </div>
       <div class="modal-foot">
-        <button class="btn-small" onclick="closeModal()">Cancel</button>
-        <button class="btn-small" onclick="proceedToVideo()">Continue to Video</button>
-        <button class="btn-small primary" onclick="goToLoginAndSave()">Log In First &rarr;</button>
+        <button class="btn-action cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-action continue" onclick="proceedToVideo()">Continue to Video</button>
+        <button class="btn-action login" onclick="openLogin()">Open Login &rarr;</button>
       </div>
     </div>
   </div>
@@ -458,49 +421,19 @@ ${cardsHtml}
     let currentCategory = 'ALL';
     let pendingVideoUrl = '';
 
-    // Check login state from localStorage
-    function isUserLoggedIn() {
-      return localStorage.getItem('kyokushin_user_logged_in') === 'true';
-    }
-
-    function updateStatusUI() {
-      const logged = isUserLoggedIn();
-      const dot = document.getElementById('statusDot');
-      const label = document.getElementById('statusLabel');
-      if (logged) {
-        dot.className = 'status-dot online';
-        label.innerHTML = 'Login Status: <strong>Logged In</strong> (Direct play enabled)';
-      } else {
-        dot.className = 'status-dot';
-        label.innerHTML = 'Login Status: <strong>Not Logged In</strong> (Prompt will ask before playing)';
-      }
-    }
-
-    function toggleLoginState() {
-      const current = isUserLoggedIn();
-      localStorage.setItem('kyokushin_user_logged_in', current ? 'false' : 'true');
-      updateStatusUI();
-    }
-
-    function openLoginWindow() {
-      localStorage.setItem('kyokushin_user_logged_in', 'true');
-      updateStatusUI();
-      window.open('https://www.kyokushin.net/login', '_blank');
-    }
-
     function handleCardClick(card) {
       const url = card.getAttribute('data-href');
       const badge = card.getAttribute('data-badge');
       const title = card.querySelector('.kata-title').innerText;
 
-      // If user is NOT logged in and clicking a MEMBER or PRIME video:
-      if (!isUserLoggedIn() && (badge === 'PRIME' || badge === 'MEMBER')) {
+      // If it is a PRIME or MEMBER video, always ask whether to open login or continue
+      if (badge === 'PRIME' || badge === 'MEMBER') {
         pendingVideoUrl = url;
         document.getElementById('modalBadgeText').innerText = badge;
         document.getElementById('modalKataName').innerText = title;
-        document.getElementById('modalTitle').innerText = badge + ' Video &bull; Authentication Needed';
         document.getElementById('authModal').style.display = 'flex';
       } else {
+        // Free / standard videos open directly
         window.open(url, '_blank');
       }
     }
@@ -516,11 +449,8 @@ ${cardsHtml}
       if (url) window.open(url, '_blank');
     }
 
-    function goToLoginAndSave() {
-      const url = pendingVideoUrl;
+    function openLogin() {
       closeModal();
-      localStorage.setItem('kyokushin_user_logged_in', 'true');
-      updateStatusUI();
       window.open('https://www.kyokushin.net/login', '_blank');
     }
 
@@ -551,11 +481,9 @@ ${cardsHtml}
 
       statsBar.innerText = 'Showing ' + count + ' of ' + allCards.length + ' videos';
     }
-
-    updateStatusUI();
   </script>
 </body>
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully generated index.html with authentication detection and prompts!');
+console.log('Successfully updated index.html with prompt for PRIME/MEMBER videos!');
