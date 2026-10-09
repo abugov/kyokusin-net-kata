@@ -3,34 +3,34 @@ const videos = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
 
 // The 28 canonical katas in requested order with their belts & matching keywords
 const KATA_MAP = [
-  { name: "Taikyoku Sono Ichi", belt: "white", keywords: ["taikyoku sono ichi", "taikyoku sonoichi"] },
-  { name: "Taikyoku Sono Ni", belt: "white", keywords: ["taikyoku sono ni", "taikyoku sononi"] },
-  { name: "Sokugi Taikyoku Sono Ichi", belt: "white", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi"] },
-  { name: "Taikyoku Sono San", belt: "orange", keywords: ["taikyoku sono san", "taikyoku sonosan"] },
-  { name: "Sokugi Taikyoku Sono Ni", belt: "orange", keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi"] },
-  { name: "Sokugi Taikyoku Sono San", belt: "orange", keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan"] },
-  { name: "Pinan Sono Ichi", belt: "blue", keywords: ["pinan sono ichi", "pinan sonoichi"] },
-  { name: "Pinan Sono Ni", belt: "blue", keywords: ["pinan sono ni", "pinan sononi"] },
-  { name: "Sanchin", belt: "blue", keywords: ["sanchin"] },
-  { name: "Pinan Sono San", belt: "yellow", keywords: ["pinan sono san", "pinan sonosan"] },
-  { name: "Yantsu", belt: "yellow", keywords: ["yantsu"] },
-  { name: "Pinan Sono Yon", belt: "yellow", keywords: ["pinan sono yon", "pinan sonoyon"] },
-  { name: "Tsuki no Kata", belt: "yellow", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata"] },
-  { name: "Pinan Sono Go", belt: "green", keywords: ["pinan sono go", "pinan sonogo"] },
-  { name: "Gekisai sono ichi", belt: "green", keywords: ["gekisai sono ichi", "gekisai sonoichi"] },
-  { name: "Gekisai sono ni", belt: "green", keywords: ["gekisai sono ni", "gekisai sononi"] },
-  { name: "Tekki sono ichi", belt: "green", keywords: ["tekki sono ichi", "tekki sonoichi"] },
-  { name: "Gekisai sono san", belt: "brown", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou"] },
-  { name: "Tekki sono ni", belt: "brown", keywords: ["tekki sono ni", "tekki sononi"] },
-  { name: "Saifa", belt: "brown", keywords: ["saifa"] },
-  { name: "Garyu", belt: "dan 1", keywords: ["garyu"] },
-  { name: "Seienchin", belt: "dan 1", keywords: ["seienchin"] },
-  { name: "Bassai", belt: "dan 1", keywords: ["bassai"] },
-  { name: "Tekki sono san", belt: "dan 1", keywords: ["tekki sono san", "tekki sonosan"] },
-  { name: "Seipai", belt: "dan 2", keywords: ["seipai"] },
-  { name: "Kanku", belt: "dan 3", keywords: ["kanku"] },
-  { name: "Sushiho", belt: "dan 4", keywords: ["sushiho"] },
-  { name: "Tensho", belt: "dan 5", keywords: ["tensho"] }
+  { name: "Taikyoku Sono Ichi", belt: "White", keywords: ["taikyoku sono ichi", "taikyoku sonoichi"] },
+  { name: "Taikyoku Sono Ni", belt: "White", keywords: ["taikyoku sono ni", "taikyoku sononi"] },
+  { name: "Sokugi Taikyoku Sono Ichi", belt: "White", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi"] },
+  { name: "Taikyoku Sono San", belt: "Orange", keywords: ["taikyoku sono san", "taikyoku sonosan"] },
+  { name: "Sokugi Taikyoku Sono Ni", belt: "Orange", keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi"] },
+  { name: "Sokugi Taikyoku Sono San", belt: "Orange", keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan"] },
+  { name: "Pinan Sono Ichi", belt: "Blue", keywords: ["pinan sono ichi", "pinan sonoichi"] },
+  { name: "Pinan Sono Ni", belt: "Blue", keywords: ["pinan sono ni", "pinan sononi"] },
+  { name: "Sanchin", belt: "Blue", keywords: ["sanchin"] },
+  { name: "Pinan Sono San", belt: "Yellow", keywords: ["pinan sono san", "pinan sonosan"] },
+  { name: "Yantsu", belt: "Yellow", keywords: ["yantsu"] },
+  { name: "Pinan Sono Yon", belt: "Yellow", keywords: ["pinan sono yon", "pinan sonoyon"] },
+  { name: "Tsuki no Kata", belt: "Yellow", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata"] },
+  { name: "Pinan Sono Go", belt: "Green", keywords: ["pinan sono go", "pinan sonogo"] },
+  { name: "Gekisai sono ichi", belt: "Green", keywords: ["gekisai sono ichi", "gekisai sonoichi"] },
+  { name: "Gekisai sono ni", belt: "Green", keywords: ["gekisai sono ni", "gekisai sononi"] },
+  { name: "Tekki sono ichi", belt: "Green", keywords: ["tekki sono ichi", "tekki sonoichi"] },
+  { name: "Gekisai sono san", belt: "Brown", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou"] },
+  { name: "Tekki sono ni", belt: "Brown", keywords: ["tekki sono ni", "tekki sononi"] },
+  { name: "Saifa", belt: "Brown", keywords: ["saifa"] },
+  { name: "Garyu", belt: "Dan 1", keywords: ["garyu"] },
+  { name: "Seienchin", belt: "Dan 1", keywords: ["seienchin"] },
+  { name: "Bassai", belt: "Dan 1", keywords: ["bassai"] },
+  { name: "Tekki sono san", belt: "Dan 1", keywords: ["tekki sono san", "tekki sonosan"] },
+  { name: "Seipai", belt: "Dan 2", keywords: ["seipai"] },
+  { name: "Kanku", belt: "Dan 3", keywords: ["kanku"] },
+  { name: "Sushiho", belt: "Dan 4", keywords: ["sushiho"] },
+  { name: "Tensho", belt: "Dan 5", keywords: ["tensho"] }
 ];
 
 function matchKata(title) {
@@ -57,8 +57,8 @@ const cardsHtml = videos.map((item, idx) => {
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
-  // Belt pill if matched kata
-  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.replace(/\s+/g, '-')}">${matched.belt} &bull; ${matched.name}</span>` : '';
+  // Belt tag on the left: Name first | Belt (e.g. "Seipai | Dan 2")
+  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name} | ${matched.belt}</span>` : '';
 
   return `      <div class="kata-card" 
            data-id="${item.id}"
@@ -72,9 +72,10 @@ const cardsHtml = videos.map((item, idx) => {
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#${idx + 1} &bull; ID: ${item.id}</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               ${beltHtml}
+            </div>
+            <div class="header-right">
               ${badgeHtml}
             </div>
           </div>
@@ -271,9 +272,24 @@ const html = `<!DOCTYPE html>
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+      min-height: 22px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: auto;
     }
 
     .badge {
@@ -300,11 +316,10 @@ const html = `<!DOCTYPE html>
 
     /* Belt badges */
     .belt-badge {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.18rem 0.5rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
-      text-transform: capitalize;
       white-space: nowrap;
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
@@ -334,12 +349,6 @@ const html = `<!DOCTYPE html>
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 0.8rem;
       color: var(--text-muted);
-    }
-
-    .video-id {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.75rem;
-      color: #7d8590;
     }
 
     .card-footer .open-btn {
@@ -581,10 +590,8 @@ ${cardsHtml}
         } else if (currentCategory === 'KATA') {
           matchesCategory = isKata;
         } else if (currentCategory === 'SEMINAR') {
-          // Exactly as if user searched "seminar"
           matchesCategory = isSeminar || title.includes('seminar');
         } else if (currentCategory === 'REST') {
-          // All non-kata and non-seminar
           matchesCategory = !isKata && !isSeminar && !title.includes('seminar');
         }
 
@@ -606,4 +613,4 @@ ${cardsHtml}
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully rebuilt index.html with 28-Kata map and 4 quick filters!');
+console.log('Successfully updated index.html with name-first belt badges on left!');

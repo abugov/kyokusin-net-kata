@@ -182,9 +182,24 @@
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.75rem;
+      min-height: 22px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: auto;
     }
 
     .badge {
@@ -211,11 +226,10 @@
 
     /* Belt badges */
     .belt-badge {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.18rem 0.5rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
-      text-transform: capitalize;
       white-space: nowrap;
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
@@ -245,12 +259,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 0.8rem;
       color: var(--text-muted);
-    }
-
-    .video-id {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.75rem;
-      color: #7d8590;
     }
 
     .card-footer .open-btn {
@@ -417,9 +425,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#1 &bull; ID: 1203025981</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -442,9 +451,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#2 &bull; ID: 1188396319</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -467,9 +477,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#3 &bull; ID: 1186608646</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -488,13 +499,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Seienchin"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#4 &bull; ID: 1184032950</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Seienchin</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Seienchin | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -513,13 +525,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Bassai"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#5 &bull; ID: 1184032951</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Bassai</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Bassai | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -538,13 +551,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Sushiho"
-           data-belt="dan 4"
+           data-belt="Dan 4"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#6 &bull; ID: 1184033042</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-4">dan 4 &bull; Sushiho</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-4">Sushiho | Dan 4</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -567,9 +581,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#7 &bull; ID: 1179849130</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -592,9 +607,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#8 &bull; ID: 1177631112</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -617,9 +633,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#9 &bull; ID: 1166596704</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -642,9 +659,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#10 &bull; ID: 1148004100</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -667,9 +685,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#11 &bull; ID: 1148003902</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -692,9 +711,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#12 &bull; ID: 1144214139</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -717,9 +737,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#13 &bull; ID: 1141341504</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -742,9 +763,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#14 &bull; ID: 1141341678</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -767,9 +789,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#15 &bull; ID: 1141342089</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -792,9 +815,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#16 &bull; ID: 1124142812</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -817,9 +841,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#17 &bull; ID: 1102433722</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -842,9 +867,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#18 &bull; ID: 1097441597</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -863,13 +889,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Seipai"
-           data-belt="dan 2"
+           data-belt="Dan 2"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#19 &bull; ID: 1068726220</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-2">dan 2 &bull; Seipai</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-2">Seipai | Dan 2</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -892,9 +919,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#20 &bull; ID: 1072893304</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -917,9 +945,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#21 &bull; ID: 1070745675</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -942,9 +971,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#22 &bull; ID: 1061189278</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -967,9 +997,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#23 &bull; ID: 1035086716</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -992,9 +1023,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#24 &bull; ID: 1032585521</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1017,9 +1049,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#25 &bull; ID: 1028259528</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1038,13 +1071,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Kanku"
-           data-belt="dan 3"
+           data-belt="Dan 3"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#26 &bull; ID: 1027913149</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-3">dan 3 &bull; Kanku</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-3">Kanku | Dan 3</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1063,13 +1097,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Seienchin"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#27 &bull; ID: 1025404141</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Seienchin</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Seienchin | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1088,13 +1123,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Tsuki no Kata"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#28 &bull; ID: 1023625956</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Tsuki no Kata</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Tsuki no Kata | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1113,13 +1149,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Garyu"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#29 &bull; ID: 1018270420</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Garyu</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Garyu | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1142,9 +1179,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#30 &bull; ID: 1000003663</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1167,9 +1205,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#31 &bull; ID: 982917016</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1188,13 +1227,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Tekki sono san"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#32 &bull; ID: 977441769</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Tekki sono san</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Tekki sono san | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1213,13 +1253,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Tekki sono ni"
-           data-belt="brown"
+           data-belt="Brown"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#33 &bull; ID: 977439492</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-brown">brown &bull; Tekki sono ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-brown">Tekki sono ni | Brown</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1242,9 +1283,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#34 &bull; ID: 964927303</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1267,9 +1309,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#35 &bull; ID: 947403409</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1292,9 +1335,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#36 &bull; ID: 941448109</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1317,9 +1361,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#37 &bull; ID: 936937785</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1338,13 +1383,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Sushiho"
-           data-belt="dan 4"
+           data-belt="Dan 4"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#38 &bull; ID: 895213036</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-4">dan 4 &bull; Sushiho</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-4">Sushiho | Dan 4</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1367,9 +1413,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#39 &bull; ID: 873930865</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1388,13 +1435,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Gekisai sono ni"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#40 &bull; ID: 868970017</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Gekisai sono ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Gekisai sono ni | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1413,13 +1461,14 @@
            data-is-kata="1"
            data-is-seminar="1"
            data-kata-name="Sokugi Taikyoku Sono San"
-           data-belt="orange"
+           data-belt="Orange"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#41 &bull; ID: 867073116</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-orange">orange &bull; Sokugi Taikyoku Sono San</span>
+            <div class="header-left">
+              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono San | Orange</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1442,9 +1491,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#42 &bull; ID: 864728201</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1467,9 +1517,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#43 &bull; ID: 851497192</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1492,9 +1543,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#44 &bull; ID: 848606374</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1517,9 +1569,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#45 &bull; ID: 847221857</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1542,9 +1595,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#46 &bull; ID: 832591331</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1567,9 +1621,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#47 &bull; ID: 817119423</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1588,13 +1643,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Kanku"
-           data-belt="dan 3"
+           data-belt="Dan 3"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#48 &bull; ID: 810383040</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-3">dan 3 &bull; Kanku</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-3">Kanku | Dan 3</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1617,9 +1673,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#49 &bull; ID: 804173010</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1642,9 +1699,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#50 &bull; ID: 802155060</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1663,13 +1721,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Gekisai sono ni"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#51 &bull; ID: 740287160</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Gekisai sono ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Gekisai sono ni | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1688,13 +1747,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Gekisai sono ichi"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#52 &bull; ID: 740287226</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Gekisai sono ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Gekisai sono ichi | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1717,9 +1777,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#53 &bull; ID: 734326596</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1742,9 +1803,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#54 &bull; ID: 732311145</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1767,9 +1829,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#55 &bull; ID: 732314490</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1792,9 +1855,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#56 &bull; ID: 732324559</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1817,9 +1881,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#57 &bull; ID: 694683761</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1842,9 +1907,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#58 &bull; ID: 692121946</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1867,9 +1933,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#59 &bull; ID: 689885999</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1892,9 +1959,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#60 &bull; ID: 689567463</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1917,9 +1985,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#61 &bull; ID: 675296516</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1942,9 +2011,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#62 &bull; ID: 673409017</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1967,9 +2037,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#63 &bull; ID: 671069313</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -1992,9 +2063,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#64 &bull; ID: 671067842</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2013,13 +2085,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Go"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#65 &bull; ID: 661664814</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Pinan Sono Go</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Pinan Sono Go | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2038,13 +2111,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Yantsu"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#66 &bull; ID: 661664935</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Yantsu</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Yantsu | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2063,13 +2137,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Bassai"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#67 &bull; ID: 633550574</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Bassai</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Bassai | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2088,13 +2163,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Yon"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#68 &bull; ID: 605658036</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Pinan Sono Yon</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Pinan Sono Yon | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2113,13 +2189,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono San"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#69 &bull; ID: 605657744</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Pinan Sono San</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Pinan Sono San | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2138,13 +2215,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ni"
-           data-belt="blue"
+           data-belt="Blue"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#70 &bull; ID: 614144774</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-blue">blue &bull; Pinan Sono Ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Pinan Sono Ni | Blue</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2163,13 +2241,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ichi"
-           data-belt="blue"
+           data-belt="Blue"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#71 &bull; ID: 614144940</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-blue">blue &bull; Pinan Sono Ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Pinan Sono Ichi | Blue</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2192,9 +2271,10 @@
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#72 &bull; ID: 506644499</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
+            <div class="header-left">
               
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2213,13 +2293,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Tekki sono ichi"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#73 &bull; ID: 486219663</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Tekki sono ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Tekki sono ichi | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2238,13 +2319,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Seienchin"
-           data-belt="dan 1"
+           data-belt="Dan 1"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#74 &bull; ID: 486219808</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-dan-1">dan 1 &bull; Seienchin</span>
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1">Seienchin | Dan 1</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2263,13 +2345,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Gekisai sono ni"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#75 &bull; ID: 486219296</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Gekisai sono ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Gekisai sono ni | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2288,13 +2371,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Gekisai sono ichi"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#76 &bull; ID: 486219322</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Gekisai sono ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Gekisai sono ichi | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2313,13 +2397,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Sanchin"
-           data-belt="blue"
+           data-belt="Blue"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#77 &bull; ID: 486272839</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-blue">blue &bull; Sanchin</span>
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Sanchin | Blue</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2338,13 +2423,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Saifa"
-           data-belt="brown"
+           data-belt="Brown"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#78 &bull; ID: 486219405</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-brown">brown &bull; Saifa</span>
+            <div class="header-left">
+              <span class="belt-badge belt-brown">Saifa | Brown</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2363,13 +2449,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Gekisai sono san"
-           data-belt="brown"
+           data-belt="Brown"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#79 &bull; ID: 486219330</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-brown">brown &bull; Gekisai sono san</span>
+            <div class="header-left">
+              <span class="belt-badge belt-brown">Gekisai sono san | Brown</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2388,13 +2475,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Yantsu"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#80 &bull; ID: 486219136</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Yantsu</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Yantsu | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2413,13 +2501,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Tsuki no Kata"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#81 &bull; ID: 486272854</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Tsuki no Kata</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Tsuki no Kata | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2438,13 +2527,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Go"
-           data-belt="green"
+           data-belt="Green"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#82 &bull; ID: 486217774</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-green">green &bull; Pinan Sono Go</span>
+            <div class="header-left">
+              <span class="belt-badge belt-green">Pinan Sono Go | Green</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2463,13 +2553,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Yon"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#83 &bull; ID: 486217809</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Pinan Sono Yon</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Pinan Sono Yon | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2488,13 +2579,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono San"
-           data-belt="yellow"
+           data-belt="Yellow"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#84 &bull; ID: 486217825</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-yellow">yellow &bull; Pinan Sono San</span>
+            <div class="header-left">
+              <span class="belt-badge belt-yellow">Pinan Sono San | Yellow</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2513,13 +2605,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ni"
-           data-belt="blue"
+           data-belt="Blue"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#85 &bull; ID: 486217851</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-blue">blue &bull; Pinan Sono Ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Pinan Sono Ni | Blue</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2538,13 +2631,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Pinan Sono Ichi"
-           data-belt="blue"
+           data-belt="Blue"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#86 &bull; ID: 486217759</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-blue">blue &bull; Pinan Sono Ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Pinan Sono Ichi | Blue</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2563,13 +2657,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono San"
-           data-belt="orange"
+           data-belt="Orange"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#87 &bull; ID: 486215424</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-orange">orange &bull; Sokugi Taikyoku Sono San</span>
+            <div class="header-left">
+              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono San | Orange</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2588,13 +2683,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono Ni"
-           data-belt="orange"
+           data-belt="Orange"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#88 &bull; ID: 486215173</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-orange">orange &bull; Sokugi Taikyoku Sono Ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono Ni | Orange</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2613,13 +2709,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Sokugi Taikyoku Sono Ichi"
-           data-belt="white"
+           data-belt="White"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#89 &bull; ID: 486215128</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-white">white &bull; Sokugi Taikyoku Sono Ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-white">Sokugi Taikyoku Sono Ichi | White</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2638,13 +2735,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono San"
-           data-belt="orange"
+           data-belt="Orange"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#90 &bull; ID: 486215178</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-orange">orange &bull; Taikyoku Sono San</span>
+            <div class="header-left">
+              <span class="belt-badge belt-orange">Taikyoku Sono San | Orange</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2663,13 +2761,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono Ni"
-           data-belt="white"
+           data-belt="White"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#91 &bull; ID: 486215219</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-white">white &bull; Taikyoku Sono Ni</span>
+            <div class="header-left">
+              <span class="belt-badge belt-white">Taikyoku Sono Ni | White</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2688,13 +2787,14 @@
            data-is-kata="1"
            data-is-seminar="0"
            data-kata-name="Taikyoku Sono Ichi"
-           data-belt="white"
+           data-belt="White"
            onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
-            <span class="video-id">#92 &bull; ID: 486215214</span>
-            <div style="display:flex;gap:0.35rem;align-items:center;">
-              <span class="belt-badge belt-white">white &bull; Taikyoku Sono Ichi</span>
+            <div class="header-left">
+              <span class="belt-badge belt-white">Taikyoku Sono Ichi | White</span>
+            </div>
+            <div class="header-right">
               
             </div>
           </div>
@@ -2732,7 +2832,7 @@
     const KATA_MAP = [
   {
     "name": "Taikyoku Sono Ichi",
-    "belt": "white",
+    "belt": "White",
     "keywords": [
       "taikyoku sono ichi",
       "taikyoku sonoichi"
@@ -2740,7 +2840,7 @@
   },
   {
     "name": "Taikyoku Sono Ni",
-    "belt": "white",
+    "belt": "White",
     "keywords": [
       "taikyoku sono ni",
       "taikyoku sononi"
@@ -2748,7 +2848,7 @@
   },
   {
     "name": "Sokugi Taikyoku Sono Ichi",
-    "belt": "white",
+    "belt": "White",
     "keywords": [
       "sokugi taikyoku sono ichi",
       "sokugi taikyoku sonoichi"
@@ -2756,7 +2856,7 @@
   },
   {
     "name": "Taikyoku Sono San",
-    "belt": "orange",
+    "belt": "Orange",
     "keywords": [
       "taikyoku sono san",
       "taikyoku sonosan"
@@ -2764,7 +2864,7 @@
   },
   {
     "name": "Sokugi Taikyoku Sono Ni",
-    "belt": "orange",
+    "belt": "Orange",
     "keywords": [
       "sokugi taikyoku sono ni",
       "sokugi taikyoku sononi"
@@ -2772,7 +2872,7 @@
   },
   {
     "name": "Sokugi Taikyoku Sono San",
-    "belt": "orange",
+    "belt": "Orange",
     "keywords": [
       "sokugi taikyoku sono san",
       "sokugi taikyoku sonosan"
@@ -2780,7 +2880,7 @@
   },
   {
     "name": "Pinan Sono Ichi",
-    "belt": "blue",
+    "belt": "Blue",
     "keywords": [
       "pinan sono ichi",
       "pinan sonoichi"
@@ -2788,7 +2888,7 @@
   },
   {
     "name": "Pinan Sono Ni",
-    "belt": "blue",
+    "belt": "Blue",
     "keywords": [
       "pinan sono ni",
       "pinan sononi"
@@ -2796,14 +2896,14 @@
   },
   {
     "name": "Sanchin",
-    "belt": "blue",
+    "belt": "Blue",
     "keywords": [
       "sanchin"
     ]
   },
   {
     "name": "Pinan Sono San",
-    "belt": "yellow",
+    "belt": "Yellow",
     "keywords": [
       "pinan sono san",
       "pinan sonosan"
@@ -2811,14 +2911,14 @@
   },
   {
     "name": "Yantsu",
-    "belt": "yellow",
+    "belt": "Yellow",
     "keywords": [
       "yantsu"
     ]
   },
   {
     "name": "Pinan Sono Yon",
-    "belt": "yellow",
+    "belt": "Yellow",
     "keywords": [
       "pinan sono yon",
       "pinan sonoyon"
@@ -2826,7 +2926,7 @@
   },
   {
     "name": "Tsuki no Kata",
-    "belt": "yellow",
+    "belt": "Yellow",
     "keywords": [
       "tsuki no kata",
       "tsukinokata",
@@ -2835,7 +2935,7 @@
   },
   {
     "name": "Pinan Sono Go",
-    "belt": "green",
+    "belt": "Green",
     "keywords": [
       "pinan sono go",
       "pinan sonogo"
@@ -2843,7 +2943,7 @@
   },
   {
     "name": "Gekisai sono ichi",
-    "belt": "green",
+    "belt": "Green",
     "keywords": [
       "gekisai sono ichi",
       "gekisai sonoichi"
@@ -2851,7 +2951,7 @@
   },
   {
     "name": "Gekisai sono ni",
-    "belt": "green",
+    "belt": "Green",
     "keywords": [
       "gekisai sono ni",
       "gekisai sononi"
@@ -2859,7 +2959,7 @@
   },
   {
     "name": "Tekki sono ichi",
-    "belt": "green",
+    "belt": "Green",
     "keywords": [
       "tekki sono ichi",
       "tekki sonoichi"
@@ -2867,7 +2967,7 @@
   },
   {
     "name": "Gekisai sono san",
-    "belt": "brown",
+    "belt": "Brown",
     "keywords": [
       "gekisai sono san",
       "gekisai sonosan",
@@ -2876,7 +2976,7 @@
   },
   {
     "name": "Tekki sono ni",
-    "belt": "brown",
+    "belt": "Brown",
     "keywords": [
       "tekki sono ni",
       "tekki sononi"
@@ -2884,35 +2984,35 @@
   },
   {
     "name": "Saifa",
-    "belt": "brown",
+    "belt": "Brown",
     "keywords": [
       "saifa"
     ]
   },
   {
     "name": "Garyu",
-    "belt": "dan 1",
+    "belt": "Dan 1",
     "keywords": [
       "garyu"
     ]
   },
   {
     "name": "Seienchin",
-    "belt": "dan 1",
+    "belt": "Dan 1",
     "keywords": [
       "seienchin"
     ]
   },
   {
     "name": "Bassai",
-    "belt": "dan 1",
+    "belt": "Dan 1",
     "keywords": [
       "bassai"
     ]
   },
   {
     "name": "Tekki sono san",
-    "belt": "dan 1",
+    "belt": "Dan 1",
     "keywords": [
       "tekki sono san",
       "tekki sonosan"
@@ -2920,28 +3020,28 @@
   },
   {
     "name": "Seipai",
-    "belt": "dan 2",
+    "belt": "Dan 2",
     "keywords": [
       "seipai"
     ]
   },
   {
     "name": "Kanku",
-    "belt": "dan 3",
+    "belt": "Dan 3",
     "keywords": [
       "kanku"
     ]
   },
   {
     "name": "Sushiho",
-    "belt": "dan 4",
+    "belt": "Dan 4",
     "keywords": [
       "sushiho"
     ]
   },
   {
     "name": "Tensho",
-    "belt": "dan 5",
+    "belt": "Dan 5",
     "keywords": [
       "tensho"
     ]
@@ -3008,10 +3108,8 @@
         } else if (currentCategory === 'KATA') {
           matchesCategory = isKata;
         } else if (currentCategory === 'SEMINAR') {
-          // Exactly as if user searched "seminar"
           matchesCategory = isSeminar || title.includes('seminar');
         } else if (currentCategory === 'REST') {
-          // All non-kata and non-seminar
           matchesCategory = !isKata && !isSeminar && !title.includes('seminar');
         }
 
