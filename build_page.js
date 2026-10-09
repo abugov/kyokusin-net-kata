@@ -57,7 +57,7 @@ const cardsHtml = videos.map((item, idx) => {
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
-  // Belt tag on the left: Name first | Belt (e.g. "Seipai | Dan 2")
+  // Belt tag on left: Name | Belt
   const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name} | ${matched.belt}</span>` : '';
 
   return `      <div class="kata-card" 
@@ -70,7 +70,7 @@ const cardsHtml = videos.map((item, idx) => {
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
            onclick="handleCardClick(this)">
-        <div>
+        <div class="card-main">
           <div class="card-header">
             <div class="header-left">
               ${beltHtml}
@@ -82,7 +82,7 @@ const cardsHtml = videos.map((item, idx) => {
           <div class="kata-title">${safeTitle}</div>
         </div>
         <div class="card-footer">
-          <span>Direct Video</span>
+          <span class="footer-note">Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
       </div>`;
@@ -206,6 +206,15 @@ const html = `<!DOCTYPE html>
       border-color: #58a6ff;
     }
 
+    .toolbar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
     .filter-tags {
       display: flex;
       gap: 0.5rem;
@@ -216,33 +225,62 @@ const html = `<!DOCTYPE html>
       background: var(--card-bg);
       color: var(--text-muted);
       border: 1px solid var(--border);
-      padding: 0.55rem 1.1rem;
+      padding: 0.5rem 1rem;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .filter-btn:hover, .filter-btn.active {
+    .filter-btn:hover {
       background: #21262d;
       color: #fff;
       border-color: #8b949e;
     }
 
     .filter-btn.active {
-      background: #30363d;
+      background: #21262d;
       color: #fff;
       font-weight: 600;
       border-color: #58a6ff;
+      box-shadow: 0 0 0 1px #58a6ff;
+    }
+
+    .view-toggle {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background: #30363d;
+      color: #fff;
     }
 
     .stats {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-bottom: 1.25rem;
+      margin: 1.25rem 0;
     }
 
+    /* Grid Layout (Detailed) */
     .kata-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -359,6 +397,60 @@ const html = `<!DOCTYPE html>
       gap: 0.25rem;
     }
 
+    /* Concise List View Mode (Default) */
+    .kata-list.concise-view {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .kata-list.concise-view .kata-card {
+      padding: 0.7rem 1.1rem;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 8px;
+    }
+
+    .kata-list.concise-view .kata-card:hover {
+      transform: translateX(3px);
+    }
+
+    .kata-list.concise-view .card-main {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .kata-list.concise-view .card-header {
+      margin-bottom: 0;
+      min-height: auto;
+      flex-shrink: 0;
+    }
+
+    .kata-list.concise-view .kata-title {
+      margin-bottom: 0;
+      font-size: 0.93rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    .kata-list.concise-view .card-footer {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+
+    .kata-list.concise-view .footer-note {
+      display: none;
+    }
+
     /* Modal */
     .modal-backdrop {
       position: fixed;
@@ -470,6 +562,14 @@ const html = `<!DOCTYPE html>
       .kata-list {
         grid-template-columns: 1fr;
       }
+      .kata-list.concise-view .card-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+      .kata-list.concise-view .kata-title {
+        white-space: normal;
+      }
       h1 {
         font-size: 1.6rem;
       }
@@ -491,18 +591,26 @@ const html = `<!DOCTYPE html>
 
       <div class="controls">
         <input type="text" id="searchInput" class="search-box" placeholder="Search videos (e.g. Kata, Pinan, Bassai, Kumite)..." oninput="filterKata()">
+      </div>
+
+      <div class="toolbar-row">
         <div class="filter-tags">
-          <button class="filter-btn active" id="btn-ALL" onclick="setCategory('ALL')">All</button>
-          <button class="filter-btn" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
+          <button class="filter-btn active" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
           <button class="filter-btn" id="btn-SEMINAR" onclick="setCategory('SEMINAR')">Seminar</button>
-          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the Rest</button>
+          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the rest</button>
+          <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
+        </div>
+
+        <div class="view-toggle">
+          <button class="view-btn active" id="viewBtnConcise" onclick="setViewMode('concise')">☰ Concise</button>
+          <button class="view-btn" id="viewBtnCards" onclick="setViewMode('cards')">☷ Cards</button>
         </div>
       </div>
     </header>
 
-    <div class="stats" id="statsBar">Showing ${videos.length} of ${videos.length} videos</div>
+    <div class="stats" id="statsBar">Showing Kata videos</div>
 
-    <div class="kata-list" id="kataGrid">
+    <div class="kata-list concise-view" id="kataGrid">
 ${cardsHtml}
     </div>
   </div>
@@ -531,8 +639,10 @@ ${cardsHtml}
     const KATA_MAP = ${JSON.stringify(KATA_MAP, null, 2)};
 
     const allCards = Array.from(document.querySelectorAll('.kata-card'));
+    const kataGrid = document.getElementById('kataGrid');
     const statsBar = document.getElementById('statsBar');
-    let currentCategory = 'ALL';
+    let currentCategory = 'KATA'; // Default is Kata
+    let currentView = 'concise';   // Default is Concise list
     let pendingVideoUrl = '';
 
     function handleCardClick(card) {
@@ -574,6 +684,17 @@ ${cardsHtml}
       filterKata();
     }
 
+    function setViewMode(mode) {
+      currentView = mode;
+      document.getElementById('viewBtnConcise').classList.toggle('active', mode === 'concise');
+      document.getElementById('viewBtnCards').classList.toggle('active', mode === 'cards');
+      if (mode === 'concise') {
+        kataGrid.classList.add('concise-view');
+      } else {
+        kataGrid.classList.remove('concise-view');
+      }
+    }
+
     function filterKata() {
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       let count = 0;
@@ -585,32 +706,41 @@ ${cardsHtml}
 
         // Check category condition
         let matchesCategory = false;
-        if (currentCategory === 'ALL') {
-          matchesCategory = true;
-        } else if (currentCategory === 'KATA') {
+        if (currentCategory === 'KATA') {
           matchesCategory = isKata;
         } else if (currentCategory === 'SEMINAR') {
           matchesCategory = isSeminar || title.includes('seminar');
         } else if (currentCategory === 'REST') {
           matchesCategory = !isKata && !isSeminar && !title.includes('seminar');
+        } else if (currentCategory === 'ALL') {
+          matchesCategory = true;
         }
 
         // Check text search
         const matchesQuery = !q || title.includes(q);
 
         if (matchesCategory && matchesQuery) {
-          card.style.display = 'flex';
+          card.style.display = currentView === 'concise' ? 'flex' : 'flex';
           count++;
         } else {
           card.style.display = 'none';
         }
       });
 
-      statsBar.innerText = 'Showing ' + count + ' of ' + allCards.length + ' videos';
+      const labelMap = {
+        'KATA': 'Kata videos',
+        'SEMINAR': 'Seminar videos',
+        'REST': 'All the rest videos',
+        'ALL': 'all videos'
+      };
+      statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos');
     }
+
+    // Apply default filter on load
+    filterKata();
   </script>
 </body>
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully updated index.html with name-first belt badges on left!');
+console.log('Successfully updated index.html with requested button order, defaults, and concise list mode!');
