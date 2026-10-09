@@ -14,7 +14,7 @@ const KATA_MAP = [
   { order: 9, name: "Sanchin", belt: "Blue", keywords: ["sanchin"] },
   { order: 10, name: "Pinan Sono San", belt: "Yellow", keywords: ["pinan sono san", "pinan sonosan"] },
   { order: 11, name: "Yantsu", belt: "Yellow", keywords: ["yantsu"] },
-  { name: "Pinan Sono Yon", order: 12, belt: "Yellow", keywords: ["pinan sono yon", "pinan sonoyon"] },
+  { order: 12, name: "Pinan Sono Yon", belt: "Yellow", keywords: ["pinan sono yon", "pinan sonoyon"] },
   { order: 13, name: "Tsuki no Kata", belt: "Yellow", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata"] },
   { order: 14, name: "Pinan Sono Go", belt: "Green", keywords: ["pinan sono go", "pinan sonogo"] },
   { order: 15, name: "Gekisai sono ichi", belt: "Green", keywords: ["gekisai sono ichi", "gekisai sonoichi"] },
@@ -32,9 +32,6 @@ const KATA_MAP = [
   { order: 27, name: "Sushiho", belt: "Dan 4", keywords: ["sushiho"] },
   { order: 28, name: "Tensho", belt: "Dan 5", keywords: ["tensho"] }
 ];
-
-// Belt order
-const BELT_ORDER = ["All Belts", "White", "Orange", "Blue", "Yellow", "Green", "Brown", "Dan 1", "Dan 2", "Dan 3", "Dan 4", "Dan 5"];
 
 function matchKata(title) {
   const t = title.toLowerCase();
@@ -102,6 +99,31 @@ const html = `<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!--
+    =============================================================================================
+    [AGENT_INSTRUCTION_GUIDE: KATA_MAP & KEYWORD MATCHING RULES]
+    When updating kata keywords or scraping new video catalogs for this repository:
+    1. NUMBER SPACING ("Sono Ichi" vs "Sonoichi"):
+       Official Kyokushin Online video titles fluctuate between spaced ("SONO ICHI", "SONO NI")
+       and non-spaced compound words ("SONOICHI", "SONONI"). Both MUST be retained in keywords:
+       e.g., ["gekisai sono ichi", "gekisai sonoichi"], ["pinan sono ni", "pinan sononi"].
+    2. COMPOUND KATA NAMES ("Tsuki no Kata"):
+       Appears both as spaced "Tsuki no KATA" (seminars) and single word "TSUKINOKATA" (revision 2020).
+       Always match: ["tsuki no kata", "tsukinokata", "tsukino kata"].
+    3. ALTERNATIVE JAPANESE ALIASES:
+       Some Katas have formal revision aliases (e.g. "GEKISAI SONO SAN(GEKISAI SHOU)").
+       Always map aliases like "gekisai shou" to the canonical "Gekisai sono san" entry.
+    4. PREVENTING FALSE POSITIVES (Sokugi vs Standard Taikyoku):
+       Never use loose substring search for "Taikyoku Sono...". Always check that it is NOT preceded
+       by "Sokugi" so Sokugi and Standard Taikyoku entries remain correctly classified in their
+       respective belts (White vs Orange).
+    5. CANONICAL BELT PROGRESSION:
+       Keep the strict 1 to 28 sequential order as defined in KATA_MAP (White -> Orange -> Blue ->
+       Yellow -> Green -> Brown -> Dan 1 -> Dan 2 -> Dan 3 -> Dan 4 -> Dan 5).
+    =============================================================================================
+  -->
+
   <style>
     :root {
       --bg: #0d1117;
@@ -252,61 +274,130 @@ const html = `<!DOCTYPE html>
       box-shadow: 0 0 0 1px #58a6ff;
     }
 
-    /* Sub-row for Belt Colors */
+    /* Sub-row for Belt Colors without label */
     .belt-filter-row {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.75rem;
-      padding: 0.65rem 0.85rem;
-      background: rgba(22, 27, 34, 0.6);
-      border: 1px solid rgba(48, 54, 61, 0.6);
-      border-radius: 8px;
+      margin-top: 0.85rem;
+      padding: 0.5rem 0.25rem;
       align-items: center;
       transition: all 0.25s ease;
     }
 
-    .belt-filter-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-right: 0.35rem;
-    }
-
     .belt-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      padding: 0.28rem 0.65rem;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-muted);
+      border: 1px solid transparent;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      opacity: 0.75;
     }
 
     .belt-btn:hover {
-      color: #fff;
-      border-color: #8b949e;
+      opacity: 1;
+      transform: translateY(-1px);
     }
 
+    /* Distinct vibrant theme for each belt button */
+    .belt-btn[data-belt="ALL"] {
+      background: #21262d;
+      color: #e6edf3;
+      border-color: #30363d;
+    }
+    .belt-btn[data-belt="White"] {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f0f6fc;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .belt-btn[data-belt="Orange"] {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border-color: rgba(249, 115, 22, 0.35);
+    }
+    .belt-btn[data-belt="Blue"] {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.35);
+    }
+    .belt-btn[data-belt="Yellow"] {
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+      border-color: rgba(234, 179, 8, 0.35);
+    }
+    .belt-btn[data-belt="Green"] {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.35);
+    }
+    .belt-btn[data-belt="Brown"] {
+      background: rgba(180, 83, 9, 0.18);
+      color: #f59e0b;
+      border-color: rgba(180, 83, 9, 0.45);
+    }
+    .belt-btn[data-belt*="Dan"] {
+      background: rgba(229, 9, 20, 0.12);
+      color: #fca5a5;
+      border-color: rgba(229, 9, 20, 0.35);
+    }
+
+    /* Selected state: intense brightness, thick glowing border & pop-out shadow */
     .belt-btn.active {
-      font-weight: 700;
+      opacity: 1 !important;
+      transform: scale(1.06) !important;
+      filter: brightness(1.35) !important;
+      font-weight: 800 !important;
+    }
+    .belt-btn[data-belt="ALL"].active {
+      background: #30363d;
       color: #fff;
       border-color: #58a6ff;
-      background: #21262d;
+      box-shadow: 0 0 12px rgba(88, 166, 255, 0.5);
     }
-
-    /* Belt button specific accents */
-    .belt-btn[data-belt="White"].active { border-color: #f0f6fc; }
-    .belt-btn[data-belt="Orange"].active { border-color: #fb923c; color: #fb923c; }
-    .belt-btn[data-belt="Blue"].active { border-color: #60a5fa; color: #60a5fa; }
-    .belt-btn[data-belt="Yellow"].active { border-color: #facc15; color: #facc15; }
-    .belt-btn[data-belt="Green"].active { border-color: #4ade80; color: #4ade80; }
-    .belt-btn[data-belt="Brown"].active { border-color: #d97706; color: #d97706; }
-    .belt-btn[data-belt*="Dan"].active { border-color: #e50914; color: #f87171; }
+    .belt-btn[data-belt="White"].active {
+      background: #ffffff;
+      color: #0d1117;
+      border-color: #ffffff;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
+    }
+    .belt-btn[data-belt="Orange"].active {
+      background: #ea580c;
+      color: #fff;
+      border-color: #fb923c;
+      box-shadow: 0 0 14px rgba(249, 115, 22, 0.7);
+    }
+    .belt-btn[data-belt="Blue"].active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #60a5fa;
+      box-shadow: 0 0 14px rgba(37, 99, 235, 0.7);
+    }
+    .belt-btn[data-belt="Yellow"].active {
+      background: #ca8a04;
+      color: #000;
+      border-color: #facc15;
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.7);
+    }
+    .belt-btn[data-belt="Green"].active {
+      background: #16a34a;
+      color: #fff;
+      border-color: #4ade80;
+      box-shadow: 0 0 14px rgba(22, 163, 74, 0.7);
+    }
+    .belt-btn[data-belt="Brown"].active {
+      background: #92400e;
+      color: #fff;
+      border-color: #d97706;
+      box-shadow: 0 0 14px rgba(180, 83, 9, 0.7);
+    }
+    .belt-btn[data-belt*="Dan"].active {
+      background: #b91c1c;
+      color: #fff;
+      border-color: #ef4444;
+      box-shadow: 0 0 14px rgba(229, 9, 20, 0.7);
+    }
 
     .view-toggle {
       display: flex;
@@ -413,7 +504,7 @@ const html = `<!DOCTYPE html>
       border: 1px solid rgba(59, 130, 246, 0.3);
     }
 
-    /* Belt badges */
+    /* Belt badges on cards */
     .belt-badge {
       font-size: 0.72rem;
       font-weight: 600;
@@ -668,9 +759,8 @@ const html = `<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- Belt Colors Sub-Filter (shown when Kata is selected) -->
+      <!-- Belt Colors Sub-Filter without label prefix -->
       <div class="belt-filter-row" id="beltFilterRow">
-        <span class="belt-filter-label">Belt:</span>
         <button class="belt-btn active" data-belt="ALL" onclick="setBeltFilter('ALL')">All</button>
         <button class="belt-btn" data-belt="White" onclick="setBeltFilter('White')">White</button>
         <button class="belt-btn" data-belt="Orange" onclick="setBeltFilter('Orange')">Orange</button>
@@ -871,4 +961,4 @@ ${cardsHtml}
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully updated index.html with canonical Kata ordering and Belt color filter line!');
+console.log('Successfully updated index.html with hidden agent instruction, belt colors and glowing active states!');
