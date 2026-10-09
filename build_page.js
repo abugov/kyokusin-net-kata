@@ -83,10 +83,7 @@ const cardsHtml = videos.map((item, idx) => {
           </div>
           <div class="kata-title">${safeTitle}</div>
         </div>
-        <div class="card-footer">
-          <span class="footer-note">Direct Video</span>
-          <span class="open-btn">Watch &rarr;</span>
-        </div>
+        
       </div>`;
 }).join('\n');
 
@@ -753,10 +750,7 @@ const html = `<!DOCTYPE html>
           <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
         </div>
 
-        <div class="view-toggle">
-          <button class="view-btn active" id="viewBtnConcise" onclick="setViewMode('concise')">☰ List</button>
-          <button class="view-btn" id="viewBtnCards" onclick="setViewMode('cards')">☷ Cards</button>
-        </div>
+        
       </div>
 
       <!-- Belt Colors Sub-Filter without label prefix -->
@@ -813,7 +807,7 @@ ${cardsHtml}
     
     let currentCategory = 'KATA'; // Default is Kata
     let currentBelt = 'ALL';      // Default is All belts
-    let currentView = 'concise';   // Default is List
+       // Default is List
     let pendingVideoUrl = '';
 
     function handleCardClick(card) {
@@ -875,16 +869,7 @@ ${cardsHtml}
       filterKata();
     }
 
-    function setViewMode(mode) {
-      currentView = mode;
-      document.getElementById('viewBtnConcise').classList.toggle('active', mode === 'concise');
-      document.getElementById('viewBtnCards').classList.toggle('active', mode === 'cards');
-      if (mode === 'concise') {
-        kataGrid.classList.add('concise-view');
-      } else {
-        kataGrid.classList.remove('concise-view');
-      }
-    }
+
 
     function filterKata() {
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -946,7 +931,7 @@ ${cardsHtml}
       kataGrid.appendChild(fragment);
 
       const labelMap = {
-        'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos (ordered #1 to #28)'),
+        'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos'),
         'SEMINAR': 'Seminar videos',
         'REST': 'All the rest videos',
         'ALL': 'all videos'
