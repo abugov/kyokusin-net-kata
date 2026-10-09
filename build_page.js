@@ -53,20 +53,23 @@ function matchKata(title) {
 const cardsHtml = videos.map((item, idx) => {
   const matched = matchKata(item.title);
   const isSeminar = /seminar/i.test(item.title) || /講習会|セミナー/i.test(item.title);
+  const isBunkai = /bunkai|分解/i.test(item.title);
   const isKata = !!matched;
 
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
-  // Tags: Kata belt badge + Seminar tag
+  // Tags: Kata belt badge + Seminar tag + Bunkai tag
   const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name}</span>` : '';
   const seminarHtml = isSeminar ? `<span class="tag-seminar">Seminar</span>` : '';
+  const bunkaiHtml = isBunkai ? `<span class="tag-bunkai">Bunkai</span>` : '';
 
-  const headerHtml = (beltHtml || seminarHtml || badgeHtml) ? `
+  const headerHtml = (beltHtml || seminarHtml || bunkaiHtml || badgeHtml) ? `
           <div class="card-header">
             <div class="header-left">
               ${beltHtml}
               ${seminarHtml}
+              ${bunkaiHtml}
             </div>
             <div class="header-right">
               ${badgeHtml}
@@ -80,6 +83,7 @@ const cardsHtml = videos.map((item, idx) => {
            data-title="${safeTitle.toLowerCase()}" 
            data-is-kata="${isKata ? '1' : '0'}"
            data-is-seminar="${isSeminar ? '1' : '0'}"
+           data-is-bunkai="${isBunkai ? '1' : '0'}"
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
            data-order="${matched ? matched.order : 999}"
@@ -517,6 +521,17 @@ const html = `<!DOCTYPE html>
       border: 1px solid rgba(168, 85, 247, 0.35);
     }
 
+    .tag-bunkai {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      background: rgba(6, 182, 212, 0.16);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.35);
+    }
+
     .kata-title {
       font-size: 0.93rem;
       font-weight: 500;
@@ -854,9 +869,10 @@ ${cardsHtml}
           matchesCategory = true;
         }
 
-        // Search filter (matches title or canonical kata name)
+        // Search filter (matches title, canonical kata name, or tag)
         const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
-        const matchesQuery = !q || title.includes(q) || kataName.includes(q);
+        const isBunkaiCard = card.getAttribute('data-is-bunkai') === '1';
+        const matchesQuery = !q || title.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';
