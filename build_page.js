@@ -396,54 +396,27 @@ const html = `<!DOCTYPE html>
       box-shadow: 0 0 14px rgba(229, 9, 20, 0.7);
     }
 
-    .view-toggle {
-      display: flex;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .view-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 0.45rem 0.85rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s;
-    }
-
-    .view-btn.active {
-      background: #30363d;
-      color: #fff;
-    }
-
     .stats {
       font-size: 0.85rem;
       color: var(--text-muted);
       margin: 1.25rem 0;
     }
 
-    /* Grid Layout */
+    /* List Layout */
     .kata-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
     }
 
     .kata-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.15rem;
+      border-radius: 8px;
+      padding: 0.7rem 1.1rem;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
       cursor: pointer;
       text-decoration: none;
@@ -451,32 +424,36 @@ const html = `<!DOCTYPE html>
     }
 
     .kata-card:hover {
-      transform: translateY(-2px);
+      transform: translateX(3px);
       border-color: #58a6ff;
       background: var(--card-hover);
     }
 
+    .card-main {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex: 1;
+      min-width: 0;
+    }
+
     .card-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 0.75rem;
-      min-height: 22px;
+      flex-shrink: 0;
     }
 
     .header-left {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      flex-wrap: wrap;
     }
 
     .header-right {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      margin-left: auto;
     }
 
     .badge {
@@ -520,84 +497,14 @@ const html = `<!DOCTYPE html>
     }
 
     .kata-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      line-height: 1.4;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .card-footer .open-btn {
-      color: #58a6ff;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    /* List View Mode (Default) */
-    .kata-list.concise-view {
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-
-    .kata-list.concise-view .kata-card {
-      padding: 0.7rem 1.1rem;
-      flex-direction: row;
-      align-items: center;
-      border-radius: 8px;
-    }
-
-    .kata-list.concise-view .kata-card:hover {
-      transform: translateX(3px);
-    }
-
-    .kata-list.concise-view .card-main {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .kata-list.concise-view .card-header {
-      margin-bottom: 0;
-      min-height: auto;
-      flex-shrink: 0;
-    }
-
-    .kata-list.concise-view .kata-title {
-      margin-bottom: 0;
       font-size: 0.93rem;
       font-weight: 500;
+      color: #f0f6fc;
+      line-height: 1.4;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       flex: 1;
-    }
-
-    .kata-list.concise-view .card-footer {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-      margin-left: 1rem;
-      flex-shrink: 0;
-    }
-
-    .kata-list.concise-view .footer-note {
-      display: none;
     }
 
     /* Modal */
@@ -708,15 +615,12 @@ const html = `<!DOCTYPE html>
     }
 
     @media (max-width: 640px) {
-      .kata-list {
-        grid-template-columns: 1fr;
-      }
-      .kata-list.concise-view .card-main {
+      .card-main {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.35rem;
       }
-      .kata-list.concise-view .kata-title {
+      .kata-title {
         white-space: normal;
       }
       h1 {
@@ -749,8 +653,6 @@ const html = `<!DOCTYPE html>
           <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the rest</button>
           <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
         </div>
-
-        
       </div>
 
       <!-- Belt Colors Sub-Filter without label prefix -->
@@ -772,7 +674,7 @@ const html = `<!DOCTYPE html>
 
     <div class="stats" id="statsBar">Showing Kata videos</div>
 
-    <div class="kata-list concise-view" id="kataGrid">
+    <div class="kata-list" id="kataGrid">
 ${cardsHtml}
     </div>
   </div>
