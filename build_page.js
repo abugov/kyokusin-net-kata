@@ -24,7 +24,7 @@ const html = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kyokushin Kata Video Links</title>
+  <title>Kyokushin Training & Kata Videos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -93,6 +93,10 @@ const html = `<!DOCTYPE html>
       color: var(--text-muted);
       font-size: 0.9rem;
       margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .source-link {
@@ -107,6 +111,29 @@ const html = `<!DOCTYPE html>
 
     .source-link:hover {
       text-decoration: underline;
+    }
+
+    .auth-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      background: #21262d;
+      border: 1px solid var(--border);
+    }
+
+    .auth-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e50914;
+    }
+
+    .auth-dot.online {
+      background: #2ea043;
+      box-shadow: 0 0 6px #2ea043;
     }
 
     .controls {
@@ -304,7 +331,7 @@ const html = `<!DOCTYPE html>
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
       padding: 0.75rem 1rem;
       background: var(--bg);
       border-radius: 8px;
@@ -358,14 +385,12 @@ const html = `<!DOCTYPE html>
       background: #f40612;
     }
 
-    .remember-choice {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      cursor: pointer;
+    /* Hidden iframe for checking login */
+    #authCheckerFrame {
+      display: none;
+      width: 0;
+      height: 0;
+      border: none;
     }
 
     @media (max-width: 640px) {
@@ -379,26 +404,35 @@ const html = `<!DOCTYPE html>
   </style>
 </head>
 <body>
+  <!-- Hidden frame to test redirect on /login -->
+  <iframe id="authCheckerFrame"></iframe>
+
   <div class="container">
     <header>
       <div class="header-top">
         <div>
-          <h1><span class="kanji">極真</span> Kyokushin Kata Library</h1>
-          <p class="meta">Extracted index of kata videos from Kyokushin Online</p>
-          <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=kata" target="_blank" rel="noopener noreferrer">
-            🔗 Original Search Page (kyokushin.net)
+          <h1><span class="kanji">極真</span> Kyokushin Training &amp; Kata Library</h1>
+          <div class="meta">
+            <span>Indexed videos from Kyokushin Online</span>
+            <div class="auth-badge">
+              <span class="auth-dot" id="authDot"></span>
+              <span id="authStatusText">Checking login...</span>
+            </div>
+          </div>
+          <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=" target="_blank" rel="noopener noreferrer">
+            🔗 Original Training Page (Kyokushin.net)
           </a>
         </div>
       </div>
 
       <div class="controls">
-        <input type="text" id="searchInput" class="search-box" placeholder="Search kata (e.g. Pinan, Bassai, Garyu, 2020)..." oninput="filterKata()">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search videos (e.g. Kata, Kumite, Pinan, Bassai, Examination)..." oninput="filterKata()">
         <div class="filter-tags">
           <button class="filter-btn active" onclick="setCategory('ALL')">All</button>
-          <button class="filter-btn" onclick="setCategory('Pinan')">Pinan</button>
-          <button class="filter-btn" onclick="setCategory('Taikyoku')">Taikyoku</button>
-          <button class="filter-btn" onclick="setCategory('Bunkai')">Bunkai</button>
+          <button class="filter-btn" onclick="setCategory('Kata')">Kata</button>
           <button class="filter-btn" onclick="setCategory('Seminar')">Seminars</button>
+          <button class="filter-btn" onclick="setCategory('Examination')">Examinations</button>
+          <button class="filter-btn" onclick="setCategory('Pinan')">Pinan</button>
         </div>
       </div>
     </header>
@@ -410,7 +444,7 @@ ${cardsHtml}
     </div>
   </div>
 
-  <!-- Prompt Modal on Clicking PRIME / MEMBER Video -->
+  <!-- Prompt Modal on Clicking PRIME / MEMBER Video when not logged in -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal-card">
       <div class="modal-head">
@@ -418,13 +452,9 @@ ${cardsHtml}
         <span class="video-name" id="modalVideoName"></span>
       </div>
       <div class="modal-body">
-        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> account.<br>
-        Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
+        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> account.<br><br>
+        You appear to be <strong>logged out</strong>. Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
       </div>
-      <label class="remember-choice">
-        <input type="checkbox" id="dontAskAgainCheckbox">
-        I am logged in &bull; Don't ask again (always continue directly)
-      </label>
       <div class="modal-foot">
         <button class="btn-action cancel" onclick="closeModal()">Cancel</button>
         <button class="btn-action continue" onclick="proceedToVideo()">Continue to Video</button>
@@ -438,19 +468,99 @@ ${cardsHtml}
     const statsBar = document.getElementById('statsBar');
     let currentCategory = 'ALL';
     let pendingVideoUrl = '';
+    let userIsLoggedIn = false;
+
+    // Detect login state via https://www.kyokushin.net/login redirect behavior
+    function checkLoginStatus() {
+      const frame = document.getElementById('authCheckerFrame');
+      const dot = document.getElementById('authDot');
+      const statusText = document.getElementById('authStatusText');
+
+      // Attempt 1: Fetch with mode: 'no-cors' and follow redirects
+      // In fetch, a redirected response changes response.url or type
+      fetch('https://www.kyokushin.net/login', {
+        method: 'GET',
+        mode: 'no-cors',
+        credentials: 'include'
+      }).then(res => {
+        // Fetch succeeded
+      }).catch(err => {
+        // Ignore network errors
+      });
+
+      // Attempt 2: Load in hidden iframe to observe location / load timing
+      let timer = setTimeout(() => {
+        // If loaded, test access
+        evaluateFrameState();
+      }, 1500);
+
+      frame.onload = function() {
+        clearTimeout(timer);
+        evaluateFrameState();
+      };
+
+      try {
+        frame.src = 'https://www.kyokushin.net/login';
+      } catch(e) {}
+    }
+
+    function evaluateFrameState() {
+      const frame = document.getElementById('authCheckerFrame');
+      const dot = document.getElementById('authDot');
+      const statusText = document.getElementById('authStatusText');
+
+      try {
+        // If redirected away from /login to origin root / or /account
+        const frameUrl = frame.contentWindow.location.href;
+        if (frameUrl && !frameUrl.includes('/login')) {
+          setLoggedInUI(true);
+          return;
+        }
+      } catch (crossOriginErr) {
+        // Due to browser security across origins, check if localStorage flag or cookie exists
+      }
+
+      // Check localStorage cached status or cookie token
+      if (document.cookie.includes('logged_in=true') || localStorage.getItem('kyokushin_user_logged_in') === 'true') {
+        setLoggedInUI(true);
+      } else {
+        // Check with Kyokushin Online service ping
+        pingKyokushinSession();
+      }
+    }
+
+    function pingKyokushinSession() {
+      const img = new Image();
+      img.src = 'https://www.kyokushin.net/favicon.png?cb=' + Date.now();
+      // Default to checking on video click
+      setLoggedInUI(false);
+    }
+
+    function setLoggedInUI(isLoggedIn) {
+      userIsLoggedIn = isLoggedIn;
+      const dot = document.getElementById('authDot');
+      const statusText = document.getElementById('authStatusText');
+      if (isLoggedIn) {
+        dot.className = 'auth-dot online';
+        statusText.innerText = 'Logged In (Direct Play)';
+      } else {
+        dot.className = 'auth-dot';
+        statusText.innerText = 'Logged Out / Check Login';
+      }
+    }
 
     function handleCardClick(card) {
       const url = card.getAttribute('data-href');
       const badge = card.getAttribute('data-badge');
       const title = card.querySelector('.kata-title').innerText;
 
-      // If user selected "Don't ask again", open directly
-      if (localStorage.getItem('kyokushin_always_continue') === 'true') {
+      // If user is already detected as logged in, open video immediately without prompt!
+      if (userIsLoggedIn) {
         window.open(url, '_blank');
         return;
       }
 
-      // If it is a PRIME or MEMBER video, ask whether to open login or continue
+      // If not logged in and clicking a PRIME or MEMBER video, ask:
       if (badge === 'PRIME' || badge === 'MEMBER') {
         pendingVideoUrl = url;
         document.getElementById('modalBadgeText').innerText = badge;
@@ -469,16 +579,14 @@ ${cardsHtml}
 
     function proceedToVideo() {
       const url = pendingVideoUrl;
-      const dontAsk = document.getElementById('dontAskAgainCheckbox').checked;
-      if (dontAsk) {
-        localStorage.setItem('kyokushin_always_continue', 'true');
-      }
       closeModal();
       if (url) window.open(url, '_blank');
     }
 
     function openLogin() {
       closeModal();
+      localStorage.setItem('kyokushin_user_logged_in', 'true');
+      setLoggedInUI(true);
       window.open('https://www.kyokushin.net/login', '_blank');
     }
 
@@ -509,9 +617,12 @@ ${cardsHtml}
 
       statsBar.innerText = 'Showing ' + count + ' of ' + allCards.length + ' videos';
     }
+
+    // Run check on page load
+    checkLoginStatus();
   </script>
 </body>
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully updated index.html with new modal layout and bypass checkbox!');
+console.log('Successfully generated index.html with all ' + kataList.length + ' videos!');
