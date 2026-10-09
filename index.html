@@ -26,9 +26,12 @@
        Never use loose substring search for "Taikyoku Sono...". Always check that it is NOT preceded
        by "Sokugi" so Sokugi and Standard Taikyoku entries remain correctly classified in their
        respective belts (White vs Orange).
-    5. CANONICAL BELT PROGRESSION:
+    5. CANONICAL BELT PROGRESSION & STRIPES:
        Keep the strict 1 to 28 sequential order as defined in KATA_MAP (White -> Orange -> Blue ->
        Yellow -> Green -> Brown -> Dan 1 -> Dan 2 -> Dan 3 -> Dan 4 -> Dan 5).
+       Belt stripe color is dynamically derived from the next belt color in BELT_SEQUENCE.
+       In the Kata filter, cards are ordered by Kata canonical order, then by fewer tags first
+       (plain kata video before [Bunkai] before [Seminar]).
     =============================================================================================
   -->
 
@@ -416,11 +419,37 @@
 
     /* Belt badges on cards */
     .belt-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
       font-size: 0.72rem;
       font-weight: 600;
       padding: 0.2rem 0.55rem;
       border-radius: 4px;
       white-space: nowrap;
+    }
+    .belt-badge.has-stripe {
+      padding-right: 1.15rem;
+    }
+    .belt-stripe {
+      position: absolute;
+      right: 5px;
+      top: 3px;
+      bottom: 3px;
+      width: 3.5px;
+      border-radius: 1.5px;
+      pointer-events: none;
+    }
+    .stripe-white { background-color: #ffffff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.85); }
+    .stripe-orange { background-color: #f97316; box-shadow: 0 0 5px rgba(249, 115, 22, 0.85); }
+    .stripe-blue { background-color: #3b82f6; box-shadow: 0 0 6px rgba(59, 130, 246, 0.9); }
+    .stripe-yellow { background-color: #facc15; box-shadow: 0 0 6px rgba(250, 204, 21, 0.9); }
+    .stripe-green { background-color: #22c55e; box-shadow: 0 0 6px rgba(34, 197, 94, 0.9); }
+    .stripe-brown { background-color: #d97706; box-shadow: 0 0 5px rgba(217, 119, 6, 0.85); }
+    .stripe-dan-1, .stripe-dan-2, .stripe-dan-3, .stripe-dan-4, .stripe-dan-5, .stripe-black {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
     .belt-orange { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
@@ -659,7 +688,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -677,7 +708,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="1"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -695,7 +728,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="2"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -713,7 +748,9 @@
            data-is-bunkai="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="22"
+           data-extra-tags="1"
            data-original-index="3"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -741,7 +778,9 @@
            data-is-bunkai="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="23"
+           data-extra-tags="1"
            data-original-index="4"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -769,7 +808,9 @@
            data-is-bunkai="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
+           data-stripe=""
            data-order="27"
+           data-extra-tags="1"
            data-original-index="5"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -797,7 +838,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="6"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -815,7 +858,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="7"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -833,7 +878,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="1"
            data-original-index="8"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -861,7 +908,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="9"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -879,7 +928,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="10"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -897,7 +948,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="1"
            data-original-index="11"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -925,7 +978,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="12"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -943,7 +998,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="13"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -961,7 +1018,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="14"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -979,7 +1038,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="15"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -997,7 +1058,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="16"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1015,7 +1078,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="1"
            data-original-index="17"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1043,7 +1108,9 @@
            data-is-bunkai="0"
            data-kata-name="Seipai"
            data-belt="Dan 2"
+           data-stripe=""
            data-order="25"
+           data-extra-tags="0"
            data-original-index="18"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1071,7 +1138,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="19"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1089,7 +1158,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="20"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1107,7 +1178,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="21"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1125,7 +1198,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="22"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1143,7 +1218,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="23"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1161,7 +1238,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="24"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1179,7 +1258,9 @@
            data-is-bunkai="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
+           data-stripe=""
            data-order="26"
+           data-extra-tags="1"
            data-original-index="25"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1207,7 +1288,9 @@
            data-is-bunkai="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="22"
+           data-extra-tags="1"
            data-original-index="26"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1235,7 +1318,9 @@
            data-is-bunkai="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
+           data-stripe=""
            data-order="13"
+           data-extra-tags="1"
            data-original-index="27"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1263,7 +1348,9 @@
            data-is-bunkai="0"
            data-kata-name="Garyu"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="21"
+           data-extra-tags="0"
            data-original-index="28"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1291,7 +1378,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="29"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1309,7 +1398,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="30"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1327,7 +1418,9 @@
            data-is-bunkai="0"
            data-kata-name="Tekki sono san"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="24"
+           data-extra-tags="0"
            data-original-index="31"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1355,7 +1448,9 @@
            data-is-bunkai="0"
            data-kata-name="Tekki sono ni"
            data-belt="Brown"
+           data-stripe=""
            data-order="19"
+           data-extra-tags="0"
            data-original-index="32"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1383,7 +1478,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="33"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1401,7 +1498,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="34"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1419,7 +1518,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="35"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1437,7 +1538,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="36"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1455,7 +1558,9 @@
            data-is-bunkai="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
+           data-stripe=""
            data-order="27"
+           data-extra-tags="0"
            data-original-index="37"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1483,7 +1588,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="38"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1501,7 +1608,9 @@
            data-is-bunkai="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-stripe=""
            data-order="16"
+           data-extra-tags="1"
            data-original-index="39"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1529,14 +1638,16 @@
            data-is-bunkai="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
+           data-stripe="Blue"
            data-order="6"
+           data-extra-tags="1"
            data-original-index="40"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
           <div class="card-header">
             <div class="header-left">
-              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono San</span>
+              <span class="belt-badge belt-orange has-stripe">Sokugi Taikyoku Sono San<span class="belt-stripe stripe-blue" title="Blue stripe"></span></span>
               <span class="tag-seminar">Seminar</span>
               
             </div>
@@ -1557,7 +1668,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="41"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1575,7 +1688,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="42"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1593,7 +1708,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="43"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1611,7 +1728,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="44"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1629,7 +1748,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="45"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1647,7 +1768,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="46"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1665,7 +1788,9 @@
            data-is-bunkai="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
+           data-stripe=""
            data-order="26"
+           data-extra-tags="0"
            data-original-index="47"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1693,7 +1818,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="48"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1711,7 +1838,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="49"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1729,7 +1858,9 @@
            data-is-bunkai="1"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-stripe=""
            data-order="16"
+           data-extra-tags="1"
            data-original-index="50"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1757,7 +1888,9 @@
            data-is-bunkai="1"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
+           data-stripe=""
            data-order="15"
+           data-extra-tags="1"
            data-original-index="51"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1785,7 +1918,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="52"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1803,7 +1938,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="53"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1821,7 +1958,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="54"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1839,7 +1978,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="55"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1857,7 +1998,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="56"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1875,7 +2018,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="57"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1893,7 +2038,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="58"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1911,7 +2058,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="59"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1929,7 +2078,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="60"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1947,7 +2098,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="61"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1965,7 +2118,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="62"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -1983,7 +2138,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="63"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2001,7 +2158,9 @@
            data-is-bunkai="1"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
+           data-stripe=""
            data-order="14"
+           data-extra-tags="1"
            data-original-index="64"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2029,7 +2188,9 @@
            data-is-bunkai="1"
            data-kata-name="Yantsu"
            data-belt="Yellow"
+           data-stripe=""
            data-order="11"
+           data-extra-tags="1"
            data-original-index="65"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2057,7 +2218,9 @@
            data-is-bunkai="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="23"
+           data-extra-tags="0"
            data-original-index="66"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2085,7 +2248,9 @@
            data-is-bunkai="1"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
+           data-stripe=""
            data-order="12"
+           data-extra-tags="1"
            data-original-index="67"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2113,7 +2278,9 @@
            data-is-bunkai="1"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
+           data-stripe=""
            data-order="10"
+           data-extra-tags="1"
            data-original-index="68"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2141,7 +2308,9 @@
            data-is-bunkai="1"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
+           data-stripe=""
            data-order="8"
+           data-extra-tags="1"
            data-original-index="69"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2169,7 +2338,9 @@
            data-is-bunkai="1"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
+           data-stripe=""
            data-order="7"
+           data-extra-tags="1"
            data-original-index="70"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2197,7 +2368,9 @@
            data-is-bunkai="0"
            data-kata-name=""
            data-belt=""
+           data-stripe=""
            data-order="999"
+           data-extra-tags="0"
            data-original-index="71"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2215,7 +2388,9 @@
            data-is-bunkai="0"
            data-kata-name="Tekki sono ichi"
            data-belt="Green"
+           data-stripe=""
            data-order="17"
+           data-extra-tags="0"
            data-original-index="72"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2243,7 +2418,9 @@
            data-is-bunkai="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
+           data-stripe=""
            data-order="22"
+           data-extra-tags="0"
            data-original-index="73"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2271,7 +2448,9 @@
            data-is-bunkai="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
+           data-stripe=""
            data-order="16"
+           data-extra-tags="0"
            data-original-index="74"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2299,7 +2478,9 @@
            data-is-bunkai="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
+           data-stripe=""
            data-order="15"
+           data-extra-tags="0"
            data-original-index="75"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2327,7 +2508,9 @@
            data-is-bunkai="0"
            data-kata-name="Sanchin"
            data-belt="Blue"
+           data-stripe=""
            data-order="9"
+           data-extra-tags="0"
            data-original-index="76"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2355,7 +2538,9 @@
            data-is-bunkai="0"
            data-kata-name="Saifa"
            data-belt="Brown"
+           data-stripe=""
            data-order="20"
+           data-extra-tags="0"
            data-original-index="77"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2383,7 +2568,9 @@
            data-is-bunkai="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
+           data-stripe=""
            data-order="18"
+           data-extra-tags="0"
            data-original-index="78"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2411,7 +2598,9 @@
            data-is-bunkai="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
+           data-stripe=""
            data-order="11"
+           data-extra-tags="0"
            data-original-index="79"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2439,7 +2628,9 @@
            data-is-bunkai="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
+           data-stripe=""
            data-order="13"
+           data-extra-tags="0"
            data-original-index="80"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2467,7 +2658,9 @@
            data-is-bunkai="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
+           data-stripe=""
            data-order="14"
+           data-extra-tags="0"
            data-original-index="81"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2495,7 +2688,9 @@
            data-is-bunkai="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
+           data-stripe=""
            data-order="12"
+           data-extra-tags="0"
            data-original-index="82"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2523,7 +2718,9 @@
            data-is-bunkai="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
+           data-stripe=""
            data-order="10"
+           data-extra-tags="0"
            data-original-index="83"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2551,7 +2748,9 @@
            data-is-bunkai="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
+           data-stripe=""
            data-order="8"
+           data-extra-tags="0"
            data-original-index="84"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2579,7 +2778,9 @@
            data-is-bunkai="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
+           data-stripe=""
            data-order="7"
+           data-extra-tags="0"
            data-original-index="85"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2607,14 +2808,16 @@
            data-is-bunkai="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
+           data-stripe="Blue"
            data-order="6"
+           data-extra-tags="0"
            data-original-index="86"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
           <div class="card-header">
             <div class="header-left">
-              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono San</span>
+              <span class="belt-badge belt-orange has-stripe">Sokugi Taikyoku Sono San<span class="belt-stripe stripe-blue" title="Blue stripe"></span></span>
               
               
             </div>
@@ -2635,14 +2838,16 @@
            data-is-bunkai="0"
            data-kata-name="Sokugi Taikyoku Sono Ni"
            data-belt="Orange"
+           data-stripe="Blue"
            data-order="5"
+           data-extra-tags="0"
            data-original-index="87"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
           <div class="card-header">
             <div class="header-left">
-              <span class="belt-badge belt-orange">Sokugi Taikyoku Sono Ni</span>
+              <span class="belt-badge belt-orange has-stripe">Sokugi Taikyoku Sono Ni<span class="belt-stripe stripe-blue" title="Blue stripe"></span></span>
               
               
             </div>
@@ -2663,7 +2868,9 @@
            data-is-bunkai="0"
            data-kata-name="Sokugi Taikyoku Sono Ichi"
            data-belt="White"
+           data-stripe=""
            data-order="3"
+           data-extra-tags="0"
            data-original-index="88"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2691,7 +2898,9 @@
            data-is-bunkai="0"
            data-kata-name="Taikyoku Sono San"
            data-belt="Orange"
+           data-stripe=""
            data-order="4"
+           data-extra-tags="0"
            data-original-index="89"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2719,7 +2928,9 @@
            data-is-bunkai="0"
            data-kata-name="Taikyoku Sono Ni"
            data-belt="White"
+           data-stripe=""
            data-order="2"
+           data-extra-tags="0"
            data-original-index="90"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2747,7 +2958,9 @@
            data-is-bunkai="0"
            data-kata-name="Taikyoku Sono Ichi"
            data-belt="White"
+           data-stripe=""
            data-order="1"
+           data-extra-tags="0"
            data-original-index="91"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -2801,7 +3014,9 @@
       "太極その一",
       "太極その１",
       "太極其の一"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 2,
@@ -2814,7 +3029,9 @@
       "太極その二",
       "太極その２",
       "太極其の二"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 3,
@@ -2826,7 +3043,9 @@
       "足技太極その1",
       "足技太極その一",
       "足技太極その１"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 4,
@@ -2839,31 +3058,37 @@
       "太極その三",
       "太極その３",
       "太極其の三"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 5,
     "name": "Sokugi Taikyoku Sono Ni",
     "belt": "Orange",
+    "stripe": true,
     "keywords": [
       "sokugi taikyoku sono ni",
       "sokugi taikyoku sononi",
       "足技太極その2",
       "足技太極その二",
       "足技太極その２"
-    ]
+    ],
+    "stripeColor": "Blue"
   },
   {
     "order": 6,
     "name": "Sokugi Taikyoku Sono San",
     "belt": "Orange",
+    "stripe": true,
     "keywords": [
       "sokugi taikyoku sono san",
       "sokugi taikyoku sonosan",
       "足技太極その3",
       "足技太極その三",
       "足技太極その３"
-    ]
+    ],
+    "stripeColor": "Blue"
   },
   {
     "order": 7,
@@ -2875,7 +3100,9 @@
       "平安その1",
       "平安その一",
       "平安その１"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 8,
@@ -2887,7 +3114,9 @@
       "平安その2",
       "平安その二",
       "平安その２"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 9,
@@ -2897,7 +3126,9 @@
       "sanchin",
       "三戦",
       "サンチン"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 10,
@@ -2909,7 +3140,9 @@
       "平安その3",
       "平安その三",
       "平安その３"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 11,
@@ -2919,7 +3152,9 @@
       "yantsu",
       "安三",
       "ヤンツ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 12,
@@ -2931,7 +3166,9 @@
       "平安その4",
       "平安その四",
       "平安その４"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 13,
@@ -2942,7 +3179,9 @@
       "tsukinokata",
       "tsukino kata",
       "突きの型"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 14,
@@ -2954,7 +3193,9 @@
       "平安その5",
       "平安その五",
       "平安その５"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 15,
@@ -2967,7 +3208,9 @@
       "撃砕その一",
       "撃砕その１",
       "撃砕其の一"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 16,
@@ -2980,7 +3223,9 @@
       "撃砕その二",
       "撃砕その２",
       "撃砕其の二"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 17,
@@ -2993,7 +3238,9 @@
       "鉄騎その一",
       "鉄騎その１",
       "鉄騎其の一"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 18,
@@ -3007,7 +3254,9 @@
       "撃砕その三",
       "撃砕その３",
       "撃砕小"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 19,
@@ -3020,7 +3269,9 @@
       "鉄騎その二",
       "鉄騎その２",
       "鉄騎其の二"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 20,
@@ -3031,7 +3282,9 @@
       "最破",
       "サイファ",
       "サイハ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 21,
@@ -3042,7 +3295,9 @@
       "臥龍",
       "臥竜",
       "ガリュウ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 22,
@@ -3052,7 +3307,9 @@
       "seienchin",
       "征遠鎮",
       "セイエンチン"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 23,
@@ -3062,7 +3319,9 @@
       "bassai",
       "抜塞",
       "バッサイ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 24,
@@ -3075,7 +3334,9 @@
       "鉄騎その三",
       "鉄騎その３",
       "鉄騎其の三"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 25,
@@ -3086,7 +3347,9 @@
       "十八",
       "セーパイ",
       "セイパイ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 26,
@@ -3096,7 +3359,9 @@
       "kanku",
       "観空",
       "カンクウ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 27,
@@ -3106,7 +3371,9 @@
       "sushiho",
       "五十四歩",
       "スーシーホ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   },
   {
     "order": 28,
@@ -3116,7 +3383,9 @@
       "tensho",
       "転掌",
       "テンショウ"
-    ]
+    ],
+    "stripe": false,
+    "stripeColor": null
   }
 ];
 
@@ -3194,12 +3463,23 @@
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       let count = 0;
 
-      // When Kata filter is active, sort DOM elements by Kata order 1 -> 28
+      // When Kata filter is active, sort DOM elements by Kata order 1 -> 28, then fewer tags first
       if (currentCategory === 'KATA') {
         allCards.sort((a, b) => {
           const orderA = parseInt(a.getAttribute('data-order') || '999', 10);
           const orderB = parseInt(b.getAttribute('data-order') || '999', 10);
           if (orderA !== orderB) return orderA - orderB;
+
+          // Secondary sort: fewer tags first (0 tags before 1 tag before 2 tags)
+          const tagsA = parseInt(a.getAttribute('data-extra-tags') || '0', 10);
+          const tagsB = parseInt(b.getAttribute('data-extra-tags') || '0', 10);
+          if (tagsA !== tagsB) return tagsA - tagsB;
+
+          // If tag count is equal, prioritize Bunkai before Seminar
+          const isBunkaiA = a.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
+          const isBunkaiB = b.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
+          if (isBunkaiA !== isBunkaiB) return isBunkaiB - isBunkaiA;
+
           return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
         });
       } else {

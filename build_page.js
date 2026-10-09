@@ -1,14 +1,38 @@
 const fs = require('fs');
 const videos = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
 
+// Kyokushin belt hierarchy sequence
+const BELT_SEQUENCE = [
+  "White",
+  "Orange",
+  "Blue",
+  "Yellow",
+  "Green",
+  "Brown",
+  "Dan 1",
+  "Dan 2",
+  "Dan 3",
+  "Dan 4",
+  "Dan 5"
+];
+
+function getNextBeltColor(belt) {
+  const normalized = (belt || "").trim().toLowerCase();
+  const idx = BELT_SEQUENCE.findIndex(b => b.toLowerCase() === normalized);
+  if (idx !== -1 && idx + 1 < BELT_SEQUENCE.length) {
+    return BELT_SEQUENCE[idx + 1];
+  }
+  return null;
+}
+
 // The 28 canonical katas in requested order with order index, belts & matching keywords (English & Japanese)
 const KATA_MAP = [
   { order: 1, name: "Taikyoku Sono Ichi", belt: "White", keywords: ["taikyoku sono ichi", "taikyoku sonoichi", "太極その1", "太極その一", "太極その１", "太極其の一"] },
   { order: 2, name: "Taikyoku Sono Ni", belt: "White", keywords: ["taikyoku sono ni", "taikyoku sononi", "太極その2", "太極その二", "太極その２", "太極其の二"] },
   { order: 3, name: "Sokugi Taikyoku Sono Ichi", belt: "White", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi", "足技太極その1", "足技太極その一", "足技太極その１"] },
   { order: 4, name: "Taikyoku Sono San", belt: "Orange", keywords: ["taikyoku sono san", "taikyoku sonosan", "太極その3", "太極その三", "太極その３", "太極其の三"] },
-  { order: 5, name: "Sokugi Taikyoku Sono Ni", belt: "Orange", keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi", "足技太極その2", "足技太極その二", "足技太極その２"] },
-  { order: 6, name: "Sokugi Taikyoku Sono San", belt: "Orange", keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan", "足技太極その3", "足技太極その三", "足技太極その３"] },
+  { order: 5, name: "Sokugi Taikyoku Sono Ni", belt: "Orange", stripe: true, keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi", "足技太極その2", "足技太極その二", "足技太極その２"] },
+  { order: 6, name: "Sokugi Taikyoku Sono San", belt: "Orange", stripe: true, keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan", "足技太極その3", "足技太極その三", "足技太極その３"] },
   { order: 7, name: "Pinan Sono Ichi", belt: "Blue", keywords: ["pinan sono ichi", "pinan sonoichi", "平安その1", "平安その一", "平安その１"] },
   { order: 8, name: "Pinan Sono Ni", belt: "Blue", keywords: ["pinan sono ni", "pinan sononi", "平安その2", "平安その二", "平安その２"] },
   { order: 9, name: "Sanchin", belt: "Blue", keywords: ["sanchin", "三戦", "サンチン"] },
@@ -32,6 +56,16 @@ const KATA_MAP = [
   { order: 27, name: "Sushiho", belt: "Dan 4", keywords: ["sushiho", "五十四歩", "スーシーホ"] },
   { order: 28, name: "Tensho", belt: "Dan 5", keywords: ["tensho", "転掌", "テンショウ"] }
 ];
+
+// Automatically populate stripeColor for any kata that has stripe defined
+KATA_MAP.forEach(k => {
+  if (k.stripe) {
+    k.stripeColor = typeof k.stripe === 'string' ? k.stripe : getNextBeltColor(k.belt);
+  } else {
+    k.stripe = false;
+    k.stripeColor = null;
+  }
+});
 
 function matchKata(title) {
   const t = title.toLowerCase();
@@ -59,8 +93,16 @@ const cardsHtml = videos.map((item, idx) => {
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
-  // Tags: Kata belt badge + Seminar tag + Bunkai tag
-  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name}</span>` : '';
+  // Tags: Kata belt badge (with stripe indicator if applicable) + Seminar tag + Bunkai tag
+  let beltHtml = '';
+  if (matched) {
+    const beltClass = matched.belt.toLowerCase().replace(/\s+/g, '-');
+    const hasStripe = !!matched.stripeColor;
+    const stripeHtml = hasStripe 
+      ? `<span class="belt-stripe stripe-${matched.stripeColor.toLowerCase().replace(/\s+/g, '-')}" title="${matched.stripeColor} stripe"></span>` 
+      : '';
+    beltHtml = `<span class="belt-badge belt-${beltClass}${hasStripe ? ' has-stripe' : ''}">${matched.name}${stripeHtml}</span>`;
+  }
   const seminarHtml = isSeminar ? `<span class="tag-seminar">Seminar</span>` : '';
   const bunkaiHtml = isBunkai ? `<span class="tag-bunkai">Bunkai</span>` : '';
 
@@ -76,6 +118,9 @@ const cardsHtml = videos.map((item, idx) => {
             </div>
           </div>` : '';
 
+  // Calculate extra tag count: Bunkai and Seminar tags
+  const extraTagCount = (isBunkai ? 1 : 0) + (isSeminar ? 1 : 0);
+
   return `      <div class="kata-card" 
            data-id="${item.id}"
            data-href="${item.url}" 
@@ -86,7 +131,9 @@ const cardsHtml = videos.map((item, idx) => {
            data-is-bunkai="${isBunkai ? '1' : '0'}"
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
+           data-stripe="${matched && matched.stripeColor ? matched.stripeColor : ''}"
            data-order="${matched ? matched.order : 999}"
+           data-extra-tags="${extraTagCount}"
            data-original-index="${idx}"
            onclick="handleCardClick(this)">
         <div class="card-main">
@@ -124,9 +171,12 @@ const html = `<!DOCTYPE html>
        Never use loose substring search for "Taikyoku Sono...". Always check that it is NOT preceded
        by "Sokugi" so Sokugi and Standard Taikyoku entries remain correctly classified in their
        respective belts (White vs Orange).
-    5. CANONICAL BELT PROGRESSION:
+    5. CANONICAL BELT PROGRESSION & STRIPES:
        Keep the strict 1 to 28 sequential order as defined in KATA_MAP (White -> Orange -> Blue ->
        Yellow -> Green -> Brown -> Dan 1 -> Dan 2 -> Dan 3 -> Dan 4 -> Dan 5).
+       Belt stripe color is dynamically derived from the next belt color in BELT_SEQUENCE.
+       In the Kata filter, cards are ordered by Kata canonical order, then by fewer tags first
+       (plain kata video before [Bunkai] before [Seminar]).
     =============================================================================================
   -->
 
@@ -514,11 +564,37 @@ const html = `<!DOCTYPE html>
 
     /* Belt badges on cards */
     .belt-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
       font-size: 0.72rem;
       font-weight: 600;
       padding: 0.2rem 0.55rem;
       border-radius: 4px;
       white-space: nowrap;
+    }
+    .belt-badge.has-stripe {
+      padding-right: 1.15rem;
+    }
+    .belt-stripe {
+      position: absolute;
+      right: 5px;
+      top: 3px;
+      bottom: 3px;
+      width: 3.5px;
+      border-radius: 1.5px;
+      pointer-events: none;
+    }
+    .stripe-white { background-color: #ffffff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.85); }
+    .stripe-orange { background-color: #f97316; box-shadow: 0 0 5px rgba(249, 115, 22, 0.85); }
+    .stripe-blue { background-color: #3b82f6; box-shadow: 0 0 6px rgba(59, 130, 246, 0.9); }
+    .stripe-yellow { background-color: #facc15; box-shadow: 0 0 6px rgba(250, 204, 21, 0.9); }
+    .stripe-green { background-color: #22c55e; box-shadow: 0 0 6px rgba(34, 197, 94, 0.9); }
+    .stripe-brown { background-color: #d97706; box-shadow: 0 0 5px rgba(217, 119, 6, 0.85); }
+    .stripe-dan-1, .stripe-dan-2, .stripe-dan-3, .stripe-dan-4, .stripe-dan-5, .stripe-black {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
     .belt-orange { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
@@ -848,12 +924,23 @@ ${cardsHtml}
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       let count = 0;
 
-      // When Kata filter is active, sort DOM elements by Kata order 1 -> 28
+      // When Kata filter is active, sort DOM elements by Kata order 1 -> 28, then fewer tags first
       if (currentCategory === 'KATA') {
         allCards.sort((a, b) => {
           const orderA = parseInt(a.getAttribute('data-order') || '999', 10);
           const orderB = parseInt(b.getAttribute('data-order') || '999', 10);
           if (orderA !== orderB) return orderA - orderB;
+
+          // Secondary sort: fewer tags first (0 tags before 1 tag before 2 tags)
+          const tagsA = parseInt(a.getAttribute('data-extra-tags') || '0', 10);
+          const tagsB = parseInt(b.getAttribute('data-extra-tags') || '0', 10);
+          if (tagsA !== tagsB) return tagsA - tagsB;
+
+          // If tag count is equal, prioritize Bunkai before Seminar
+          const isBunkaiA = a.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
+          const isBunkaiB = b.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
+          if (isBunkaiA !== isBunkaiB) return isBunkaiB - isBunkaiA;
+
           return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
         });
       } else {
