@@ -196,6 +196,26 @@ const html = `<!DOCTYPE html>
       display: inline-flex;
     }
 
+    .qs-pill-turbo {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 0.52em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.22em 0.75em;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.14);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      vertical-align: middle;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     .meta {
       color: var(--text-muted);
       font-size: 0.9rem;
@@ -686,7 +706,7 @@ const html = `<!DOCTYPE html>
     <header>
       <div class="header-top">
         <div>
-          <h1><span class="kanji">極真</span> Kyokushin Training Quick Search</h1>
+          <h1><span class="kanji">極真</span> Kyokushin Training <span class="qs-pill-turbo">⚡ Quick Search</span></h1>
           
           <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=" target="_blank" rel="noopener noreferrer">
             🔗 Original Training Page at Kyokushin.net
