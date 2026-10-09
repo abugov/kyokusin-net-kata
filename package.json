@@ -1,0 +1,13 @@
+{
+  "name": "kyokusin-net-kata",
+  "version": "1.0.0",
+  "description": "Kyokushin Karate Kata & Training Video Library",
+  "main": "build_page.js",
+  "scripts": {
+    "build": "node build_page.js",
+    "scrape": "node scrape.js && node build_page.js"
+  },
+  "dependencies": {
+    "puppeteer": "^22.6.0"
+  }
+}
