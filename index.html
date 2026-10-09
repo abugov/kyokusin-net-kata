@@ -267,21 +267,539 @@
     <div class="stats" id="statsBar">Showing ${kataList.length} of ${kataList.length} videos</div>
 
     <div class="kata-list" id="kataGrid">
-      ${kataList.map((item, idx) => `
-        <a class="kata-card" href="${item.url}" target="_blank" rel="noopener noreferrer" data-title="${item.title.toLowerCase()}">
-          <div>
-            <div class="card-header">
-              <span class="video-id">#${idx + 1} &bull; ID: ${item.id}</span>
-              ${item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : }
-            </div>
-            <div class="kata-title">${item.title}</div>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1184032950" target="_blank" rel="noopener noreferrer" data-title="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#1 &bull; ID: 1184032950</span>
+            <span class="badge prime">PRIME</span>
           </div>
-          <div class="card-footer">
-            <span>Direct Video</span>
-            <span class="open-btn">Watch &rarr;</span>
+          <div class="kata-title">Kata Explanation: Seienchin (February 7, 2026 / From the Online Kata Seminar)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1184032951" target="_blank" rel="noopener noreferrer" data-title="kata explanation: bassai (february 7, 2026 / from the online kata seminar)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#2 &bull; ID: 1184032951</span>
+            <span class="badge prime">PRIME</span>
           </div>
-        </a>
-      `).join()}
+          <div class="kata-title">Kata Explanation: Bassai (February 7, 2026 / From the Online Kata Seminar)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1184033042" target="_blank" rel="noopener noreferrer" data-title="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#3 &bull; ID: 1184033042</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">Kata Explanation: Sushiho (February 7, 2026 / From the Online Kata Seminar)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1177631112" target="_blank" rel="noopener noreferrer" data-title="furukawa seiya’s methods for improving kata: insights from a five-time all-japan champion">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#4 &bull; ID: 1177631112</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">Furukawa Seiya’s Methods for Improving Kata: Insights from a Five-Time All-Japan Champion</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1068726220" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2025 : seipai">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#5 &bull; ID: 1068726220</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2025 : SEIPAI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1027913149" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (kanku, sushiho)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#6 &bull; ID: 1027913149</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Kanku, Sushiho)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1025404141" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (bassai, seienchin)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#7 &bull; ID: 1025404141</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Bassai, Seienchin)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1023625956" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#8 &bull; ID: 1023625956</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Tsukino KATA, Gekisai sono ni & sono san, Saifa)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/1018270420" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2024 : garyu">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#9 &bull; ID: 1018270420</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2024 : GARYU</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/977441769" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2023 : tekki sono san">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#10 &bull; ID: 977441769</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2023 : TEKKI SONO SAN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/977439492" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2024 : tekki sono ni">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#11 &bull; ID: 977439492</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2024 : TEKKI SONO NI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/868970017" target="_blank" rel="noopener noreferrer" data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#12 &bull; ID: 868970017</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.2 (Gekisai sono ni, Gekisai sono san, Saifa, Bassai, Kanku)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/867073116" target="_blank" rel="noopener noreferrer" data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#13 &bull; ID: 867073116</span>
+            <span class="badge prime">PRIME</span>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.1 (Sokugi Taikyoku sono san, Pinan sono ni, Pinan sono go, Tsuki no KATA)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/810383040" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2023 : kanku">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#14 &bull; ID: 810383040</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2023 : KANKU</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/661664814" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono go bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#15 &bull; ID: 661664814</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO GO Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/661664935" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : yantsu bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#16 &bull; ID: 661664935</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : YANTSU Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/633550574" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : bassai">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#17 &bull; ID: 633550574</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : BASSAI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/605658036" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono yon bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#18 &bull; ID: 605658036</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO YON Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/605657744" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono san bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#19 &bull; ID: 605657744</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO SAN Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/614144774" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ni bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#20 &bull; ID: 614144774</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO NI Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/614144940" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ichi bunkai kumite">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#21 &bull; ID: 614144940</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO ICHI Bunkai Kumite</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219663" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : tekki sono ichi">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#22 &bull; ID: 486219663</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : TEKKI SONO ICHI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219808" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : seienchin">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#23 &bull; ID: 486219808</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SEIENCHIN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219296" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono ni">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#24 &bull; ID: 486219296</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : GEKISAI SONO NI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219322" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono ichi">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#25 &bull; ID: 486219322</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : GEKISAI SONO ICHI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486272839" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sanchin">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#26 &bull; ID: 486272839</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SANCHIN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219405" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : saifa">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#27 &bull; ID: 486219405</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SAIFA</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219330" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono san(gekisai shou)">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#28 &bull; ID: 486219330</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : GEKISAI SONO SAN(GEKISAI SHOU)</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486219136" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : yantsu">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#29 &bull; ID: 486219136</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : YANTSU</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486272854" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : tsukinokata">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#30 &bull; ID: 486272854</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : TSUKINOKATA</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486217774" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono go">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#31 &bull; ID: 486217774</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO GO</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486217809" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono yon">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#32 &bull; ID: 486217809</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO YON</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486217825" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono san">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#33 &bull; ID: 486217825</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO SAN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486217851" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ni">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#34 &bull; ID: 486217851</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO NI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486217759" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ichi">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#35 &bull; ID: 486217759</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : PINAN SONO ICHI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215424" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono san">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#36 &bull; ID: 486215424</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SOKUGI TAIKYOKU SONO SAN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215173" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ni">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#37 &bull; ID: 486215173</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SOKUGI TAIKYOKU SONO NI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215128" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ichi">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#38 &bull; ID: 486215128</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : SOKUGI TAIKYOKU SONO ICHI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215178" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono san">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#39 &bull; ID: 486215178</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : TAIKYOKU SONO SAN</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215219" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono ni">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#40 &bull; ID: 486215219</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : TAIKYOKU SONO NI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
+      <a class="kata-card" href="https://www.kyokushin.net/video/486215214" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono ichi">
+        <div>
+          <div class="card-header">
+            <span class="video-id">#41 &bull; ID: 486215214</span>
+            <span class="badge member">MEMBER</span>
+          </div>
+          <div class="kata-title">Kyokushin Kata Revision 2020 : TAIKYOKU SONO ICHI</div>
+        </div>
+        <div class="card-footer">
+          <span>Direct Video</span>
+          <span class="open-btn">Watch &rarr;</span>
+        </div>
+      </a>
     </div>
   </div>
 
