@@ -12,11 +12,18 @@ async function scrapeKyokushin() {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800 });
     
-    const targetUrl = 'https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=';
+    // Force English in browser context before Elm initializes
+    await page.evaluateOnNewDocument(() => {
+      try {
+        localStorage.setItem('settings', JSON.stringify({ language: 'en', saveEmail: '', saveEmailFlg: false }));
+      } catch (e) {}
+    });
+
+    const targetUrl = 'https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=&lang=en';
     console.log('Navigating to:', targetUrl);
     await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
 
-    // Click English button if available
+    // Click English switch if present or trigger Elm language change
     try {
       await page.evaluate(() => {
         const btns = Array.from(document.querySelectorAll('button, a, span, div, li'));
