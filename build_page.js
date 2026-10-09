@@ -1,14 +1,82 @@
 const fs = require('fs');
-const kataList = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
+const videos = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
 
-const cardsHtml = kataList.map((item, idx) => {
+// The 28 canonical katas in requested order with their belts & matching keywords
+const KATA_MAP = [
+  { name: "Taikyoku Sono Ichi", belt: "white", keywords: ["taikyoku sono ichi", "taikyoku sonoichi"] },
+  { name: "Taikyoku Sono Ni", belt: "white", keywords: ["taikyoku sono ni", "taikyoku sononi"] },
+  { name: "Sokugi Taikyoku Sono Ichi", belt: "white", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi"] },
+  { name: "Taikyoku Sono San", belt: "orange", keywords: ["taikyoku sono san", "taikyoku sonosan"] },
+  { name: "Sokugi Taikyoku Sono Ni", belt: "orange", keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi"] },
+  { name: "Sokugi Taikyoku Sono San", belt: "orange", keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan"] },
+  { name: "Pinan Sono Ichi", belt: "blue", keywords: ["pinan sono ichi", "pinan sonoichi"] },
+  { name: "Pinan Sono Ni", belt: "blue", keywords: ["pinan sono ni", "pinan sononi"] },
+  { name: "Sanchin", belt: "blue", keywords: ["sanchin"] },
+  { name: "Pinan Sono San", belt: "yellow", keywords: ["pinan sono san", "pinan sonosan"] },
+  { name: "Yantsu", belt: "yellow", keywords: ["yantsu"] },
+  { name: "Pinan Sono Yon", belt: "yellow", keywords: ["pinan sono yon", "pinan sonoyon"] },
+  { name: "Tsuki no Kata", belt: "yellow", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata"] },
+  { name: "Pinan Sono Go", belt: "green", keywords: ["pinan sono go", "pinan sonogo"] },
+  { name: "Gekisai sono ichi", belt: "green", keywords: ["gekisai sono ichi", "gekisai sonoichi"] },
+  { name: "Gekisai sono ni", belt: "green", keywords: ["gekisai sono ni", "gekisai sononi"] },
+  { name: "Tekki sono ichi", belt: "green", keywords: ["tekki sono ichi", "tekki sonoichi"] },
+  { name: "Gekisai sono san", belt: "brown", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou"] },
+  { name: "Tekki sono ni", belt: "brown", keywords: ["tekki sono ni", "tekki sononi"] },
+  { name: "Saifa", belt: "brown", keywords: ["saifa"] },
+  { name: "Garyu", belt: "dan 1", keywords: ["garyu"] },
+  { name: "Seienchin", belt: "dan 1", keywords: ["seienchin"] },
+  { name: "Bassai", belt: "dan 1", keywords: ["bassai"] },
+  { name: "Tekki sono san", belt: "dan 1", keywords: ["tekki sono san", "tekki sonosan"] },
+  { name: "Seipai", belt: "dan 2", keywords: ["seipai"] },
+  { name: "Kanku", belt: "dan 3", keywords: ["kanku"] },
+  { name: "Sushiho", belt: "dan 4", keywords: ["sushiho"] },
+  { name: "Tensho", belt: "dan 5", keywords: ["tensho"] }
+];
+
+function matchKata(title) {
+  const t = title.toLowerCase();
+  for (const k of KATA_MAP) {
+    for (const kw of k.keywords) {
+      if (kw.startsWith("taikyoku") && t.includes("sokugi " + kw)) {
+        continue;
+      }
+      const reg = new RegExp("(^|[^a-z0-9])" + kw + "([^a-z0-9]|$)", "i");
+      if (reg.test(t)) {
+        return k;
+      }
+    }
+  }
+  return null;
+}
+
+const cardsHtml = videos.map((item, idx) => {
+  const matched = matchKata(item.title);
+  const isSeminar = /seminar/i.test(item.title);
+  const isKata = !!matched;
+
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
-  return `      <div class="kata-card" data-href="${item.url}" data-badge="${item.badge || ''}" data-title="${safeTitle.toLowerCase()}" onclick="handleCardClick(this)">
+  
+  // Belt pill if matched kata
+  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.replace(/\s+/g, '-')}">${matched.belt} &bull; ${matched.name}</span>` : '';
+
+  return `      <div class="kata-card" 
+           data-id="${item.id}"
+           data-href="${item.url}" 
+           data-badge="${item.badge || ''}" 
+           data-title="${safeTitle.toLowerCase()}" 
+           data-is-kata="${isKata ? '1' : '0'}"
+           data-is-seminar="${isSeminar ? '1' : '0'}"
+           data-kata-name="${matched ? matched.name : ''}"
+           data-belt="${matched ? matched.belt : ''}"
+           onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#${idx + 1} &bull; ID: ${item.id}</span>
-            ${badgeHtml}
+            <div style="display:flex;gap:0.35rem;align-items:center;">
+              ${beltHtml}
+              ${badgeHtml}
+            </div>
           </div>
           <div class="kata-title">${safeTitle}</div>
         </div>
@@ -113,29 +181,6 @@ const html = `<!DOCTYPE html>
       text-decoration: underline;
     }
 
-    .auth-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      background: #21262d;
-      border: 1px solid var(--border);
-    }
-
-    .auth-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #e50914;
-    }
-
-    .auth-dot.online {
-      background: #2ea043;
-      box-shadow: 0 0 6px #2ea043;
-    }
-
     .controls {
       display: flex;
       gap: 1rem;
@@ -170,9 +215,10 @@ const html = `<!DOCTYPE html>
       background: var(--card-bg);
       color: var(--text-muted);
       border: 1px solid var(--border);
-      padding: 0.45rem 0.9rem;
+      padding: 0.55rem 1.1rem;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -181,6 +227,13 @@ const html = `<!DOCTYPE html>
       background: #21262d;
       color: #fff;
       border-color: #8b949e;
+    }
+
+    .filter-btn.active {
+      background: #30363d;
+      color: #fff;
+      font-weight: 600;
+      border-color: #58a6ff;
     }
 
     .stats {
@@ -224,9 +277,9 @@ const html = `<!DOCTYPE html>
     }
 
     .badge {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      padding: 0.2rem 0.5rem;
+      padding: 0.18rem 0.45rem;
       border-radius: 4px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -243,6 +296,25 @@ const html = `<!DOCTYPE html>
       background: rgba(59, 130, 246, 0.15);
       color: var(--badge-member);
       border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    /* Belt badges */
+    .belt-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      text-transform: capitalize;
+      white-space: nowrap;
+    }
+    .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
+    .belt-orange { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
+    .belt-blue { background: rgba(59, 130, 246, 0.18); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); }
+    .belt-yellow { background: rgba(234, 179, 8, 0.18); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.35); }
+    .belt-green { background: rgba(34, 197, 94, 0.18); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); }
+    .belt-brown { background: rgba(180, 83, 9, 0.22); color: #d97706; border: 1px solid rgba(180, 83, 9, 0.4); }
+    .belt-dan-1, .belt-dan-2, .belt-dan-3, .belt-dan-4, .belt-dan-5 {
+      background: rgba(0, 0, 0, 0.6); color: #e6edf3; border: 1px solid #e50914;
     }
 
     .kata-title {
@@ -385,14 +457,6 @@ const html = `<!DOCTYPE html>
       background: #f40612;
     }
 
-    /* Hidden iframe for checking login */
-    #authCheckerFrame {
-      display: none;
-      width: 0;
-      height: 0;
-      border: none;
-    }
-
     @media (max-width: 640px) {
       .kata-list {
         grid-template-columns: 1fr;
@@ -404,21 +468,12 @@ const html = `<!DOCTYPE html>
   </style>
 </head>
 <body>
-  <!-- Hidden frame to test redirect on /login -->
-  <iframe id="authCheckerFrame"></iframe>
-
   <div class="container">
     <header>
       <div class="header-top">
         <div>
           <h1><span class="kanji">極真</span> Kyokushin Training &amp; Kata Library</h1>
-          <div class="meta">
-            <span>Indexed videos from Kyokushin Online</span>
-            <div class="auth-badge">
-              <span class="auth-dot" id="authDot"></span>
-              <span id="authStatusText">Checking login...</span>
-            </div>
-          </div>
+          <p class="meta">Extracted index of videos from Kyokushin Online</p>
           <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=" target="_blank" rel="noopener noreferrer">
             🔗 Original Training Page (Kyokushin.net)
           </a>
@@ -426,25 +481,24 @@ const html = `<!DOCTYPE html>
       </div>
 
       <div class="controls">
-        <input type="text" id="searchInput" class="search-box" placeholder="Search videos (e.g. Kata, Kumite, Pinan, Bassai, Examination)..." oninput="filterKata()">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search videos (e.g. Kata, Pinan, Bassai, Kumite)..." oninput="filterKata()">
         <div class="filter-tags">
-          <button class="filter-btn active" onclick="setCategory('ALL')">All</button>
-          <button class="filter-btn" onclick="setCategory('Kata')">Kata</button>
-          <button class="filter-btn" onclick="setCategory('Seminar')">Seminars</button>
-          <button class="filter-btn" onclick="setCategory('Examination')">Examinations</button>
-          <button class="filter-btn" onclick="setCategory('Pinan')">Pinan</button>
+          <button class="filter-btn active" id="btn-ALL" onclick="setCategory('ALL')">All</button>
+          <button class="filter-btn" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
+          <button class="filter-btn" id="btn-SEMINAR" onclick="setCategory('SEMINAR')">Seminar</button>
+          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the Rest</button>
         </div>
       </div>
     </header>
 
-    <div class="stats" id="statsBar">Showing ${kataList.length} of ${kataList.length} videos</div>
+    <div class="stats" id="statsBar">Showing ${videos.length} of ${videos.length} videos</div>
 
     <div class="kata-list" id="kataGrid">
 ${cardsHtml}
     </div>
   </div>
 
-  <!-- Prompt Modal on Clicking PRIME / MEMBER Video when not logged in -->
+  <!-- Prompt Modal on Clicking PRIME / MEMBER Video -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal-card">
       <div class="modal-head">
@@ -452,8 +506,8 @@ ${cardsHtml}
         <span class="video-name" id="modalVideoName"></span>
       </div>
       <div class="modal-body">
-        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> account.<br><br>
-        You appear to be <strong>logged out</strong>. Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
+        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> account.<br>
+        Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
       </div>
       <div class="modal-foot">
         <button class="btn-action cancel" onclick="closeModal()">Cancel</button>
@@ -464,110 +518,25 @@ ${cardsHtml}
   </div>
 
   <script>
+    // Hardcoded 28 Katas mapping with belts and keywords
+    const KATA_MAP = ${JSON.stringify(KATA_MAP, null, 2)};
+
     const allCards = Array.from(document.querySelectorAll('.kata-card'));
     const statsBar = document.getElementById('statsBar');
     let currentCategory = 'ALL';
     let pendingVideoUrl = '';
-    let userIsLoggedIn = false;
-
-    // Detect login state via https://www.kyokushin.net/login redirect behavior
-    function checkLoginStatus() {
-      const frame = document.getElementById('authCheckerFrame');
-      const dot = document.getElementById('authDot');
-      const statusText = document.getElementById('authStatusText');
-
-      // Attempt 1: Fetch with mode: 'no-cors' and follow redirects
-      // In fetch, a redirected response changes response.url or type
-      fetch('https://www.kyokushin.net/login', {
-        method: 'GET',
-        mode: 'no-cors',
-        credentials: 'include'
-      }).then(res => {
-        // Fetch succeeded
-      }).catch(err => {
-        // Ignore network errors
-      });
-
-      // Attempt 2: Load in hidden iframe to observe location / load timing
-      let timer = setTimeout(() => {
-        // If loaded, test access
-        evaluateFrameState();
-      }, 1500);
-
-      frame.onload = function() {
-        clearTimeout(timer);
-        evaluateFrameState();
-      };
-
-      try {
-        frame.src = 'https://www.kyokushin.net/login';
-      } catch(e) {}
-    }
-
-    function evaluateFrameState() {
-      const frame = document.getElementById('authCheckerFrame');
-      const dot = document.getElementById('authDot');
-      const statusText = document.getElementById('authStatusText');
-
-      try {
-        // If redirected away from /login to origin root / or /account
-        const frameUrl = frame.contentWindow.location.href;
-        if (frameUrl && !frameUrl.includes('/login')) {
-          setLoggedInUI(true);
-          return;
-        }
-      } catch (crossOriginErr) {
-        // Due to browser security across origins, check if localStorage flag or cookie exists
-      }
-
-      // Check localStorage cached status or cookie token
-      if (document.cookie.includes('logged_in=true') || localStorage.getItem('kyokushin_user_logged_in') === 'true') {
-        setLoggedInUI(true);
-      } else {
-        // Check with Kyokushin Online service ping
-        pingKyokushinSession();
-      }
-    }
-
-    function pingKyokushinSession() {
-      const img = new Image();
-      img.src = 'https://www.kyokushin.net/favicon.png?cb=' + Date.now();
-      // Default to checking on video click
-      setLoggedInUI(false);
-    }
-
-    function setLoggedInUI(isLoggedIn) {
-      userIsLoggedIn = isLoggedIn;
-      const dot = document.getElementById('authDot');
-      const statusText = document.getElementById('authStatusText');
-      if (isLoggedIn) {
-        dot.className = 'auth-dot online';
-        statusText.innerText = 'Logged In (Direct Play)';
-      } else {
-        dot.className = 'auth-dot';
-        statusText.innerText = 'Logged Out / Check Login';
-      }
-    }
 
     function handleCardClick(card) {
       const url = card.getAttribute('data-href');
       const badge = card.getAttribute('data-badge');
       const title = card.querySelector('.kata-title').innerText;
 
-      // If user is already detected as logged in, open video immediately without prompt!
-      if (userIsLoggedIn) {
-        window.open(url, '_blank');
-        return;
-      }
-
-      // If not logged in and clicking a PRIME or MEMBER video, ask:
       if (badge === 'PRIME' || badge === 'MEMBER') {
         pendingVideoUrl = url;
         document.getElementById('modalBadgeText').innerText = badge;
         document.getElementById('modalVideoName').innerText = title;
         document.getElementById('authModal').style.display = 'flex';
       } else {
-        // Free / standard videos open directly
         window.open(url, '_blank');
       }
     }
@@ -585,15 +554,13 @@ ${cardsHtml}
 
     function openLogin() {
       closeModal();
-      localStorage.setItem('kyokushin_user_logged_in', 'true');
-      setLoggedInUI(true);
       window.open('https://www.kyokushin.net/login', '_blank');
     }
 
     function setCategory(cat) {
       currentCategory = cat;
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'ALL' && btn.innerText === 'All'));
+        btn.classList.toggle('active', btn.id === 'btn-' + cat);
       });
       filterKata();
     }
@@ -604,10 +571,27 @@ ${cardsHtml}
 
       allCards.forEach(card => {
         const title = card.getAttribute('data-title') || '';
-        const matchesQuery = !q || title.includes(q);
-        const matchesCategory = currentCategory === 'ALL' || title.includes(currentCategory.toLowerCase());
+        const isKata = card.getAttribute('data-is-kata') === '1';
+        const isSeminar = card.getAttribute('data-is-seminar') === '1';
 
-        if (matchesQuery && matchesCategory) {
+        // Check category condition
+        let matchesCategory = false;
+        if (currentCategory === 'ALL') {
+          matchesCategory = true;
+        } else if (currentCategory === 'KATA') {
+          matchesCategory = isKata;
+        } else if (currentCategory === 'SEMINAR') {
+          // Exactly as if user searched "seminar"
+          matchesCategory = isSeminar || title.includes('seminar');
+        } else if (currentCategory === 'REST') {
+          // All non-kata and non-seminar
+          matchesCategory = !isKata && !isSeminar && !title.includes('seminar');
+        }
+
+        // Check text search
+        const matchesQuery = !q || title.includes(q);
+
+        if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';
           count++;
         } else {
@@ -617,12 +601,9 @@ ${cardsHtml}
 
       statsBar.innerText = 'Showing ' + count + ' of ' + allCards.length + ' videos';
     }
-
-    // Run check on page load
-    checkLoginStatus();
   </script>
 </body>
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully generated index.html with all ' + kataList.length + ' videos!');
+console.log('Successfully rebuilt index.html with 28-Kata map and 4 quick filters!');
