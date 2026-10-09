@@ -35,18 +35,18 @@ const KATA_MAP = [
   { order: 6, name: "Sokugi Taikyoku Sono San", belt: "Orange", stripe: true, keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan", "足技太極その3", "足技太極その三", "足技太極その３"] },
   { order: 7, name: "Pinan Sono Ichi", belt: "Blue", keywords: ["pinan sono ichi", "pinan sonoichi", "平安その1", "平安その一", "平安その１"] },
   { order: 8, name: "Pinan Sono Ni", belt: "Blue", keywords: ["pinan sono ni", "pinan sononi", "平安その2", "平安その二", "平安その２"] },
-  { order: 9, name: "Sanchin", belt: "Blue", keywords: ["sanchin", "三戦", "サンチン"] },
+  { order: 9, name: "Sanchin", belt: "Blue", stripe: true, keywords: ["sanchin", "三戦", "サンチン"] },
   { order: 10, name: "Pinan Sono San", belt: "Yellow", keywords: ["pinan sono san", "pinan sonosan", "平安その3", "平安その三", "平安その３"] },
   { order: 11, name: "Yantsu", belt: "Yellow", keywords: ["yantsu", "安三", "ヤンツ"] },
-  { order: 12, name: "Pinan Sono Yon", belt: "Yellow", keywords: ["pinan sono yon", "pinan sonoyon", "平安その4", "平安その四", "平安その４"] },
-  { order: 13, name: "Tsuki no Kata", belt: "Yellow", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata", "突きの型"] },
+  { order: 12, name: "Pinan Sono Yon", belt: "Yellow", stripe: true, keywords: ["pinan sono yon", "pinan sonoyon", "平安その4", "平安その四", "平安その４"] },
+  { order: 13, name: "Tsuki no Kata", belt: "Yellow", stripe: true, keywords: ["tsuki no kata", "tsukinokata", "tsukino kata", "突きの型"] },
   { order: 14, name: "Pinan Sono Go", belt: "Green", keywords: ["pinan sono go", "pinan sonogo", "平安その5", "平安その五", "平安その５"] },
   { order: 15, name: "Gekisai sono ichi", belt: "Green", keywords: ["gekisai sono ichi", "gekisai sonoichi", "撃砕その1", "撃砕その一", "撃砕その１", "撃砕其の一"] },
-  { order: 16, name: "Gekisai sono ni", belt: "Green", keywords: ["gekisai sono ni", "gekisai sononi", "撃砕その2", "撃砕その二", "撃砕その２", "撃砕其の二"] },
-  { order: 17, name: "Tekki sono ichi", belt: "Green", keywords: ["tekki sono ichi", "tekki sonoichi", "鉄騎その1", "鉄騎その一", "鉄騎その１", "鉄騎其の一"] },
+  { order: 16, name: "Gekisai sono ni", belt: "Green", stripe: true, keywords: ["gekisai sono ni", "gekisai sononi", "撃砕その2", "撃砕その二", "撃砕その２", "撃砕其の二"] },
+  { order: 17, name: "Tekki sono ichi", belt: "Green", stripe: true, keywords: ["tekki sono ichi", "tekki sonoichi", "鉄騎その1", "鉄騎その一", "鉄騎その１", "鉄騎其の一"] },
   { order: 18, name: "Gekisai sono san", belt: "Brown", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou", "撃砕その3", "撃砕その三", "撃砕その３", "撃砕小"] },
   { order: 19, name: "Tekki sono ni", belt: "Brown", keywords: ["tekki sono ni", "tekki sononi", "鉄騎その2", "鉄騎その二", "鉄騎その２", "鉄騎其の二"] },
-  { order: 20, name: "Saifa", belt: "Brown", keywords: ["saifa", "最破", "サイファ", "サイハ"] },
+  { order: 20, name: "Saifa", belt: "Brown", stripe: true, keywords: ["saifa", "最破", "サイファ", "サイハ"] },
   { order: 21, name: "Garyu", belt: "Dan 1", keywords: ["garyu", "臥龍", "臥竜", "ガリュウ"] },
   { order: 22, name: "Seienchin", belt: "Dan 1", keywords: ["seienchin", "征遠鎮", "セイエンチン"] },
   { order: 23, name: "Bassai", belt: "Dan 1", keywords: ["bassai", "抜塞", "バッサイ"] },
@@ -98,8 +98,9 @@ const cardsHtml = videos.map((item, idx) => {
   if (matched) {
     const beltClass = matched.belt.toLowerCase().replace(/\s+/g, '-');
     const hasStripe = !!matched.stripeColor;
+    const stripeName = matched.stripeColor === 'Dan 1' ? 'Black' : matched.stripeColor;
     const stripeHtml = hasStripe 
-      ? `<span class="belt-stripe stripe-${matched.stripeColor.toLowerCase().replace(/\s+/g, '-')}" title="${matched.stripeColor} stripe"></span>` 
+      ? `<span class="belt-stripe stripe-${matched.stripeColor.toLowerCase().replace(/\s+/g, '-')}" title="${stripeName} stripe"></span>` 
       : '';
     beltHtml = `<span class="belt-badge belt-${beltClass}${hasStripe ? ' has-stripe' : ''}">${matched.name}${stripeHtml}</span>`;
   }
@@ -581,7 +582,7 @@ const html = `<!DOCTYPE html>
       right: 5px;
       top: 3px;
       bottom: 3px;
-      width: 3.5px;
+      width: 4px;
       border-radius: 1.5px;
       pointer-events: none;
     }
@@ -592,9 +593,9 @@ const html = `<!DOCTYPE html>
     .stripe-green { background-color: #22c55e; box-shadow: 0 0 6px rgba(34, 197, 94, 0.9); }
     .stripe-brown { background-color: #d97706; box-shadow: 0 0 5px rgba(217, 119, 6, 0.85); }
     .stripe-dan-1, .stripe-dan-2, .stripe-dan-3, .stripe-dan-4, .stripe-dan-5, .stripe-black {
-      background-color: #111827;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+      background-color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
     .belt-orange { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
