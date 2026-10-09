@@ -38,7 +38,7 @@ async function scrapeKyokushin() {
     // Scroll to load all videos
     console.log('Scrolling down to trigger infinite scroll...');
     let lastHeight = 0;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await new Promise(r => setTimeout(r, 800));
       const currentHeight = await page.evaluate(() => document.body.scrollHeight);
@@ -61,6 +61,7 @@ async function scrapeKyokushin() {
         const isPrime = text.includes('PRIME');
         const isMember = text.includes('MEMBER');
         const cleanTitle = text.replace(/^(PRIME|MEMBER)\s*/g, '').trim();
+        if (!id || !cleanTitle) continue;
         list.push({
           id,
           title: cleanTitle,

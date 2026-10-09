@@ -171,16 +171,21 @@ const html = `<!DOCTYPE html>
     h1 {
       font-family: 'Cinzel', serif;
       font-size: 2.1rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
+      white-space: nowrap;
     }
 
     h1 span.kanji {
       color: var(--accent);
-      font-size: 2.4rem;
+      font-size: 1.15em;
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
     }
 
     .meta {
@@ -616,6 +621,14 @@ const html = `<!DOCTYPE html>
     }
 
     @media (max-width: 640px) {
+      body {
+        padding: 1.25rem 0.75rem;
+      }
+      h1 {
+        font-size: clamp(0.55rem, 3.15vw, 1.35rem);
+        gap: 0.35rem;
+        letter-spacing: 0;
+      }
       .card-main {
         flex-direction: column;
         align-items: flex-start;
@@ -624,8 +637,16 @@ const html = `<!DOCTYPE html>
       .kata-title {
         white-space: normal;
       }
+    }
+
+    @media (max-width: 350px) {
+      body {
+        padding: 0.75rem 0.4rem;
+      }
       h1 {
-        font-size: 1.6rem;
+        font-size: clamp(0.45rem, 2.45vw, 0.58rem);
+        gap: 0.2rem;
+        letter-spacing: -0.01em;
       }
     }
   </style>
@@ -710,7 +731,6 @@ ${cardsHtml}
     
     let currentCategory = 'KATA'; // Default is Kata
     let currentBelt = 'ALL';      // Default is All belts
-       // Default is List
     let pendingVideoUrl = '';
 
     function handleCardClick(card) {
@@ -819,8 +839,9 @@ ${cardsHtml}
           matchesCategory = true;
         }
 
-        // Search filter
-        const matchesQuery = !q || title.includes(q);
+        // Search filter (matches title or canonical kata name)
+        const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
+        const matchesQuery = !q || title.includes(q) || kataName.includes(q);
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';
