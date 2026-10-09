@@ -58,7 +58,7 @@ const cardsHtml = videos.map((item, idx) => {
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
   // Belt tag on left: Name | Belt
-  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name} | ${matched.belt}</span>` : '';
+  const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name}</span>` : '';
 
   return `      <div class="kata-card" 
            data-id="${item.id}"
@@ -734,7 +734,7 @@ const html = `<!DOCTYPE html>
       <div class="header-top">
         <div>
           <h1><span class="kanji">極真</span> Kyokushin Training &amp; Kata Library</h1>
-          <p class="meta">Extracted index of videos from Kyokushin Online</p>
+          
           <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=" target="_blank" rel="noopener noreferrer">
             🔗 Original Training Page (Kyokushin.net)
           </a>
