@@ -58,8 +58,20 @@ const cardsHtml = videos.map((item, idx) => {
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
   
-  // Belt tag on left: Name | Belt
+  // Tags: Kata belt badge + Seminar tag
   const beltHtml = matched ? `<span class="belt-badge belt-${matched.belt.toLowerCase().replace(/\s+/g, '-')}">${matched.name}</span>` : '';
+  const seminarHtml = isSeminar ? `<span class="tag-seminar">Seminar</span>` : '';
+
+  const headerHtml = (beltHtml || seminarHtml || badgeHtml) ? `
+          <div class="card-header">
+            <div class="header-left">
+              ${beltHtml}
+              ${seminarHtml}
+            </div>
+            <div class="header-right">
+              ${badgeHtml}
+            </div>
+          </div>` : '';
 
   return `      <div class="kata-card" 
            data-id="${item.id}"
@@ -74,17 +86,9 @@ const cardsHtml = videos.map((item, idx) => {
            data-original-index="${idx}"
            onclick="handleCardClick(this)">
         <div class="card-main">
-          <div class="card-header">
-            <div class="header-left">
-              ${beltHtml}
-            </div>
-            <div class="header-right">
-              ${badgeHtml}
-            </div>
-          </div>
+${headerHtml}
           <div class="kata-title">${safeTitle}</div>
         </div>
-        
       </div>`;
 }).join('\n');
 
@@ -500,6 +504,17 @@ const html = `<!DOCTYPE html>
     .belt-brown { background: rgba(180, 83, 9, 0.22); color: #d97706; border: 1px solid rgba(180, 83, 9, 0.4); }
     .belt-dan-1, .belt-dan-2, .belt-dan-3, .belt-dan-4, .belt-dan-5 {
       background: rgba(0, 0, 0, 0.6); color: #e6edf3; border: 1px solid #e50914;
+    }
+
+    .tag-seminar {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      background: rgba(168, 85, 247, 0.16);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
     }
 
     .kata-title {
