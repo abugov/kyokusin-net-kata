@@ -251,7 +251,7 @@ const html = `<!DOCTYPE html>
       gap: 0.25rem;
     }
 
-    /* Clean Modal */
+    /* Modal */
     .modal-backdrop {
       position: fixed;
       top: 0;
@@ -271,7 +271,7 @@ const html = `<!DOCTYPE html>
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
       padding: 1.75rem;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
@@ -279,29 +279,36 @@ const html = `<!DOCTYPE html>
 
     .modal-head {
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 1.2rem;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .modal-head .doggi {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .modal-head .video-name {
+      color: #f0f6fc;
+      font-size: 1.1rem;
+      word-break: break-word;
     }
 
     .modal-body {
       font-size: 0.95rem;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.6;
       margin-bottom: 1.25rem;
-    }
-
-    .modal-target {
-      background: var(--bg);
-      border-left: 3px solid var(--badge-prime);
       padding: 0.75rem 1rem;
-      border-radius: 6px;
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-      color: var(--text);
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .modal-foot {
@@ -351,6 +358,16 @@ const html = `<!DOCTYPE html>
       background: #f40612;
     }
 
+    .remember-choice {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      cursor: pointer;
+    }
+
     @media (max-width: 640px) {
       .kata-list {
         grid-template-columns: 1fr;
@@ -397,16 +414,17 @@ ${cardsHtml}
   <div class="modal-backdrop" id="authModal">
     <div class="modal-card">
       <div class="modal-head">
-        <span>🥋</span>
-        <span id="modalTitle">Member / Prime Video</span>
+        <span class="doggi">🥋</span>
+        <span class="video-name" id="modalVideoName"></span>
       </div>
       <div class="modal-body">
-        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> or <strong style="color:#3b82f6">MEMBER</strong> account on Kyokushin Online.<br><br>
+        This video requires a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> account.<br>
         Would you like to open the <strong>Login page</strong> first, or <strong>continue</strong> directly to the video?
       </div>
-      <div class="modal-target">
-        Video: <strong id="modalKataName"></strong>
-      </div>
+      <label class="remember-choice">
+        <input type="checkbox" id="dontAskAgainCheckbox">
+        I am logged in &bull; Don't ask again (always continue directly)
+      </label>
       <div class="modal-foot">
         <button class="btn-action cancel" onclick="closeModal()">Cancel</button>
         <button class="btn-action continue" onclick="proceedToVideo()">Continue to Video</button>
@@ -426,11 +444,17 @@ ${cardsHtml}
       const badge = card.getAttribute('data-badge');
       const title = card.querySelector('.kata-title').innerText;
 
-      // If it is a PRIME or MEMBER video, always ask whether to open login or continue
+      // If user selected "Don't ask again", open directly
+      if (localStorage.getItem('kyokushin_always_continue') === 'true') {
+        window.open(url, '_blank');
+        return;
+      }
+
+      // If it is a PRIME or MEMBER video, ask whether to open login or continue
       if (badge === 'PRIME' || badge === 'MEMBER') {
         pendingVideoUrl = url;
         document.getElementById('modalBadgeText').innerText = badge;
-        document.getElementById('modalKataName').innerText = title;
+        document.getElementById('modalVideoName').innerText = title;
         document.getElementById('authModal').style.display = 'flex';
       } else {
         // Free / standard videos open directly
@@ -445,6 +469,10 @@ ${cardsHtml}
 
     function proceedToVideo() {
       const url = pendingVideoUrl;
+      const dontAsk = document.getElementById('dontAskAgainCheckbox').checked;
+      if (dontAsk) {
+        localStorage.setItem('kyokushin_always_continue', 'true');
+      }
       closeModal();
       if (url) window.open(url, '_blank');
     }
@@ -486,4 +514,4 @@ ${cardsHtml}
 </html>`;
 
 fs.writeFileSync('./index.html', html);
-console.log('Successfully updated index.html with prompt for PRIME/MEMBER videos!');
+console.log('Successfully updated index.html with new modal layout and bypass checkbox!');
