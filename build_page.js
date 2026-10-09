@@ -420,9 +420,9 @@ const html = `<!DOCTYPE html>
       border-color: rgba(180, 83, 9, 0.45);
     }
     .belt-btn[data-belt*="Dan"] {
-      background: rgba(229, 9, 20, 0.12);
-      color: #fca5a5;
-      border-color: rgba(229, 9, 20, 0.35);
+      background: rgba(212, 175, 55, 0.12);
+      color: #fde047;
+      border-color: rgba(212, 175, 55, 0.38);
     }
 
     /* Selected state: intense brightness, thick glowing border & pop-out shadow */
@@ -475,10 +475,10 @@ const html = `<!DOCTYPE html>
       box-shadow: 0 0 14px rgba(180, 83, 9, 0.7);
     }
     .belt-btn[data-belt*="Dan"].active {
-      background: #b91c1c;
-      color: #fff;
-      border-color: #ef4444;
-      box-shadow: 0 0 14px rgba(229, 9, 20, 0.7);
+      background: linear-gradient(135deg, #b48a1c, #85640e);
+      color: #ffffff;
+      border-color: #fde047;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.7);
     }
 
     .stats {
@@ -604,7 +604,10 @@ const html = `<!DOCTYPE html>
     .belt-green { background: rgba(34, 197, 94, 0.18); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); }
     .belt-brown { background: rgba(180, 83, 9, 0.22); color: #d97706; border: 1px solid rgba(180, 83, 9, 0.4); }
     .belt-dan-1, .belt-dan-2, .belt-dan-3, .belt-dan-4, .belt-dan-5 {
-      background: rgba(0, 0, 0, 0.6); color: #e6edf3; border: 1px solid #e50914;
+      background: rgba(0, 0, 0, 0.85);
+      color: #fef08a;
+      border: 1.5px solid #d4af37;
+      box-shadow: 0 0 6px rgba(212, 175, 55, 0.25);
     }
 
     .tag-seminar {
