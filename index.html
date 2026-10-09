@@ -29,7 +29,7 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       padding: 2.5rem 1.5rem;
       line-height: 1.5;
     }
@@ -40,7 +40,7 @@
     }
 
     header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 1.5rem;
     }
@@ -54,7 +54,7 @@
     }
 
     h1 {
-      font-family: Cinzel, serif;
+      font-family: 'Cinzel', serif;
       font-size: 2.1rem;
       letter-spacing: 0.05em;
       color: #fff;
@@ -135,6 +135,72 @@
       border-color: #8b949e;
     }
 
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e50914;
+      display: inline-block;
+    }
+
+    .status-dot.online {
+      background: #2ea043;
+      box-shadow: 0 0 8px rgba(46, 160, 67, 0.4);
+    }
+
+    .status-right {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn-small {
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #21262d;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .btn-small:hover {
+      background: #30363d;
+      color: #fff;
+    }
+
+    .btn-small.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-small.primary:hover {
+      background: #f40612;
+    }
+
     .stats {
       font-size: 0.85rem;
       color: var(--text-muted);
@@ -156,6 +222,7 @@
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      cursor: pointer;
       text-decoration: none;
       color: inherit;
     }
@@ -229,6 +296,66 @@
       gap: 0.25rem;
     }
 
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 1rem;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-body {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-target {
+      background: var(--bg);
+      border-left: 3px solid var(--badge-prime);
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .modal-foot {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
     @media (max-width: 640px) {
       .kata-list {
         grid-template-columns: 1fr;
@@ -255,19 +382,30 @@
       <div class="controls">
         <input type="text" id="searchInput" class="search-box" placeholder="Search kata (e.g. Pinan, Bassai, Garyu, 2020)..." oninput="filterKata()">
         <div class="filter-tags">
-          <button class="filter-btn active" onclick="setCategory(ALL)">All</button>
-          <button class="filter-btn" onclick="setCategory(Pinan)">Pinan</button>
-          <button class="filter-btn" onclick="setCategory(Taikyoku)">Taikyoku</button>
-          <button class="filter-btn" onclick="setCategory(Bunkai)">Bunkai</button>
-          <button class="filter-btn" onclick="setCategory(Seminar)">Seminars</button>
+          <button class="filter-btn active" onclick="setCategory('ALL')">All</button>
+          <button class="filter-btn" onclick="setCategory('Pinan')">Pinan</button>
+          <button class="filter-btn" onclick="setCategory('Taikyoku')">Taikyoku</button>
+          <button class="filter-btn" onclick="setCategory('Bunkai')">Bunkai</button>
+          <button class="filter-btn" onclick="setCategory('Seminar')">Seminars</button>
         </div>
       </div>
     </header>
 
-    <div class="stats" id="statsBar">Showing ${kataList.length} of ${kataList.length} videos</div>
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusLabel">Login Status: Not Logged In</span>
+      </div>
+      <div class="status-right">
+        <button class="btn-small" onclick="toggleLoginState()">Toggle "Logged In"</button>
+        <button class="btn-small primary" onclick="openLoginWindow()">Go to Login Page</button>
+      </div>
+    </div>
+
+    <div class="stats" id="statsBar">Showing 41 of 41 videos</div>
 
     <div class="kata-list" id="kataGrid">
-      <a class="kata-card" href="https://www.kyokushin.net/video/1184032950" target="_blank" rel="noopener noreferrer" data-title="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)">
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1184032950" data-badge="PRIME" data-title="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#1 &bull; ID: 1184032950</span>
@@ -279,8 +417,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1184032951" target="_blank" rel="noopener noreferrer" data-title="kata explanation: bassai (february 7, 2026 / from the online kata seminar)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1184032951" data-badge="PRIME" data-title="kata explanation: bassai (february 7, 2026 / from the online kata seminar)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#2 &bull; ID: 1184032951</span>
@@ -292,8 +430,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1184033042" target="_blank" rel="noopener noreferrer" data-title="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1184033042" data-badge="PRIME" data-title="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#3 &bull; ID: 1184033042</span>
@@ -305,8 +443,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1177631112" target="_blank" rel="noopener noreferrer" data-title="furukawa seiya’s methods for improving kata: insights from a five-time all-japan champion">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1177631112" data-badge="PRIME" data-title="furukawa seiya’s methods for improving kata: insights from a five-time all-japan champion" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#4 &bull; ID: 1177631112</span>
@@ -318,8 +456,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1068726220" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2025 : seipai">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1068726220" data-badge="MEMBER" data-title="kyokushin kata revision 2025 : seipai" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#5 &bull; ID: 1068726220</span>
@@ -331,8 +469,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1027913149" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (kanku, sushiho)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1027913149" data-badge="PRIME" data-title="2024 kata seminar part.1 (kanku, sushiho)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#6 &bull; ID: 1027913149</span>
@@ -344,8 +482,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1025404141" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (bassai, seienchin)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1025404141" data-badge="PRIME" data-title="2024 kata seminar part.1 (bassai, seienchin)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#7 &bull; ID: 1025404141</span>
@@ -357,8 +495,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1023625956" target="_blank" rel="noopener noreferrer" data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1023625956" data-badge="PRIME" data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#8 &bull; ID: 1023625956</span>
@@ -370,8 +508,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/1018270420" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2024 : garyu">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/1018270420" data-badge="PRIME" data-title="kyokushin kata revision 2024 : garyu" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#9 &bull; ID: 1018270420</span>
@@ -383,8 +521,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/977441769" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2023 : tekki sono san">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/977441769" data-badge="MEMBER" data-title="kyokushin kata revision 2023 : tekki sono san" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#10 &bull; ID: 977441769</span>
@@ -396,8 +534,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/977439492" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2024 : tekki sono ni">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/977439492" data-badge="MEMBER" data-title="kyokushin kata revision 2024 : tekki sono ni" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#11 &bull; ID: 977439492</span>
@@ -409,8 +547,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/868970017" target="_blank" rel="noopener noreferrer" data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/868970017" data-badge="PRIME" data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#12 &bull; ID: 868970017</span>
@@ -422,8 +560,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/867073116" target="_blank" rel="noopener noreferrer" data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/867073116" data-badge="PRIME" data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#13 &bull; ID: 867073116</span>
@@ -435,8 +573,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/810383040" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2023 : kanku">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/810383040" data-badge="MEMBER" data-title="kyokushin kata revision 2023 : kanku" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#14 &bull; ID: 810383040</span>
@@ -448,8 +586,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/661664814" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono go bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/661664814" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono go bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#15 &bull; ID: 661664814</span>
@@ -461,8 +599,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/661664935" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : yantsu bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/661664935" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : yantsu bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#16 &bull; ID: 661664935</span>
@@ -474,8 +612,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/633550574" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : bassai">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/633550574" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : bassai" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#17 &bull; ID: 633550574</span>
@@ -487,8 +625,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/605658036" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono yon bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/605658036" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono yon bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#18 &bull; ID: 605658036</span>
@@ -500,8 +638,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/605657744" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono san bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/605657744" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono san bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#19 &bull; ID: 605657744</span>
@@ -513,8 +651,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/614144774" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ni bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/614144774" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono ni bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#20 &bull; ID: 614144774</span>
@@ -526,8 +664,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/614144940" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ichi bunkai kumite">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/614144940" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono ichi bunkai kumite" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#21 &bull; ID: 614144940</span>
@@ -539,8 +677,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219663" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : tekki sono ichi">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219663" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : tekki sono ichi" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#22 &bull; ID: 486219663</span>
@@ -552,8 +690,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219808" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : seienchin">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219808" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : seienchin" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#23 &bull; ID: 486219808</span>
@@ -565,8 +703,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219296" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono ni">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219296" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : gekisai sono ni" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#24 &bull; ID: 486219296</span>
@@ -578,8 +716,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219322" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono ichi">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219322" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : gekisai sono ichi" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#25 &bull; ID: 486219322</span>
@@ -591,8 +729,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486272839" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sanchin">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486272839" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : sanchin" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#26 &bull; ID: 486272839</span>
@@ -604,8 +742,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219405" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : saifa">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219405" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : saifa" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#27 &bull; ID: 486219405</span>
@@ -617,8 +755,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219330" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : gekisai sono san(gekisai shou)">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219330" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : gekisai sono san(gekisai shou)" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#28 &bull; ID: 486219330</span>
@@ -630,8 +768,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486219136" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : yantsu">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486219136" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : yantsu" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#29 &bull; ID: 486219136</span>
@@ -643,8 +781,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486272854" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : tsukinokata">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486272854" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : tsukinokata" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#30 &bull; ID: 486272854</span>
@@ -656,8 +794,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486217774" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono go">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486217774" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono go" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#31 &bull; ID: 486217774</span>
@@ -669,8 +807,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486217809" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono yon">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486217809" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono yon" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#32 &bull; ID: 486217809</span>
@@ -682,8 +820,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486217825" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono san">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486217825" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono san" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#33 &bull; ID: 486217825</span>
@@ -695,8 +833,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486217851" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ni">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486217851" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono ni" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#34 &bull; ID: 486217851</span>
@@ -708,8 +846,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486217759" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : pinan sono ichi">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486217759" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : pinan sono ichi" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#35 &bull; ID: 486217759</span>
@@ -721,8 +859,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215424" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono san">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215424" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono san" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#36 &bull; ID: 486215424</span>
@@ -734,8 +872,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215173" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ni">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215173" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ni" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#37 &bull; ID: 486215173</span>
@@ -747,8 +885,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215128" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ichi">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215128" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ichi" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#38 &bull; ID: 486215128</span>
@@ -760,8 +898,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215178" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono san">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215178" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : taikyoku sono san" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#39 &bull; ID: 486215178</span>
@@ -773,8 +911,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215219" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono ni">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215219" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : taikyoku sono ni" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#40 &bull; ID: 486215219</span>
@@ -786,8 +924,8 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
-      <a class="kata-card" href="https://www.kyokushin.net/video/486215214" target="_blank" rel="noopener noreferrer" data-title="kyokushin kata revision 2020 : taikyoku sono ichi">
+      </div>
+      <div class="kata-card" data-href="https://www.kyokushin.net/video/486215214" data-badge="MEMBER" data-title="kyokushin kata revision 2020 : taikyoku sono ichi" onclick="handleCardClick(this)">
         <div>
           <div class="card-header">
             <span class="video-id">#41 &bull; ID: 486215214</span>
@@ -799,42 +937,133 @@
           <span>Direct Video</span>
           <span class="open-btn">Watch &rarr;</span>
         </div>
-      </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Prompt Modal -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span>🔐</span>
+        <span id="modalTitle">Login Required</span>
+      </div>
+      <div class="modal-body">
+        This is a <strong id="modalBadgeText" style="color:#f59e0b">PRIME</strong> video on Kyokushin Online.<br><br>
+        If you are not logged in with your Google / Kyokushin member account, the video player will stay stuck on <em>"Loading..."</em>.
+      </div>
+      <div class="modal-target">
+        Selected Kata: <strong id="modalKataName"></strong>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-small" onclick="closeModal()">Cancel</button>
+        <button class="btn-small" onclick="proceedToVideo()">Continue to Video</button>
+        <button class="btn-small primary" onclick="goToLoginAndSave()">Log In First &rarr;</button>
+      </div>
     </div>
   </div>
 
   <script>
-    const allCards = document.querySelectorAll(.kata-card);
-    const statsBar = document.getElementById(statsBar);
-    let currentCategory = ALL;
+    const allCards = Array.from(document.querySelectorAll('.kata-card'));
+    const statsBar = document.getElementById('statsBar');
+    let currentCategory = 'ALL';
+    let pendingVideoUrl = '';
+
+    // Check login state from localStorage
+    function isUserLoggedIn() {
+      return localStorage.getItem('kyokushin_user_logged_in') === 'true';
+    }
+
+    function updateStatusUI() {
+      const logged = isUserLoggedIn();
+      const dot = document.getElementById('statusDot');
+      const label = document.getElementById('statusLabel');
+      if (logged) {
+        dot.className = 'status-dot online';
+        label.innerHTML = 'Login Status: <strong>Logged In</strong> (Direct play enabled)';
+      } else {
+        dot.className = 'status-dot';
+        label.innerHTML = 'Login Status: <strong>Not Logged In</strong> (Prompt will ask before playing)';
+      }
+    }
+
+    function toggleLoginState() {
+      const current = isUserLoggedIn();
+      localStorage.setItem('kyokushin_user_logged_in', current ? 'false' : 'true');
+      updateStatusUI();
+    }
+
+    function openLoginWindow() {
+      localStorage.setItem('kyokushin_user_logged_in', 'true');
+      updateStatusUI();
+      window.open('https://www.kyokushin.net/login', '_blank');
+    }
+
+    function handleCardClick(card) {
+      const url = card.getAttribute('data-href');
+      const badge = card.getAttribute('data-badge');
+      const title = card.querySelector('.kata-title').innerText;
+
+      // If user is NOT logged in and clicking a MEMBER or PRIME video:
+      if (!isUserLoggedIn() && (badge === 'PRIME' || badge === 'MEMBER')) {
+        pendingVideoUrl = url;
+        document.getElementById('modalBadgeText').innerText = badge;
+        document.getElementById('modalKataName').innerText = title;
+        document.getElementById('modalTitle').innerText = badge + ' Video &bull; Authentication Needed';
+        document.getElementById('authModal').style.display = 'flex';
+      } else {
+        window.open(url, '_blank');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('authModal').style.display = 'none';
+      pendingVideoUrl = '';
+    }
+
+    function proceedToVideo() {
+      const url = pendingVideoUrl;
+      closeModal();
+      if (url) window.open(url, '_blank');
+    }
+
+    function goToLoginAndSave() {
+      const url = pendingVideoUrl;
+      closeModal();
+      localStorage.setItem('kyokushin_user_logged_in', 'true');
+      updateStatusUI();
+      window.open('https://www.kyokushin.net/login', '_blank');
+    }
 
     function setCategory(cat) {
       currentCategory = cat;
-      document.querySelectorAll(.filter-btn).forEach(btn => {
-        btn.classList.toggle(active, btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === ALL && btn.innerText === All));
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'ALL' && btn.innerText === 'All'));
       });
       filterKata();
     }
 
     function filterKata() {
-      const q = document.getElementById(searchInput).value.trim().toLowerCase();
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
       let count = 0;
 
       allCards.forEach(card => {
-        const title = card.getAttribute(data-title);
+        const title = card.getAttribute('data-title') || '';
         const matchesQuery = !q || title.includes(q);
-        const matchesCategory = currentCategory === ALL || title.includes(currentCategory.toLowerCase());
+        const matchesCategory = currentCategory === 'ALL' || title.includes(currentCategory.toLowerCase());
 
         if (matchesQuery && matchesCategory) {
-          card.style.display = flex;
+          card.style.display = 'flex';
           count++;
         } else {
-          card.style.display = none;
+          card.style.display = 'none';
         }
       });
 
-      statsBar.innerText = `Showing ${count} of ${allCards.length} videos`;
+      statsBar.innerText = 'Showing ' + count + ' of ' + allCards.length + ' videos';
     }
+
+    updateStatusUI();
   </script>
 </body>
 </html>
