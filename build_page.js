@@ -1,71 +1,70 @@
 const fs = require('fs');
 const videos = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
 
-// Kyokushin belt hierarchy sequence
-const BELT_SEQUENCE = [
-  "White",
-  "Orange",
-  "Blue",
-  "Yellow",
-  "Green",
-  "Brown",
-  "Dan 1",
-  "Dan 2",
-  "Dan 3",
-  "Dan 4",
-  "Dan 5"
-];
-
-function getNextBeltColor(belt) {
-  const normalized = (belt || "").trim().toLowerCase();
-  const idx = BELT_SEQUENCE.findIndex(b => b.toLowerCase() === normalized);
-  if (idx !== -1 && idx + 1 < BELT_SEQUENCE.length) {
-    return BELT_SEQUENCE[idx + 1];
-  }
-  return null;
-}
-
-// The 28 canonical katas in requested order with order index, belts & matching keywords (English & Japanese)
+// The 28 canonical katas in requested order with order index, belts, stripes & matching keywords (English & Japanese)
 const KATA_MAP = [
-  { order: 1, name: "Taikyoku Sono Ichi", belt: "White", keywords: ["taikyoku sono ichi", "taikyoku sonoichi", "太極その1", "太極その一", "太極その１", "太極其の一"] },
-  { order: 2, name: "Taikyoku Sono Ni", belt: "White", keywords: ["taikyoku sono ni", "taikyoku sononi", "太極その2", "太極その二", "太極その２", "太極其の二"] },
-  { order: 3, name: "Sokugi Taikyoku Sono Ichi", belt: "White", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi", "足技太極その1", "足技太極その一", "足技太極その１"] },
-  { order: 4, name: "Taikyoku Sono San", belt: "Orange", keywords: ["taikyoku sono san", "taikyoku sonosan", "太極その3", "太極その三", "太極その３", "太極其の三"] },
-  { order: 5, name: "Sokugi Taikyoku Sono Ni", belt: "Orange", stripe: true, keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi", "足技太極その2", "足技太極その二", "足技太極その２"] },
-  { order: 6, name: "Sokugi Taikyoku Sono San", belt: "Orange", stripe: true, keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan", "足技太極その3", "足技太極その三", "足技太極その３"] },
-  { order: 7, name: "Pinan Sono Ichi", belt: "Blue", keywords: ["pinan sono ichi", "pinan sonoichi", "平安その1", "平安その一", "平安その１"] },
-  { order: 8, name: "Pinan Sono Ni", belt: "Blue", keywords: ["pinan sono ni", "pinan sononi", "平安その2", "平安その二", "平安その２"] },
-  { order: 9, name: "Sanchin", belt: "Blue", stripe: true, keywords: ["sanchin", "三戦", "サンチン"] },
-  { order: 10, name: "Pinan Sono San", belt: "Yellow", keywords: ["pinan sono san", "pinan sonosan", "平安その3", "平安その三", "平安その３"] },
-  { order: 11, name: "Yantsu", belt: "Yellow", keywords: ["yantsu", "安三", "ヤンツ"] },
-  { order: 12, name: "Pinan Sono Yon", belt: "Yellow", stripe: true, keywords: ["pinan sono yon", "pinan sonoyon", "平安その4", "平安その四", "平安その４"] },
-  { order: 13, name: "Tsuki no Kata", belt: "Yellow", stripe: true, keywords: ["tsuki no kata", "tsukinokata", "tsukino kata", "突きの型"] },
-  { order: 14, name: "Pinan Sono Go", belt: "Green", keywords: ["pinan sono go", "pinan sonogo", "平安その5", "平安その五", "平安その５"] },
-  { order: 15, name: "Gekisai sono ichi", belt: "Green", keywords: ["gekisai sono ichi", "gekisai sonoichi", "撃砕その1", "撃砕その一", "撃砕その１", "撃砕其の一"] },
-  { order: 16, name: "Gekisai sono ni", belt: "Green", stripe: true, keywords: ["gekisai sono ni", "gekisai sononi", "撃砕その2", "撃砕その二", "撃砕その２", "撃砕其の二"] },
-  { order: 17, name: "Tekki sono ichi", belt: "Green", stripe: true, keywords: ["tekki sono ichi", "tekki sonoichi", "鉄騎その1", "鉄騎その一", "鉄騎その１", "鉄騎其の一"] },
-  { order: 18, name: "Gekisai sono san", belt: "Brown", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou", "撃砕その3", "撃砕その三", "撃砕その３", "撃砕小"] },
-  { order: 19, name: "Tekki sono ni", belt: "Brown", keywords: ["tekki sono ni", "tekki sononi", "鉄騎その2", "鉄騎その二", "鉄騎その２", "鉄騎其の二"] },
-  { order: 20, name: "Saifa", belt: "Brown", stripe: true, keywords: ["saifa", "最破", "サイファ", "サイハ"] },
-  { order: 21, name: "Garyu", belt: "Dan 1", keywords: ["garyu", "臥龍", "臥竜", "ガリュウ"] },
-  { order: 22, name: "Seienchin", belt: "Dan 1", keywords: ["seienchin", "征遠鎮", "セイエンチン"] },
-  { order: 23, name: "Bassai", belt: "Dan 1", keywords: ["bassai", "抜塞", "バッサイ"] },
-  { order: 24, name: "Tekki sono san", belt: "Dan 1", keywords: ["tekki sono san", "tekki sonosan", "鉄騎その3", "鉄騎その三", "鉄騎その３", "鉄騎其の三"] },
-  { order: 25, name: "Seipai", belt: "Dan 2", keywords: ["seipai", "十八", "セーパイ", "セイパイ"] },
-  { order: 26, name: "Kanku", belt: "Dan 3", keywords: ["kanku", "観空", "カンクウ"] },
-  { order: 27, name: "Sushiho", belt: "Dan 4", keywords: ["sushiho", "五十四歩", "スーシーホ"] },
-  { order: 28, name: "Tensho", belt: "Dan 5", keywords: ["tensho", "転掌", "テンショウ"] }
+  { order: 1, name: "Taikyoku Sono Ichi", belt: "White", stripe: "", keywords: ["taikyoku sono ichi", "taikyoku sonoichi", "太極その1", "太極その一", "太極その１", "太極其の一"] },
+  { order: 2, name: "Taikyoku Sono Ni", belt: "White", stripe: "", keywords: ["taikyoku sono ni", "taikyoku sononi", "太極その2", "太極その二", "太極その２", "太極其の二"] },
+  { order: 3, name: "Sokugi Taikyoku Sono Ichi", belt: "White", stripe: "", keywords: ["sokugi taikyoku sono ichi", "sokugi taikyoku sonoichi", "足技太極その1", "足技太極その一", "足技太極その１"] },
+  { order: 4, name: "Taikyoku Sono San", belt: "Orange", stripe: "", keywords: ["taikyoku sono san", "taikyoku sonosan", "太極その3", "太極その三", "太極その３", "太極其の三"] },
+  { order: 5, name: "Sokugi Taikyoku Sono Ni", belt: "Orange", stripe: "blue", keywords: ["sokugi taikyoku sono ni", "sokugi taikyoku sononi", "足技太極その2", "足技太極その二", "足技太極その２"] },
+  { order: 6, name: "Sokugi Taikyoku Sono San", belt: "Orange", stripe: "blue", keywords: ["sokugi taikyoku sono san", "sokugi taikyoku sonosan", "足技太極その3", "足技太極その三", "足技太極その３"] },
+  { order: 7, name: "Pinan Sono Ichi", belt: "Blue", stripe: "", keywords: ["pinan sono ichi", "pinan sonoichi", "平安その1", "平安その一", "平安その１"] },
+  { order: 8, name: "Pinan Sono Ni", belt: "Blue", stripe: "", keywords: ["pinan sono ni", "pinan sononi", "平安その2", "平安その二", "平安その２"] },
+  { order: 9, name: "Sanchin", belt: "Blue", stripe: "yellow", keywords: ["sanchin", "三戦", "サンチン"] },
+  { order: 10, name: "Pinan Sono San", belt: "Yellow", stripe: "", keywords: ["pinan sono san", "pinan sonosan", "平安その3", "平安その三", "平安その３"] },
+  { order: 11, name: "Yantsu", belt: "Yellow", stripe: "", keywords: ["yantsu", "安三", "ヤンツ"] },
+  { order: 12, name: "Pinan Sono Yon", belt: "Yellow", stripe: "green", keywords: ["pinan sono yon", "pinan sonoyon", "平安その4", "平安その四", "平安その４"] },
+  { order: 13, name: "Tsuki no Kata", belt: "Yellow", stripe: "green", keywords: ["tsuki no kata", "tsukinokata", "tsukino kata", "突きの型"] },
+  { order: 14, name: "Pinan Sono Go", belt: "Green", stripe: "", keywords: ["pinan sono go", "pinan sonogo", "平安その5", "平安その五", "平安その５"] },
+  { order: 15, name: "Gekisai sono ichi", belt: "Green", stripe: "", keywords: ["gekisai sono ichi", "gekisai sonoichi", "撃砕その1", "撃砕その一", "撃砕その１", "撃砕其の一"] },
+  { order: 16, name: "Gekisai sono ni", belt: "Green", stripe: "brown", keywords: ["gekisai sono ni", "gekisai sononi", "撃砕その2", "撃砕その二", "撃砕その２", "撃砕其の二"] },
+  { order: 17, name: "Tekki sono ichi", belt: "Green", stripe: "brown", keywords: ["tekki sono ichi", "tekki sonoichi", "鉄騎その1", "鉄騎その一", "鉄騎その１", "鉄騎其の一"] },
+  { order: 18, name: "Gekisai sono san", belt: "Brown", stripe: "", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou", "撃砕その3", "撃砕その三", "撃砕その３", "撃砕小"] },
+  { order: 19, name: "Tekki sono ni", belt: "Brown", stripe: "", keywords: ["tekki sono ni", "tekki sononi", "鉄騎その2", "鉄騎その二", "鉄騎その２", "鉄騎其の二"] },
+  { order: 20, name: "Saifa", belt: "Brown", stripe: "black", keywords: ["saifa", "最破", "サイファ", "サイハ"] },
+  { order: 21, name: "Garyu", belt: "Dan 1", stripe: "dan-1", keywords: ["garyu", "臥龍", "臥竜", "ガリュウ"] },
+  { order: 22, name: "Seienchin", belt: "Dan 1", stripe: "dan-1", keywords: ["seienchin", "征遠鎮", "セイエンチン"] },
+  { order: 23, name: "Bassai", belt: "Dan 1", stripe: "dan-1", keywords: ["bassai", "抜塞", "バッサイ"] },
+  { order: 24, name: "Tekki sono san", belt: "Dan 1", stripe: "dan-1", keywords: ["tekki sono san", "tekki sonosan", "鉄騎その3", "鉄騎その三", "鉄騎その３", "鉄騎其の三"] },
+  { order: 25, name: "Seipai", belt: "Dan 2", stripe: "dan-2", keywords: ["seipai", "十八", "セーパイ", "セイパイ"] },
+  { order: 26, name: "Kanku", belt: "Dan 3", stripe: "dan-3", keywords: ["kanku", "観空", "カンクウ"] },
+  { order: 27, name: "Sushiho", belt: "Dan 4", stripe: "dan-4", keywords: ["sushiho", "五十四歩", "スーシーホ"] },
+  { order: 28, name: "Tensho", belt: "Dan 5", stripe: "dan-5", keywords: ["tensho", "転掌", "テンショウ"] }
 ];
 
-// Automatically populate stripeColor for any kata that has stripe defined
-KATA_MAP.forEach(k => {
-  if (k.stripe) {
-    k.stripeColor = typeof k.stripe === 'string' ? k.stripe : getNextBeltColor(k.belt);
-  } else {
-    k.stripe = false;
-    k.stripeColor = null;
+function parseStripe(stripeValue) {
+  if (!stripeValue) return null;
+  const s = String(stripeValue).trim().toLowerCase();
+  if (!s) return null;
+
+  const danMatch = s.match(/^dan-(\d+)$/);
+  if (danMatch) {
+    const count = parseInt(danMatch[1], 10);
+    return {
+      type: 'gold',
+      colorClass: 'stripe-gold',
+      count: count,
+      label: `${count} golden stripe${count > 1 ? 's' : ''}`
+    };
   }
-});
+
+  if (s === 'black') {
+    return {
+      type: 'black',
+      colorClass: 'stripe-black',
+      count: 1,
+      label: 'Black stripe'
+    };
+  }
+
+  return {
+    type: s,
+    colorClass: `stripe-${s}`,
+    count: 1,
+    label: `${s.charAt(0).toUpperCase() + s.slice(1)} stripe`
+  };
+}
 
 function matchKata(title) {
   const t = title.toLowerCase();
@@ -89,6 +88,7 @@ const cardsHtml = videos.map((item, idx) => {
   const isSeminar = /seminar/i.test(item.title) || /講習会|セミナー/i.test(item.title);
   const isBunkai = /bunkai|分解/i.test(item.title);
   const isKata = !!matched;
+  const isMainKata = isKata && !isSeminar && !isBunkai;
 
   const badgeHtml = item.badge ? `<span class="badge ${item.badge.toLowerCase()}">${item.badge}</span>` : '';
   const safeTitle = item.title.replace(/"/g, '&quot;');
@@ -97,12 +97,16 @@ const cardsHtml = videos.map((item, idx) => {
   let beltHtml = '';
   if (matched) {
     const beltClass = matched.belt.toLowerCase().replace(/\s+/g, '-');
-    const hasStripe = !!matched.stripeColor;
-    const stripeName = matched.stripeColor === 'Dan 1' ? 'Black' : matched.stripeColor;
-    const stripeHtml = hasStripe 
-      ? `<span class="belt-stripe stripe-${matched.stripeColor.toLowerCase().replace(/\s+/g, '-')}" title="${stripeName} stripe"></span>` 
-      : '';
-    beltHtml = `<span class="belt-badge belt-${beltClass}${hasStripe ? ' has-stripe' : ''}">${matched.name}${stripeHtml}</span>`;
+    const stripeInfo = parseStripe(matched.stripe);
+    if (stripeInfo) {
+      const stripesSpans = Array.from({ length: stripeInfo.count }, () =>
+        `<span class="belt-stripe ${stripeInfo.colorClass}"></span>`
+      ).join('');
+      const stripesContainer = `<span class="belt-stripes-container" title="${stripeInfo.label}">${stripesSpans}</span>`;
+      beltHtml = `<span class="belt-badge belt-${beltClass} has-stripe stripe-count-${stripeInfo.count}">${matched.name}${stripesContainer}</span>`;
+    } else {
+      beltHtml = `<span class="belt-badge belt-${beltClass}">${matched.name}</span>`;
+    }
   }
   const seminarHtml = isSeminar ? `<span class="tag-seminar">Seminar</span>` : '';
   const bunkaiHtml = isBunkai ? `<span class="tag-bunkai">Bunkai</span>` : '';
@@ -122,17 +126,18 @@ const cardsHtml = videos.map((item, idx) => {
   // Calculate extra tag count: Bunkai and Seminar tags
   const extraTagCount = (isBunkai ? 1 : 0) + (isSeminar ? 1 : 0);
 
-  return `      <div class="kata-card" 
+  return `      <div class="kata-card${isMainKata ? ' is-main-kata' : ''}" 
            data-id="${item.id}"
            data-href="${item.url}" 
            data-badge="${item.badge || ''}" 
            data-title="${safeTitle.toLowerCase()}" 
            data-is-kata="${isKata ? '1' : '0'}"
+           data-is-main="${isMainKata ? '1' : '0'}"
            data-is-seminar="${isSeminar ? '1' : '0'}"
            data-is-bunkai="${isBunkai ? '1' : '0'}"
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
-           data-stripe="${matched && matched.stripeColor ? matched.stripeColor : ''}"
+           data-stripe="${matched ? (matched.stripe || '') : ''}"
            data-order="${matched ? matched.order : 999}"
            data-extra-tags="${extraTagCount}"
            data-original-index="${idx}"
@@ -150,6 +155,22 @@ const html = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kyokushin Training Quick Search</title>
+
+  <!-- Mobile & PWA meta tags for Android Chrome "Add to Home screen" & standalone shortcut -->
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Kyokushin">
+  <meta name="application-name" content="Kyokushin">
+
+  <!-- App Manifest & Icons -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -175,9 +196,12 @@ const html = `<!DOCTYPE html>
     5. CANONICAL BELT PROGRESSION & STRIPES:
        Keep the strict 1 to 28 sequential order as defined in KATA_MAP (White -> Orange -> Blue ->
        Yellow -> Green -> Brown -> Dan 1 -> Dan 2 -> Dan 3 -> Dan 4 -> Dan 5).
-       Belt stripe color is dynamically derived from the next belt color in BELT_SEQUENCE.
+       Belt stripes are explicitly defined in KATA_MAP ('', 'blue', 'dan-1', 'dan-2'...) with golden stripes for Dan ranks.
        In the Kata filter, cards are ordered by Kata canonical order, then by fewer tags first
        (plain kata video before [Bunkai] before [Seminar]).
+    6. MAIN KATA DEMONSTRATION VIDEO ACCENT:
+       The primary demonstration video for each Kata (i.e. isKata and not Seminar and not Bunkai)
+       is styled with an amber left spine border (.is-main-kata) to immediately stand out.
     =============================================================================================
   -->
 
@@ -514,6 +538,17 @@ const html = `<!DOCTYPE html>
       background: var(--card-hover);
     }
 
+    /* Primary Kata video accent: solid 4px amber left border + soft gradient */
+    .kata-card.is-main-kata {
+      border-left: 4px solid #f59e0b;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, var(--card-bg) 35%);
+    }
+
+    .kata-card.is-main-kata:hover {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, var(--card-hover) 35%);
+      border-left-color: #fbbf24;
+    }
+
     .card-main {
       display: flex;
       align-items: center;
@@ -577,14 +612,28 @@ const html = `<!DOCTYPE html>
     .belt-badge.has-stripe {
       padding-right: 1.15rem;
     }
-    .belt-stripe {
+    .belt-badge.has-stripe.stripe-count-1 { padding-right: 1.15rem; }
+    .belt-badge.has-stripe.stripe-count-2 { padding-right: 1.45rem; }
+    .belt-badge.has-stripe.stripe-count-3 { padding-right: 1.75rem; }
+    .belt-badge.has-stripe.stripe-count-4 { padding-right: 2.05rem; }
+    .belt-badge.has-stripe.stripe-count-5 { padding-right: 2.35rem; }
+
+    .belt-stripes-container {
       position: absolute;
       right: 5px;
       top: 3px;
       bottom: 3px;
-      width: 4px;
-      border-radius: 1.5px;
+      display: flex;
+      align-items: stretch;
+      gap: 2px;
       pointer-events: none;
+    }
+    .belt-stripe {
+      width: 2.5px;
+      border-radius: 1px;
+    }
+    .stripe-count-1 .belt-stripe {
+      width: 3.5px;
     }
     .stripe-white { background-color: #ffffff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.85); }
     .stripe-orange { background-color: #f97316; box-shadow: 0 0 5px rgba(249, 115, 22, 0.85); }
@@ -592,10 +641,14 @@ const html = `<!DOCTYPE html>
     .stripe-yellow { background-color: #facc15; box-shadow: 0 0 6px rgba(250, 204, 21, 0.9); }
     .stripe-green { background-color: #22c55e; box-shadow: 0 0 6px rgba(34, 197, 94, 0.9); }
     .stripe-brown { background-color: #78350f; box-shadow: 0 0 4px rgba(120, 53, 15, 0.9); }
-    .stripe-dan-1, .stripe-dan-2, .stripe-dan-3, .stripe-dan-4, .stripe-dan-5, .stripe-black {
+    .stripe-black {
       background-color: #000000;
       border: 1px solid rgba(255, 255, 255, 0.55);
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+    }
+    .stripe-gold {
+      background-color: #fde047;
+      box-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
     }
     .belt-white { background: rgba(255, 255, 255, 0.12); color: #f0f6fc; border: 1px solid rgba(255, 255, 255, 0.25); }
     .belt-orange { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
@@ -800,10 +853,10 @@ const html = `<!DOCTYPE html>
 
       <div class="toolbar-row">
         <div class="filter-tags">
+          <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
           <button class="filter-btn active" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
           <button class="filter-btn" id="btn-SEMINAR" onclick="setCategory('SEMINAR')">Seminar</button>
           <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the rest</button>
-          <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
         </div>
       </div>
 
@@ -1008,6 +1061,15 @@ ${cardsHtml}
 
     // Apply default filter and sorting on load
     filterKata();
+
+    // Register Service Worker for PWA installability & offline caching
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.log('SW registration note:', err);
+        });
+      });
+    }
   </script>
 </body>
 </html>`;
