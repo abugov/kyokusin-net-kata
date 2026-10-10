@@ -1,4 +1,4 @@
-# Kyokushin Kata Library (kyokusin-net-kata)
+# Kyokushin Quick Search (kyokushin-net-quick-search)
 
 Phase 1 implementation for indexing and browsing all kata videos from [Kyokushin Online](https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=kata).
 
