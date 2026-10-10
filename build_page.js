@@ -457,6 +457,10 @@ const html = `<!DOCTYPE html>
       box-shadow: 0 0 0 1px #58a6ff;
     }
 
+    .filter-btn#btn-NEW {
+      transition: all 0.4s ease;
+    }
+
     /* "New" button emerald styling when new videos exist */
     .filter-btn#btn-NEW.is-new-active {
       color: #34d399;
@@ -1248,8 +1252,9 @@ ${cardsHtml}
         });
     }
 
-    // Run background check every 1 hour
-    setInterval(checkScrapeStatus, 60 * 60 * 1000);
+    // Run background check periodically (every 1.5s on localhost for live dev, 60s in production)
+    const pollInterval = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 1500 : 60 * 1000;
+    setInterval(checkScrapeStatus, pollInterval);
 
     // Register Service Worker for PWA installability & offline caching
     if ('serviceWorker' in navigator) {
