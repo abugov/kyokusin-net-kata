@@ -112,8 +112,9 @@ videos.forEach((item, originalIdx) => {
 });
 
 const cardsHtml = expandedCards.map(({ item, matched, originalIdx, subIdx, isMultiKata }) => {
-  const isSeminar = /seminar/i.test(item.title) || /講習会|セミナー/i.test(item.title);
-  const isBunkai = /bunkai|分解/i.test(item.title);
+  const isExplanation = /explanation|解説/i.test(item.title);
+  const isBunkai = /bunkai|分解/i.test(item.title) || isExplanation;
+  const isSeminar = (/seminar/i.test(item.title) || /講習会|セミナー/i.test(item.title)) && !isExplanation;
   const isKata = !!matched;
   const isMainKata = isKata && !isSeminar && !isBunkai;
 
@@ -244,6 +245,9 @@ const html = `<!DOCTYPE html>
        positioned under that specific kata with its belt badge.
        In SEMINAR and ALL views, duplicate cards are de-duplicated (subIdx === 0) so each video appears once.
        kata_links.json MUST remain virgin.
+    8. KATA EXPLANATION IS BUNKAI (NOT SEMINAR):
+       Videos titled "Kata Explanation: ..." (even if containing "(From the Online Kata Seminar)")
+       represent kata technique breakdown (Bunkai) and must be tagged as Bunkai and NOT Seminar.
     =============================================================================================
   -->
 
@@ -1127,12 +1131,11 @@ ${cardsHtml}
           }
         } else if (currentCategory === 'SEMINAR') {
           if (subIdx === 0) {
-            matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+            matchesCategory = isSeminar;
           }
         } else if (currentCategory === 'REST') {
           if (subIdx === 0) {
-            const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
-            matchesCategory = !isKata && !isSem;
+            matchesCategory = !isKata && !isSeminar;
           }
         } else if (currentCategory === 'ALL') {
           if (subIdx === 0) {
@@ -1147,7 +1150,7 @@ ${cardsHtml}
         }
         const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
         const isBunkaiCard = card.getAttribute('data-is-bunkai') === '1';
-        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
+        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解' || q === 'explanation' || q === '解説'));
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';

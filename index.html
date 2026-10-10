@@ -57,6 +57,9 @@
        positioned under that specific kata with its belt badge.
        In SEMINAR and ALL views, duplicate cards are de-duplicated (subIdx === 0) so each video appears once.
        kata_links.json MUST remain virgin.
+    8. KATA EXPLANATION IS BUNKAI (NOT SEMINAR):
+       Videos titled "Kata Explanation: ..." (even if containing "(From the Online Kata Seminar)")
+       represent kata technique breakdown (Bunkai) and must be tagged as Bunkai and NOT Seminar.
     =============================================================================================
   -->
 
@@ -850,8 +853,8 @@
            data-kata-search="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
-           data-is-seminar="1"
-           data-is-bunkai="0"
+           data-is-seminar="0"
+           data-is-bunkai="1"
            data-is-multi="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
@@ -866,8 +869,8 @@
           <div class="card-header">
             <div class="header-left">
               <span class="belt-badge belt-dan-1 has-stripe stripe-count-1">Seienchin<span class="belt-stripes-container" title="1 golden stripe"><span class="belt-stripe stripe-gold"></span></span></span>
-              <span class="tag-seminar">Seminar</span>
               
+              <span class="tag-bunkai">Bunkai</span>
             </div>
             <div class="header-right">
               
@@ -884,8 +887,8 @@
            data-kata-search="kata explanation: bassai (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
-           data-is-seminar="1"
-           data-is-bunkai="0"
+           data-is-seminar="0"
+           data-is-bunkai="1"
            data-is-multi="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
@@ -900,8 +903,8 @@
           <div class="card-header">
             <div class="header-left">
               <span class="belt-badge belt-dan-1 has-stripe stripe-count-1">Bassai<span class="belt-stripes-container" title="1 golden stripe"><span class="belt-stripe stripe-gold"></span></span></span>
-              <span class="tag-seminar">Seminar</span>
               
+              <span class="tag-bunkai">Bunkai</span>
             </div>
             <div class="header-right">
               
@@ -918,8 +921,8 @@
            data-kata-search="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
-           data-is-seminar="1"
-           data-is-bunkai="0"
+           data-is-seminar="0"
+           data-is-bunkai="1"
            data-is-multi="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
@@ -934,8 +937,8 @@
           <div class="card-header">
             <div class="header-left">
               <span class="belt-badge belt-dan-4 has-stripe stripe-count-4">Sushiho<span class="belt-stripes-container" title="4 golden stripes"><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span></span></span>
-              <span class="tag-seminar">Seminar</span>
               
+              <span class="tag-bunkai">Bunkai</span>
             </div>
             <div class="header-right">
               
@@ -4373,12 +4376,11 @@
           }
         } else if (currentCategory === 'SEMINAR') {
           if (subIdx === 0) {
-            matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+            matchesCategory = isSeminar;
           }
         } else if (currentCategory === 'REST') {
           if (subIdx === 0) {
-            const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
-            matchesCategory = !isKata && !isSem;
+            matchesCategory = !isKata && !isSeminar;
           }
         } else if (currentCategory === 'ALL') {
           if (subIdx === 0) {
@@ -4393,7 +4395,7 @@
         }
         const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
         const isBunkaiCard = card.getAttribute('data-is-bunkai') === '1';
-        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
+        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解' || q === 'explanation' || q === '解説'));
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';
