@@ -51,6 +51,12 @@
     6. MAIN KATA DEMONSTRATION VIDEO ACCENT:
        The primary demonstration video for each Kata (i.e. isKata and not Seminar and not Bunkai)
        is styled with an amber left spine border (.is-main-kata) to immediately stand out.
+    7. MULTI-KATA SEMINARS (OPTION 2 DUPLICATION):
+       Some seminar videos cover multiple katas (e.g., Gekisai sono ni, Gekisai sono san, Saifa...).
+       In the KATA view, these videos are expanded into duplicate card instances, one for each kata covered,
+       positioned under that specific kata with its belt badge.
+       In SEMINAR and ALL views, duplicate cards are de-duplicated (subIdx === 0) so each video appears once.
+       kata_links.json MUST remain virgin.
     =============================================================================================
   -->
 
@@ -769,16 +775,19 @@
            data-href="https://www.kyokushin.net/video/1203025981" 
            data-badge="" 
            data-title="april 2026 / national athlete intensive training session(technical breakdown of the uchimawashi-geri & enhancement of close-quarters combat)" 
+           data-kata-search="april 2026 / national athlete intensive training session(technical breakdown of the uchimawashi-geri & enhancement of close-quarters combat)"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="0"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -790,16 +799,19 @@
            data-href="https://www.kyokushin.net/video/1188396319" 
            data-badge="" 
            data-title="march 2026 / all japan national athlete intensive training session" 
+           data-kata-search="march 2026 / all japan national athlete intensive training session"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="1"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -811,16 +823,19 @@
            data-href="https://www.kyokushin.net/video/1186608646" 
            data-badge="" 
            data-title="2026 spring honbu kyu examination" 
+           data-kata-search="2026 spring honbu kyu examination"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="2"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -832,16 +847,19 @@
            data-href="https://www.kyokushin.net/video/1184032950" 
            data-badge="" 
            data-title="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)" 
+           data-kata-search="kata explanation: seienchin (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="22"
            data-extra-tags="1"
            data-original-index="3"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -863,16 +881,19 @@
            data-href="https://www.kyokushin.net/video/1184032951" 
            data-badge="" 
            data-title="kata explanation: bassai (february 7, 2026 / from the online kata seminar)" 
+           data-kata-search="kata explanation: bassai (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="23"
            data-extra-tags="1"
            data-original-index="4"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -894,16 +915,19 @@
            data-href="https://www.kyokushin.net/video/1184033042" 
            data-badge="" 
            data-title="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)" 
+           data-kata-search="kata explanation: sushiho (february 7, 2026 / from the online kata seminar)"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
            data-stripe="dan-4"
            data-order="27"
            data-extra-tags="1"
            data-original-index="5"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -925,16 +949,19 @@
            data-href="https://www.kyokushin.net/video/1179849130" 
            data-badge="" 
            data-title="2026/2/15 all japan intensive training camp" 
+           data-kata-search="2026/2/15 all japan intensive training camp"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="6"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -946,16 +973,19 @@
            data-href="https://www.kyokushin.net/video/1177631112" 
            data-badge="" 
            data-title="furukawa seiya’s methods for improving kata: insights from a five-time all-japan champion" 
+           data-kata-search="furukawa seiya’s methods for improving kata: insights from a five-time all-japan champion"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="7"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -967,16 +997,19 @@
            data-href="https://www.kyokushin.net/video/1166596704" 
            data-badge="" 
            data-title="renkubukan technical seminar" 
+           data-kata-search="renkubukan technical seminar"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="1"
            data-original-index="8"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -998,16 +1031,19 @@
            data-href="https://www.kyokushin.net/video/1148004100" 
            data-badge="" 
            data-title="english title for2025-11-16 秋季全国選手強化合宿 後編" 
+           data-kata-search="english title for2025-11-16 秋季全国選手強化合宿 後編"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="9"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1019,16 +1055,19 @@
            data-href="https://www.kyokushin.net/video/1148003902" 
            data-badge="" 
            data-title="2025 autumn japanese national team competitors intensive training camp <part 1: day 1>" 
+           data-kata-search="2025 autumn japanese national team competitors intensive training camp <part 1: day 1>"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="10"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1040,16 +1079,19 @@
            data-href="https://www.kyokushin.net/video/1144214139" 
            data-badge="" 
            data-title="english title for講道館/受け身講習会" 
+           data-kata-search="english title for講道館/受け身講習会"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="1"
            data-original-index="11"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1071,16 +1113,19 @@
            data-href="https://www.kyokushin.net/video/1141341504" 
            data-badge="" 
            data-title="ohata reiji's technique breakdown: &quot;how to execute the back kick and high roundhouse kick&quot;" 
+           data-kata-search="ohata reiji's technique breakdown: &quot;how to execute the back kick and high roundhouse kick&quot;"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="12"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1092,16 +1137,19 @@
            data-href="https://www.kyokushin.net/video/1141341678" 
            data-badge="" 
            data-title="ohata ryoji's technique breakdown: &quot;how to deliver a decisive, powerful tsuki (thrust)&quot; part 2" 
+           data-kata-search="ohata ryoji's technique breakdown: &quot;how to deliver a decisive, powerful tsuki (thrust)&quot; part 2"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="13"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1113,16 +1161,19 @@
            data-href="https://www.kyokushin.net/video/1141342089" 
            data-badge="" 
            data-title="ohata ryoji's technique breakdown: &quot;how to deliver a decisive, powerful tsuki (thrust)&quot; part 1" 
+           data-kata-search="ohata ryoji's technique breakdown: &quot;how to deliver a decisive, powerful tsuki (thrust)&quot; part 1"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="14"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1134,16 +1185,19 @@
            data-href="https://www.kyokushin.net/video/1124142812" 
            data-badge="" 
            data-title="shinseikai suzuki dojo 12th kumite gathering" 
+           data-kata-search="shinseikai suzuki dojo 12th kumite gathering"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="15"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1155,16 +1209,19 @@
            data-href="https://www.kyokushin.net/video/1102433722" 
            data-badge="" 
            data-title="2025 summar honbu kyu examination" 
+           data-kata-search="2025 summar honbu kyu examination"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="16"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1176,16 +1233,19 @@
            data-href="https://www.kyokushin.net/video/1097441597" 
            data-badge="" 
            data-title="north kanto intensive training / oshiro minami & tanigawa soya technique seminar" 
+           data-kata-search="north kanto intensive training / oshiro minami & tanigawa soya technique seminar"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="1"
            data-original-index="17"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1207,16 +1267,19 @@
            data-href="https://www.kyokushin.net/video/1068726220" 
            data-badge="" 
            data-title="kyokushin kata revision 2025 : seipai" 
+           data-kata-search="kyokushin kata revision 2025 : seipai"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Seipai"
            data-belt="Dan 2"
            data-stripe="dan-2"
            data-order="25"
            data-extra-tags="0"
            data-original-index="18"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1238,16 +1301,19 @@
            data-href="https://www.kyokushin.net/video/1072893304" 
            data-badge="" 
            data-title="2025 the 7th world weight category championship japanese national team competitor & spring national fighters training camp part 3" 
+           data-kata-search="2025 the 7th world weight category championship japanese national team competitor & spring national fighters training camp part 3"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="19"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1259,16 +1325,19 @@
            data-href="https://www.kyokushin.net/video/1070745675" 
            data-badge="" 
            data-title="2025 the 7th world weight category championship japanese national team competitor & spring national fighters training camp part 2" 
+           data-kata-search="2025 the 7th world weight category championship japanese national team competitor & spring national fighters training camp part 2"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="20"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1280,16 +1349,19 @@
            data-href="https://www.kyokushin.net/video/1061189278" 
            data-badge="" 
            data-title="the 7th world weight category karate championships iko japan team training session" 
+           data-kata-search="the 7th world weight category karate championships iko japan team training session"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="21"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1301,16 +1373,19 @@
            data-href="https://www.kyokushin.net/video/1035086716" 
            data-badge="" 
            data-title="2024 autumn all japan intensive training camp part.3" 
+           data-kata-search="2024 autumn all japan intensive training camp part.3"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="22"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1322,16 +1397,19 @@
            data-href="https://www.kyokushin.net/video/1032585521" 
            data-badge="" 
            data-title="2024 autumn all japan intensive training camp part.2" 
+           data-kata-search="2024 autumn all japan intensive training camp part.2"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="23"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1343,16 +1421,19 @@
            data-href="https://www.kyokushin.net/video/1028259528" 
            data-badge="" 
            data-title="2024 autumn all japan intensive training camp part.1" 
+           data-kata-search="2024 autumn all japan intensive training camp part.1"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="24"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1364,16 +1445,19 @@
            data-href="https://www.kyokushin.net/video/1027913149" 
            data-badge="" 
            data-title="2024 kata seminar part.1 (kanku, sushiho)" 
+           data-kata-search="2024 kata seminar part.1 kanku kanku 観空 カンクウ"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="1"
            data-kata-name="Kanku"
            data-belt="Dan 3"
            data-stripe="dan-3"
            data-order="26"
            data-extra-tags="1"
            data-original-index="25"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1391,20 +1475,57 @@
         </div>
       </div>
       <div class="kata-card" 
-           data-id="1025404141"
-           data-href="https://www.kyokushin.net/video/1025404141" 
+           data-id="1027913149"
+           data-href="https://www.kyokushin.net/video/1027913149" 
            data-badge="" 
-           data-title="2024 kata seminar part.1 (bassai, seienchin)" 
+           data-title="2024 kata seminar part.1 (kanku, sushiho)" 
+           data-kata-search="2024 kata seminar part.1 sushiho sushiho 五十四歩 スーシーホ"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Sushiho"
+           data-belt="Dan 4"
+           data-stripe="dan-4"
+           data-order="27"
+           data-extra-tags="1"
+           data-original-index="25"
+           data-sub-index="1"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-dan-4 has-stripe stripe-count-4">Sushiho<span class="belt-stripes-container" title="4 golden stripes"><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Kanku, Sushiho)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="1025404141"
+           data-href="https://www.kyokushin.net/video/1025404141" 
+           data-badge="" 
+           data-title="2024 kata seminar part.1 (bassai, seienchin)" 
+           data-kata-search="2024 kata seminar part.1 seienchin seienchin 征遠鎮 セイエンチン"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="22"
            data-extra-tags="1"
            data-original-index="26"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1422,20 +1543,57 @@
         </div>
       </div>
       <div class="kata-card" 
-           data-id="1023625956"
-           data-href="https://www.kyokushin.net/video/1023625956" 
+           data-id="1025404141"
+           data-href="https://www.kyokushin.net/video/1025404141" 
            data-badge="" 
-           data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" 
+           data-title="2024 kata seminar part.1 (bassai, seienchin)" 
+           data-kata-search="2024 kata seminar part.1 bassai bassai 抜塞 バッサイ"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Bassai"
+           data-belt="Dan 1"
+           data-stripe="dan-1"
+           data-order="23"
+           data-extra-tags="1"
+           data-original-index="26"
+           data-sub-index="1"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1 has-stripe stripe-count-1">Bassai<span class="belt-stripes-container" title="1 golden stripe"><span class="belt-stripe stripe-gold"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Bassai, Seienchin)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="1023625956"
+           data-href="https://www.kyokushin.net/video/1023625956" 
+           data-badge="" 
+           data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" 
+           data-kata-search="2024 kata seminar part.1 tsuki no kata tsuki no kata tsukinokata tsukino kata 突きの型"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
            data-stripe="green"
            data-order="13"
            data-extra-tags="1"
            data-original-index="27"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1452,21 +1610,126 @@
           <div class="kata-title">2024 KATA Seminar Part.1 (Tsukino KATA, Gekisai sono ni & sono san, Saifa)</div>
         </div>
       </div>
+      <div class="kata-card" 
+           data-id="1023625956"
+           data-href="https://www.kyokushin.net/video/1023625956" 
+           data-badge="" 
+           data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" 
+           data-kata-search="2024 kata seminar part.1 gekisai sono ni gekisai sono ni gekisai sononi 撃砕その2 撃砕その二 撃砕その２ 撃砕其の二"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Gekisai sono ni"
+           data-belt="Green"
+           data-stripe="brown"
+           data-order="16"
+           data-extra-tags="1"
+           data-original-index="27"
+           data-sub-index="1"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-green has-stripe stripe-count-1">Gekisai sono ni<span class="belt-stripes-container" title="Brown stripe"><span class="belt-stripe stripe-brown"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Tsukino KATA, Gekisai sono ni & sono san, Saifa)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="1023625956"
+           data-href="https://www.kyokushin.net/video/1023625956" 
+           data-badge="" 
+           data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" 
+           data-kata-search="2024 kata seminar part.1 gekisai sono san gekisai sono san gekisai sonosan gekisai sono ni & sono san gekisai shou 撃砕その3 撃砕その三 撃砕その３ 撃砕小"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Gekisai sono san"
+           data-belt="Brown"
+           data-stripe=""
+           data-order="18"
+           data-extra-tags="1"
+           data-original-index="27"
+           data-sub-index="2"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-brown">Gekisai sono san</span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Tsukino KATA, Gekisai sono ni & sono san, Saifa)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="1023625956"
+           data-href="https://www.kyokushin.net/video/1023625956" 
+           data-badge="" 
+           data-title="2024 kata seminar part.1 (tsukino kata, gekisai sono ni & sono san, saifa)" 
+           data-kata-search="2024 kata seminar part.1 saifa saifa 最破 サイファ サイハ"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Saifa"
+           data-belt="Brown"
+           data-stripe="black"
+           data-order="20"
+           data-extra-tags="1"
+           data-original-index="27"
+           data-sub-index="3"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-brown has-stripe stripe-count-1">Saifa<span class="belt-stripes-container" title="Black stripe"><span class="belt-stripe stripe-black"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">2024 KATA Seminar Part.1 (Tsukino KATA, Gekisai sono ni & sono san, Saifa)</div>
+        </div>
+      </div>
       <div class="kata-card is-main-kata" 
            data-id="1018270420"
            data-href="https://www.kyokushin.net/video/1018270420" 
            data-badge="" 
            data-title="kyokushin kata revision 2024 : garyu" 
+           data-kata-search="kyokushin kata revision 2024 : garyu"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Garyu"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="21"
            data-extra-tags="0"
            data-original-index="28"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1488,16 +1751,19 @@
            data-href="https://www.kyokushin.net/video/1000003663" 
            data-badge="" 
            data-title="2024/4/14 all japan intensive training camp" 
+           data-kata-search="2024/4/14 all japan intensive training camp"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="29"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1509,16 +1775,19 @@
            data-href="https://www.kyokushin.net/video/982917016" 
            data-badge="" 
            data-title="6/3 kanto region senior fighters training" 
+           data-kata-search="6/3 kanto region senior fighters training"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="30"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1530,16 +1799,19 @@
            data-href="https://www.kyokushin.net/video/977441769" 
            data-badge="" 
            data-title="kyokushin kata revision 2023 : tekki sono san" 
+           data-kata-search="kyokushin kata revision 2023 : tekki sono san"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Tekki sono san"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="24"
            data-extra-tags="0"
            data-original-index="31"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1561,16 +1833,19 @@
            data-href="https://www.kyokushin.net/video/977439492" 
            data-badge="" 
            data-title="kyokushin kata revision 2024 : tekki sono ni" 
+           data-kata-search="kyokushin kata revision 2024 : tekki sono ni"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Tekki sono ni"
            data-belt="Brown"
            data-stripe=""
            data-order="19"
            data-extra-tags="0"
            data-original-index="32"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1592,16 +1867,19 @@
            data-href="https://www.kyokushin.net/video/964927303" 
            data-badge="" 
            data-title="3/19 kanto region youth fighters training" 
+           data-kata-search="3/19 kanto region youth fighters training"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="33"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1613,16 +1891,19 @@
            data-href="https://www.kyokushin.net/video/947403409" 
            data-badge="" 
            data-title="2024 spring honbu kyu examination - adult, senior, women" 
+           data-kata-search="2024 spring honbu kyu examination - adult, senior, women"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="34"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1634,16 +1915,19 @@
            data-href="https://www.kyokushin.net/video/941448109" 
            data-badge="" 
            data-title="2024 spring honbu kyu examination part 2 - boys & girls blue belt 〜 brown belt" 
+           data-kata-search="2024 spring honbu kyu examination part 2 - boys & girls blue belt 〜 brown belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="35"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1655,16 +1939,19 @@
            data-href="https://www.kyokushin.net/video/936937785" 
            data-badge="" 
            data-title="2024 spring honbu kyu examination part 1 - boys & girls white, orange" 
+           data-kata-search="2024 spring honbu kyu examination part 1 - boys & girls white, orange"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="36"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1676,16 +1963,19 @@
            data-href="https://www.kyokushin.net/video/895213036" 
            data-badge="" 
            data-title="sushiho" 
+           data-kata-search="sushiho"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
            data-stripe="dan-4"
            data-order="27"
            data-extra-tags="0"
            data-original-index="37"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1707,16 +1997,19 @@
            data-href="https://www.kyokushin.net/video/873930865" 
            data-badge="" 
            data-title="the 13th world championship japan national team camp / shihan kiyama's intensive training part.2" 
+           data-kata-search="the 13th world championship japan national team camp / shihan kiyama's intensive training part.2"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="38"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1728,16 +2021,19 @@
            data-href="https://www.kyokushin.net/video/868970017" 
            data-badge="" 
            data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" 
+           data-kata-search="8/25 kata seminar part.2 gekisai sono ni gekisai sono ni gekisai sononi 撃砕その2 撃砕その二 撃砕その２ 撃砕其の二"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="1"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
            data-order="16"
            data-extra-tags="1"
            data-original-index="39"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1755,20 +2051,159 @@
         </div>
       </div>
       <div class="kata-card" 
-           data-id="867073116"
-           data-href="https://www.kyokushin.net/video/867073116" 
+           data-id="868970017"
+           data-href="https://www.kyokushin.net/video/868970017" 
            data-badge="" 
-           data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" 
+           data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" 
+           data-kata-search="8/25 kata seminar part.2 gekisai sono san gekisai sono san gekisai sonosan gekisai sono ni & sono san gekisai shou 撃砕その3 撃砕その三 撃砕その３ 撃砕小"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="1"
            data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Gekisai sono san"
+           data-belt="Brown"
+           data-stripe=""
+           data-order="18"
+           data-extra-tags="1"
+           data-original-index="39"
+           data-sub-index="1"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-brown">Gekisai sono san</span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.2 (Gekisai sono ni, Gekisai sono san, Saifa, Bassai, Kanku)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="868970017"
+           data-href="https://www.kyokushin.net/video/868970017" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" 
+           data-kata-search="8/25 kata seminar part.2 saifa saifa 最破 サイファ サイハ"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Saifa"
+           data-belt="Brown"
+           data-stripe="black"
+           data-order="20"
+           data-extra-tags="1"
+           data-original-index="39"
+           data-sub-index="2"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-brown has-stripe stripe-count-1">Saifa<span class="belt-stripes-container" title="Black stripe"><span class="belt-stripe stripe-black"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.2 (Gekisai sono ni, Gekisai sono san, Saifa, Bassai, Kanku)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="868970017"
+           data-href="https://www.kyokushin.net/video/868970017" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" 
+           data-kata-search="8/25 kata seminar part.2 bassai bassai 抜塞 バッサイ"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Bassai"
+           data-belt="Dan 1"
+           data-stripe="dan-1"
+           data-order="23"
+           data-extra-tags="1"
+           data-original-index="39"
+           data-sub-index="3"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-dan-1 has-stripe stripe-count-1">Bassai<span class="belt-stripes-container" title="1 golden stripe"><span class="belt-stripe stripe-gold"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.2 (Gekisai sono ni, Gekisai sono san, Saifa, Bassai, Kanku)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="868970017"
+           data-href="https://www.kyokushin.net/video/868970017" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.2 (gekisai sono ni, gekisai sono san, saifa, bassai, kanku)" 
+           data-kata-search="8/25 kata seminar part.2 kanku kanku 観空 カンクウ"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Kanku"
+           data-belt="Dan 3"
+           data-stripe="dan-3"
+           data-order="26"
+           data-extra-tags="1"
+           data-original-index="39"
+           data-sub-index="4"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-dan-3 has-stripe stripe-count-3">Kanku<span class="belt-stripes-container" title="3 golden stripes"><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span><span class="belt-stripe stripe-gold"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.2 (Gekisai sono ni, Gekisai sono san, Saifa, Bassai, Kanku)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="867073116"
+           data-href="https://www.kyokushin.net/video/867073116" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" 
+           data-kata-search="8/25 kata seminar part.1 sokugi taikyoku sono san sokugi taikyoku sono san sokugi taikyoku sonosan 足技太極その3 足技太極その三 足技太極その３"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
            data-stripe="blue"
            data-order="6"
            data-extra-tags="1"
            data-original-index="40"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1786,20 +2221,125 @@
         </div>
       </div>
       <div class="kata-card" 
+           data-id="867073116"
+           data-href="https://www.kyokushin.net/video/867073116" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" 
+           data-kata-search="8/25 kata seminar part.1 pinan sono ni pinan sono ni pinan sononi 平安その2 平安その二 平安その２"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Pinan Sono Ni"
+           data-belt="Blue"
+           data-stripe=""
+           data-order="8"
+           data-extra-tags="1"
+           data-original-index="40"
+           data-sub-index="1"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-blue">Pinan Sono Ni</span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.1 (Sokugi Taikyoku sono san, Pinan sono ni, Pinan sono go, Tsuki no KATA)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="867073116"
+           data-href="https://www.kyokushin.net/video/867073116" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" 
+           data-kata-search="8/25 kata seminar part.1 tsuki no kata tsuki no kata tsukinokata tsukino kata 突きの型"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Tsuki no Kata"
+           data-belt="Yellow"
+           data-stripe="green"
+           data-order="13"
+           data-extra-tags="1"
+           data-original-index="40"
+           data-sub-index="2"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-yellow has-stripe stripe-count-1">Tsuki no Kata<span class="belt-stripes-container" title="Green stripe"><span class="belt-stripe stripe-green"></span></span></span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.1 (Sokugi Taikyoku sono san, Pinan sono ni, Pinan sono go, Tsuki no KATA)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
+           data-id="867073116"
+           data-href="https://www.kyokushin.net/video/867073116" 
+           data-badge="" 
+           data-title="8/25 kata seminar part.1 (sokugi taikyoku sono san, pinan sono ni, pinan sono go, tsuki no kata)" 
+           data-kata-search="8/25 kata seminar part.1 pinan sono go pinan sono go pinan sonogo 平安その5 平安その五 平安その５"
+           data-is-kata="1"
+           data-is-main="0"
+           data-is-seminar="1"
+           data-is-bunkai="0"
+           data-is-multi="1"
+           data-kata-name="Pinan Sono Go"
+           data-belt="Green"
+           data-stripe=""
+           data-order="14"
+           data-extra-tags="1"
+           data-original-index="40"
+           data-sub-index="3"
+           onclick="handleCardClick(this)">
+        <div class="card-main">
+
+          <div class="card-header">
+            <div class="header-left">
+              <span class="belt-badge belt-green">Pinan Sono Go</span>
+              <span class="tag-seminar">Seminar</span>
+              
+            </div>
+            <div class="header-right">
+              
+            </div>
+          </div>
+          <div class="kata-title">8/25 KATA Seminar Part.1 (Sokugi Taikyoku sono san, Pinan sono ni, Pinan sono go, Tsuki no KATA)</div>
+        </div>
+      </div>
+      <div class="kata-card" 
            data-id="864728201"
            data-href="https://www.kyokushin.net/video/864728201" 
            data-badge="" 
            data-title="8/29 japan's representative fighters for the 13th world championship & all japan intensive training." 
+           data-kata-search="8/29 japan's representative fighters for the 13th world championship & all japan intensive training."
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="41"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1811,16 +2351,19 @@
            data-href="https://www.kyokushin.net/video/851497192" 
            data-badge="" 
            data-title="the shihan kenji yamaki's intensive training and coaching of world championship representative athletes." 
+           data-kata-search="the shihan kenji yamaki's intensive training and coaching of world championship representative athletes."
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="42"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1832,16 +2375,19 @@
            data-href="https://www.kyokushin.net/video/848606374" 
            data-badge="" 
            data-title="2023 summer honbu kyu examination - adult, senior, women" 
+           data-kata-search="2023 summer honbu kyu examination - adult, senior, women"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="43"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1853,16 +2399,19 @@
            data-href="https://www.kyokushin.net/video/847221857" 
            data-badge="" 
            data-title="6/17 japan's representative athletes for the 13th world championship & western japan regional intensive training." 
+           data-kata-search="6/17 japan's representative athletes for the 13th world championship & western japan regional intensive training."
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="44"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1874,16 +2423,19 @@
            data-href="https://www.kyokushin.net/video/832591331" 
            data-badge="" 
            data-title="joint training session between chiba shimousa branch of kyokushinkaikan and idojo chiba tokatsu/abiko branch of shinseikai" 
+           data-kata-search="joint training session between chiba shimousa branch of kyokushinkaikan and idojo chiba tokatsu/abiko branch of shinseikai"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="45"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1895,16 +2447,19 @@
            data-href="https://www.kyokushin.net/video/817119423" 
            data-badge="" 
            data-title="3/19 kanto region senior fighters training" 
+           data-kata-search="3/19 kanto region senior fighters training"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="46"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1916,16 +2471,19 @@
            data-href="https://www.kyokushin.net/video/810383040" 
            data-badge="" 
            data-title="kyokushin kata revision 2023 : kanku" 
+           data-kata-search="kyokushin kata revision 2023 : kanku"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
            data-stripe="dan-3"
            data-order="26"
            data-extra-tags="0"
            data-original-index="47"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1947,16 +2505,19 @@
            data-href="https://www.kyokushin.net/video/804173010" 
            data-badge="" 
            data-title="13th world tournament japan national team fighters & japanese strengthen fighters discussion. feb/12/2023" 
+           data-kata-search="13th world tournament japan national team fighters & japanese strengthen fighters discussion. feb/12/2023"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="48"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1968,16 +2529,19 @@
            data-href="https://www.kyokushin.net/video/802155060" 
            data-badge="" 
            data-title="13th world tournament japan national team fighters & japanese strengthen fighters training. feb/12/2023" 
+           data-kata-search="13th world tournament japan national team fighters & japanese strengthen fighters training. feb/12/2023"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="49"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -1989,16 +2553,19 @@
            data-href="https://www.kyokushin.net/video/740287160" 
            data-badge="" 
            data-title="gekisai sononi bunkai" 
+           data-kata-search="gekisai sononi bunkai"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
            data-order="16"
            data-extra-tags="1"
            data-original-index="50"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2020,16 +2587,19 @@
            data-href="https://www.kyokushin.net/video/740287226" 
            data-badge="" 
            data-title="gekisai sonoichi bunkai" 
+           data-kata-search="gekisai sonoichi bunkai"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
            data-stripe=""
            data-order="15"
            data-extra-tags="1"
            data-original-index="51"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2051,16 +2621,19 @@
            data-href="https://www.kyokushin.net/video/734326596" 
            data-badge="" 
            data-title="national fighter strengthening training" 
+           data-kata-search="national fighter strengthening training"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="52"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2072,16 +2645,19 @@
            data-href="https://www.kyokushin.net/video/732311145" 
            data-badge="" 
            data-title="2022 summer honbu kyu examination part 3 - adult, senior, women" 
+           data-kata-search="2022 summer honbu kyu examination part 3 - adult, senior, women"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="53"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2093,16 +2669,19 @@
            data-href="https://www.kyokushin.net/video/732314490" 
            data-badge="" 
            data-title="2022 summer honbu kyu examination part 2 - boys & girls white, yellow, green, brown belt" 
+           data-kata-search="2022 summer honbu kyu examination part 2 - boys & girls white, yellow, green, brown belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="54"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2114,16 +2693,19 @@
            data-href="https://www.kyokushin.net/video/732324559" 
            data-badge="" 
            data-title="2022 summer honbu kyu examination part 1 - boys & girls white, orange, blue belt" 
+           data-kata-search="2022 summer honbu kyu examination part 1 - boys & girls white, orange, blue belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="55"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2135,16 +2717,19 @@
            data-href="https://www.kyokushin.net/video/694683761" 
            data-badge="" 
            data-title="2022 spring honbu kyu examination part 3 - adult, senior, women" 
+           data-kata-search="2022 spring honbu kyu examination part 3 - adult, senior, women"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="56"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2156,16 +2741,19 @@
            data-href="https://www.kyokushin.net/video/692121946" 
            data-badge="" 
            data-title="2022 spring honbu kyu examination part 2 - boys & girls white, yellow, green, brown belt" 
+           data-kata-search="2022 spring honbu kyu examination part 2 - boys & girls white, yellow, green, brown belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="57"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2177,16 +2765,19 @@
            data-href="https://www.kyokushin.net/video/689885999" 
            data-badge="" 
            data-title="【digest】2022 spring honbu kyu examination part 1 - boys & girls white, orange, blue belt" 
+           data-kata-search="【digest】2022 spring honbu kyu examination part 1 - boys & girls white, orange, blue belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="58"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2198,16 +2789,19 @@
            data-href="https://www.kyokushin.net/video/689567463" 
            data-badge="" 
            data-title="2022 spring honbu kyu examination part 1 - boys & girls white, orange, blue belt" 
+           data-kata-search="2022 spring honbu kyu examination part 1 - boys & girls white, orange, blue belt"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="59"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2219,16 +2813,19 @@
            data-href="https://www.kyokushin.net/video/675296516" 
            data-badge="" 
            data-title="2022 honbu dan promotion examination part 4" 
+           data-kata-search="2022 honbu dan promotion examination part 4"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="60"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2240,16 +2837,19 @@
            data-href="https://www.kyokushin.net/video/673409017" 
            data-badge="" 
            data-title="2022 honbu dan promotion examination part 3" 
+           data-kata-search="2022 honbu dan promotion examination part 3"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="61"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2261,16 +2861,19 @@
            data-href="https://www.kyokushin.net/video/671069313" 
            data-badge="" 
            data-title="2022 honbu dan promotion examination part 2" 
+           data-kata-search="2022 honbu dan promotion examination part 2"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="62"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2282,16 +2885,19 @@
            data-href="https://www.kyokushin.net/video/671067842" 
            data-badge="" 
            data-title="2022 honbu dan promotion examination part 1" 
+           data-kata-search="2022 honbu dan promotion examination part 1"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="63"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2303,16 +2909,19 @@
            data-href="https://www.kyokushin.net/video/661664814" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono go bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono go bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
            data-stripe=""
            data-order="14"
            data-extra-tags="1"
            data-original-index="64"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2334,16 +2943,19 @@
            data-href="https://www.kyokushin.net/video/661664935" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : yantsu bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : yantsu bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
            data-stripe=""
            data-order="11"
            data-extra-tags="1"
            data-original-index="65"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2365,16 +2977,19 @@
            data-href="https://www.kyokushin.net/video/633550574" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : bassai" 
+           data-kata-search="kyokushin kata revision 2020 : bassai"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="23"
            data-extra-tags="0"
            data-original-index="66"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2396,16 +3011,19 @@
            data-href="https://www.kyokushin.net/video/605658036" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono yon bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono yon bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
            data-stripe="green"
            data-order="12"
            data-extra-tags="1"
            data-original-index="67"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2427,16 +3045,19 @@
            data-href="https://www.kyokushin.net/video/605657744" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono san bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono san bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
            data-stripe=""
            data-order="10"
            data-extra-tags="1"
            data-original-index="68"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2458,16 +3079,19 @@
            data-href="https://www.kyokushin.net/video/614144774" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono ni bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono ni bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
            data-stripe=""
            data-order="8"
            data-extra-tags="1"
            data-original-index="69"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2489,16 +3113,19 @@
            data-href="https://www.kyokushin.net/video/614144940" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono ichi bunkai kumite" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono ichi bunkai kumite"
            data-is-kata="1"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="1"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
            data-stripe=""
            data-order="7"
            data-extra-tags="1"
            data-original-index="70"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2520,16 +3147,19 @@
            data-href="https://www.kyokushin.net/video/506644499" 
            data-badge="" 
            data-title="2021 iko honbu dan promotion examination" 
+           data-kata-search="2021 iko honbu dan promotion examination"
            data-is-kata="0"
            data-is-main="0"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
            data-order="999"
            data-extra-tags="0"
            data-original-index="71"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2541,16 +3171,19 @@
            data-href="https://www.kyokushin.net/video/486219663" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : tekki sono ichi" 
+           data-kata-search="kyokushin kata revision 2020 : tekki sono ichi"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Tekki sono ichi"
            data-belt="Green"
            data-stripe="brown"
            data-order="17"
            data-extra-tags="0"
            data-original-index="72"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2572,16 +3205,19 @@
            data-href="https://www.kyokushin.net/video/486219808" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : seienchin" 
+           data-kata-search="kyokushin kata revision 2020 : seienchin"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
            data-order="22"
            data-extra-tags="0"
            data-original-index="73"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2603,16 +3239,19 @@
            data-href="https://www.kyokushin.net/video/486219296" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : gekisai sono ni" 
+           data-kata-search="kyokushin kata revision 2020 : gekisai sono ni"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
            data-order="16"
            data-extra-tags="0"
            data-original-index="74"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2634,16 +3273,19 @@
            data-href="https://www.kyokushin.net/video/486219322" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : gekisai sono ichi" 
+           data-kata-search="kyokushin kata revision 2020 : gekisai sono ichi"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
            data-stripe=""
            data-order="15"
            data-extra-tags="0"
            data-original-index="75"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2665,16 +3307,19 @@
            data-href="https://www.kyokushin.net/video/486272839" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : sanchin" 
+           data-kata-search="kyokushin kata revision 2020 : sanchin"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sanchin"
            data-belt="Blue"
            data-stripe="yellow"
            data-order="9"
            data-extra-tags="0"
            data-original-index="76"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2696,16 +3341,19 @@
            data-href="https://www.kyokushin.net/video/486219405" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : saifa" 
+           data-kata-search="kyokushin kata revision 2020 : saifa"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Saifa"
            data-belt="Brown"
            data-stripe="black"
            data-order="20"
            data-extra-tags="0"
            data-original-index="77"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2727,16 +3375,19 @@
            data-href="https://www.kyokushin.net/video/486219330" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : gekisai sono san(gekisai shou)" 
+           data-kata-search="kyokushin kata revision 2020 : gekisai sono san(gekisai shou)"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
            data-stripe=""
            data-order="18"
            data-extra-tags="0"
            data-original-index="78"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2758,16 +3409,19 @@
            data-href="https://www.kyokushin.net/video/486219136" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : yantsu" 
+           data-kata-search="kyokushin kata revision 2020 : yantsu"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
            data-stripe=""
            data-order="11"
            data-extra-tags="0"
            data-original-index="79"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2789,16 +3443,19 @@
            data-href="https://www.kyokushin.net/video/486272854" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : tsukinokata" 
+           data-kata-search="kyokushin kata revision 2020 : tsukinokata"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
            data-stripe="green"
            data-order="13"
            data-extra-tags="0"
            data-original-index="80"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2820,16 +3477,19 @@
            data-href="https://www.kyokushin.net/video/486217774" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono go" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono go"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
            data-stripe=""
            data-order="14"
            data-extra-tags="0"
            data-original-index="81"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2851,16 +3511,19 @@
            data-href="https://www.kyokushin.net/video/486217809" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono yon" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono yon"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
            data-stripe="green"
            data-order="12"
            data-extra-tags="0"
            data-original-index="82"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2882,16 +3545,19 @@
            data-href="https://www.kyokushin.net/video/486217825" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono san" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono san"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
            data-stripe=""
            data-order="10"
            data-extra-tags="0"
            data-original-index="83"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2913,16 +3579,19 @@
            data-href="https://www.kyokushin.net/video/486217851" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono ni" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono ni"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
            data-stripe=""
            data-order="8"
            data-extra-tags="0"
            data-original-index="84"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2944,16 +3613,19 @@
            data-href="https://www.kyokushin.net/video/486217759" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : pinan sono ichi" 
+           data-kata-search="kyokushin kata revision 2020 : pinan sono ichi"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
            data-stripe=""
            data-order="7"
            data-extra-tags="0"
            data-original-index="85"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -2975,16 +3647,19 @@
            data-href="https://www.kyokushin.net/video/486215424" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : sokugi taikyoku sono san" 
+           data-kata-search="kyokushin kata revision 2020 : sokugi taikyoku sono san"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
            data-stripe="blue"
            data-order="6"
            data-extra-tags="0"
            data-original-index="86"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3006,16 +3681,19 @@
            data-href="https://www.kyokushin.net/video/486215173" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ni" 
+           data-kata-search="kyokushin kata revision 2020 : sokugi taikyoku sono ni"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sokugi Taikyoku Sono Ni"
            data-belt="Orange"
            data-stripe="blue"
            data-order="5"
            data-extra-tags="0"
            data-original-index="87"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3037,16 +3715,19 @@
            data-href="https://www.kyokushin.net/video/486215128" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : sokugi taikyoku sono ichi" 
+           data-kata-search="kyokushin kata revision 2020 : sokugi taikyoku sono ichi"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Sokugi Taikyoku Sono Ichi"
            data-belt="White"
            data-stripe=""
            data-order="3"
            data-extra-tags="0"
            data-original-index="88"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3068,16 +3749,19 @@
            data-href="https://www.kyokushin.net/video/486215178" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : taikyoku sono san" 
+           data-kata-search="kyokushin kata revision 2020 : taikyoku sono san"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Taikyoku Sono San"
            data-belt="Orange"
            data-stripe=""
            data-order="4"
            data-extra-tags="0"
            data-original-index="89"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3099,16 +3783,19 @@
            data-href="https://www.kyokushin.net/video/486215219" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : taikyoku sono ni" 
+           data-kata-search="kyokushin kata revision 2020 : taikyoku sono ni"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Taikyoku Sono Ni"
            data-belt="White"
            data-stripe=""
            data-order="2"
            data-extra-tags="0"
            data-original-index="90"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3130,16 +3817,19 @@
            data-href="https://www.kyokushin.net/video/486215214" 
            data-badge="" 
            data-title="kyokushin kata revision 2020 : taikyoku sono ichi" 
+           data-kata-search="kyokushin kata revision 2020 : taikyoku sono ichi"
            data-is-kata="1"
            data-is-main="1"
            data-is-seminar="0"
            data-is-bunkai="0"
+           data-is-multi="0"
            data-kata-name="Taikyoku Sono Ichi"
            data-belt="White"
            data-stripe=""
            data-order="1"
            data-extra-tags="0"
            data-original-index="91"
+           data-sub-index="0"
            onclick="handleCardClick(this)">
         <div class="card-main">
 
@@ -3417,6 +4107,7 @@
     "keywords": [
       "gekisai sono san",
       "gekisai sonosan",
+      "gekisai sono ni & sono san",
       "gekisai shou",
       "撃砕その3",
       "撃砕その三",
@@ -3645,12 +4336,20 @@
           const isBunkaiB = b.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
           if (isBunkaiA !== isBunkaiB) return isBunkaiB - isBunkaiA;
 
-          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+          const origA = parseInt(a.getAttribute('data-original-index') || '0', 10);
+          const origB = parseInt(b.getAttribute('data-original-index') || '0', 10);
+          if (origA !== origB) return origA - origB;
+
+          return parseInt(a.getAttribute('data-sub-index') || '0', 10) - parseInt(b.getAttribute('data-sub-index') || '0', 10);
         });
       } else {
         // Restore original catalog order
         allCards.sort((a, b) => {
-          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+          const origA = parseInt(a.getAttribute('data-original-index') || '0', 10);
+          const origB = parseInt(b.getAttribute('data-original-index') || '0', 10);
+          if (origA !== origB) return origA - origB;
+
+          return parseInt(a.getAttribute('data-sub-index') || '0', 10) - parseInt(b.getAttribute('data-sub-index') || '0', 10);
         });
       }
 
@@ -3662,8 +4361,9 @@
         const isKata = card.getAttribute('data-is-kata') === '1';
         const isSeminar = card.getAttribute('data-is-seminar') === '1';
         const cardBelt = card.getAttribute('data-belt') || '';
+        const subIdx = parseInt(card.getAttribute('data-sub-index') || '0', 10);
 
-        // Category filter
+        // Category filter: in SEMINAR, REST, and ALL views deduplicate multi-kata cards (keep only subIdx === 0)
         let matchesCategory = false;
         if (currentCategory === 'KATA') {
           matchesCategory = isKata;
@@ -3672,18 +4372,28 @@
             matchesCategory = false;
           }
         } else if (currentCategory === 'SEMINAR') {
-          matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+          if (subIdx === 0) {
+            matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+          }
         } else if (currentCategory === 'REST') {
-          const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
-          matchesCategory = !isKata && !isSem;
+          if (subIdx === 0) {
+            const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+            matchesCategory = !isKata && !isSem;
+          }
         } else if (currentCategory === 'ALL') {
-          matchesCategory = true;
+          if (subIdx === 0) {
+            matchesCategory = true;
+          }
         }
 
-        // Search filter (matches title, canonical kata name, or tag)
+        // Search filter: in KATA view, use specific kata search text; in other views, use catalog title
+        let textToSearch = title;
+        if (currentCategory === 'KATA' && card.hasAttribute('data-kata-search')) {
+          textToSearch = card.getAttribute('data-kata-search') || title;
+        }
         const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
         const isBunkaiCard = card.getAttribute('data-is-bunkai') === '1';
-        const matchesQuery = !q || title.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
+        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';

@@ -20,7 +20,7 @@ const KATA_MAP = [
   { order: 15, name: "Gekisai sono ichi", belt: "Green", stripe: "", keywords: ["gekisai sono ichi", "gekisai sonoichi", "撃砕その1", "撃砕その一", "撃砕その１", "撃砕其の一"] },
   { order: 16, name: "Gekisai sono ni", belt: "Green", stripe: "brown", keywords: ["gekisai sono ni", "gekisai sononi", "撃砕その2", "撃砕その二", "撃砕その２", "撃砕其の二"] },
   { order: 17, name: "Tekki sono ichi", belt: "Green", stripe: "brown", keywords: ["tekki sono ichi", "tekki sonoichi", "鉄騎その1", "鉄騎その一", "鉄騎その１", "鉄騎其の一"] },
-  { order: 18, name: "Gekisai sono san", belt: "Brown", stripe: "", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai shou", "撃砕その3", "撃砕その三", "撃砕その３", "撃砕小"] },
+  { order: 18, name: "Gekisai sono san", belt: "Brown", stripe: "", keywords: ["gekisai sono san", "gekisai sonosan", "gekisai sono ni & sono san", "gekisai shou", "撃砕その3", "撃砕その三", "撃砕その３", "撃砕小"] },
   { order: 19, name: "Tekki sono ni", belt: "Brown", stripe: "", keywords: ["tekki sono ni", "tekki sononi", "鉄騎その2", "鉄騎その二", "鉄騎その２", "鉄騎其の二"] },
   { order: 20, name: "Saifa", belt: "Brown", stripe: "black", keywords: ["saifa", "最破", "サイファ", "サイハ"] },
   { order: 21, name: "Garyu", belt: "Dan 1", stripe: "dan-1", keywords: ["garyu", "臥龍", "臥竜", "ガリュウ"] },
@@ -66,25 +66,52 @@ function parseStripe(stripeValue) {
   };
 }
 
-function matchKata(title) {
+function matchKatas(title) {
   const t = title.toLowerCase();
+  const matched = [];
   for (const k of KATA_MAP) {
+    let hasMatch = false;
     for (const kw of k.keywords) {
-      if (kw.startsWith("taikyoku") && t.includes("sokugi " + kw)) continue;
-      if (kw.startsWith("太極") && t.includes("足技" + kw)) continue;
-      if (/^[a-z0-9 ]+$/.test(kw)) {
-        const reg = new RegExp("(^|[^a-z0-9])" + kw + "([^a-z0-9]|$)", "i");
-        if (reg.test(t)) return k;
+      const kwLower = kw.toLowerCase();
+      if (kwLower.startsWith("taikyoku") && t.includes("sokugi " + kwLower)) continue;
+      if (kwLower.startsWith("太極") && t.includes("足技" + kwLower)) continue;
+      if (/^[a-z0-9 ]+$/.test(kwLower)) {
+        const reg = new RegExp("(^|[^a-z0-9])" + kwLower + "([^a-z0-9]|$)", "i");
+        if (reg.test(t)) { hasMatch = true; break; }
       } else {
-        if (title.includes(kw)) return k;
+        if (t.includes(kwLower)) { hasMatch = true; break; }
       }
     }
+    if (hasMatch) matched.push(k);
   }
-  return null;
+  return matched;
 }
 
-const cardsHtml = videos.map((item, idx) => {
-  const matched = matchKata(item.title);
+const expandedCards = [];
+videos.forEach((item, originalIdx) => {
+  const matchedList = matchKatas(item.title);
+  if (matchedList.length > 0) {
+    matchedList.forEach((matched, subIdx) => {
+      expandedCards.push({
+        item,
+        matched,
+        originalIdx,
+        subIdx,
+        isMultiKata: matchedList.length > 1
+      });
+    });
+  } else {
+    expandedCards.push({
+      item,
+      matched: null,
+      originalIdx,
+      subIdx: 0,
+      isMultiKata: false
+    });
+  }
+});
+
+const cardsHtml = expandedCards.map(({ item, matched, originalIdx, subIdx, isMultiKata }) => {
   const isSeminar = /seminar/i.test(item.title) || /講習会|セミナー/i.test(item.title);
   const isBunkai = /bunkai|分解/i.test(item.title);
   const isKata = !!matched;
@@ -126,21 +153,30 @@ const cardsHtml = videos.map((item, idx) => {
   // Calculate extra tag count: Bunkai and Seminar tags
   const extraTagCount = (isBunkai ? 1 : 0) + (isSeminar ? 1 : 0);
 
+  // Search keywords: in Kata view, search base seminar title + matched kata name & keywords
+  const baseTitle = item.title.replace(/\s*\([^)]*\)\s*$/, "").trim() || item.title;
+  const kataSearchText = (isMultiKata && matched)
+    ? `${baseTitle} ${matched.name} ${matched.keywords.join(' ')}`.toLowerCase()
+    : safeTitle.toLowerCase();
+
   return `      <div class="kata-card${isMainKata ? ' is-main-kata' : ''}" 
            data-id="${item.id}"
            data-href="${item.url}" 
            data-badge="${item.badge || ''}" 
            data-title="${safeTitle.toLowerCase()}" 
+           data-kata-search="${kataSearchText.replace(/"/g, '&quot;')}"
            data-is-kata="${isKata ? '1' : '0'}"
            data-is-main="${isMainKata ? '1' : '0'}"
            data-is-seminar="${isSeminar ? '1' : '0'}"
            data-is-bunkai="${isBunkai ? '1' : '0'}"
+           data-is-multi="${isMultiKata ? '1' : '0'}"
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
            data-stripe="${matched ? (matched.stripe || '') : ''}"
            data-order="${matched ? matched.order : 999}"
            data-extra-tags="${extraTagCount}"
-           data-original-index="${idx}"
+           data-original-index="${originalIdx}"
+           data-sub-index="${subIdx}"
            onclick="handleCardClick(this)">
         <div class="card-main">
 ${headerHtml}
@@ -202,6 +238,12 @@ const html = `<!DOCTYPE html>
     6. MAIN KATA DEMONSTRATION VIDEO ACCENT:
        The primary demonstration video for each Kata (i.e. isKata and not Seminar and not Bunkai)
        is styled with an amber left spine border (.is-main-kata) to immediately stand out.
+    7. MULTI-KATA SEMINARS (OPTION 2 DUPLICATION):
+       Some seminar videos cover multiple katas (e.g., Gekisai sono ni, Gekisai sono san, Saifa...).
+       In the KATA view, these videos are expanded into duplicate card instances, one for each kata covered,
+       positioned under that specific kata with its belt badge.
+       In SEMINAR and ALL views, duplicate cards are de-duplicated (subIdx === 0) so each video appears once.
+       kata_links.json MUST remain virgin.
     =============================================================================================
   -->
 
@@ -1048,12 +1090,20 @@ ${cardsHtml}
           const isBunkaiB = b.getAttribute('data-is-bunkai') === '1' ? 1 : 0;
           if (isBunkaiA !== isBunkaiB) return isBunkaiB - isBunkaiA;
 
-          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+          const origA = parseInt(a.getAttribute('data-original-index') || '0', 10);
+          const origB = parseInt(b.getAttribute('data-original-index') || '0', 10);
+          if (origA !== origB) return origA - origB;
+
+          return parseInt(a.getAttribute('data-sub-index') || '0', 10) - parseInt(b.getAttribute('data-sub-index') || '0', 10);
         });
       } else {
         // Restore original catalog order
         allCards.sort((a, b) => {
-          return parseInt(a.getAttribute('data-original-index') || '0', 10) - parseInt(b.getAttribute('data-original-index') || '0', 10);
+          const origA = parseInt(a.getAttribute('data-original-index') || '0', 10);
+          const origB = parseInt(b.getAttribute('data-original-index') || '0', 10);
+          if (origA !== origB) return origA - origB;
+
+          return parseInt(a.getAttribute('data-sub-index') || '0', 10) - parseInt(b.getAttribute('data-sub-index') || '0', 10);
         });
       }
 
@@ -1065,8 +1115,9 @@ ${cardsHtml}
         const isKata = card.getAttribute('data-is-kata') === '1';
         const isSeminar = card.getAttribute('data-is-seminar') === '1';
         const cardBelt = card.getAttribute('data-belt') || '';
+        const subIdx = parseInt(card.getAttribute('data-sub-index') || '0', 10);
 
-        // Category filter
+        // Category filter: in SEMINAR, REST, and ALL views deduplicate multi-kata cards (keep only subIdx === 0)
         let matchesCategory = false;
         if (currentCategory === 'KATA') {
           matchesCategory = isKata;
@@ -1075,18 +1126,28 @@ ${cardsHtml}
             matchesCategory = false;
           }
         } else if (currentCategory === 'SEMINAR') {
-          matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+          if (subIdx === 0) {
+            matchesCategory = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+          }
         } else if (currentCategory === 'REST') {
-          const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
-          matchesCategory = !isKata && !isSem;
+          if (subIdx === 0) {
+            const isSem = isSeminar || title.includes('seminar') || title.includes('講習会') || title.includes('セミナー');
+            matchesCategory = !isKata && !isSem;
+          }
         } else if (currentCategory === 'ALL') {
-          matchesCategory = true;
+          if (subIdx === 0) {
+            matchesCategory = true;
+          }
         }
 
-        // Search filter (matches title, canonical kata name, or tag)
+        // Search filter: in KATA view, use specific kata search text; in other views, use catalog title
+        let textToSearch = title;
+        if (currentCategory === 'KATA' && card.hasAttribute('data-kata-search')) {
+          textToSearch = card.getAttribute('data-kata-search') || title;
+        }
         const kataName = (card.getAttribute('data-kata-name') || '').toLowerCase();
         const isBunkaiCard = card.getAttribute('data-is-bunkai') === '1';
-        const matchesQuery = !q || title.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
+        const matchesQuery = !q || textToSearch.includes(q) || kataName.includes(q) || (isBunkaiCard && (q === 'bunkai' || q === '分解'));
 
         if (matchesCategory && matchesQuery) {
           card.style.display = 'flex';
