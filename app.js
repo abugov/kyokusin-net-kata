@@ -22,7 +22,7 @@
  *    Belt stripes are explicitly defined in kata_map.json ('', 'blue', 'dan-1', 'dan-2'...) with golden stripes for Dan ranks.
  * 6. MULTI-KATA EXPANSION (OPTION 2):
  *    When a seminar or bunkai video covers multiple katas, duplicate the card under each matched kata
- *    in KATA view, but deduplicate (show single card) in SEMINAR, NEW, MISC, and ALL views.
+ *    in KATA view, but deduplicate (show single card) in SEMINAR, NEW, and MISC views.
  * 7. BUNKAI / EXPLANATION CLASSIFICATION:
  *    "Explanation" or "解説" designates Kata Bunkai (application/explanation), not seminar.
  * =============================================================================================
@@ -325,10 +325,6 @@ function filterKata() {
       if (subIdx === 0) {
         matchesCategory = !isKata && !isSeminar;
       }
-    } else if (currentCategory === 'ALL') {
-      if (subIdx === 0) {
-        matchesCategory = true;
-      }
     }
 
     // Search filter: in KATA view, use specific kata search text; in other views, use catalog title
@@ -359,8 +355,7 @@ function filterKata() {
     'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos'),
     'SEMINAR': 'Seminar videos',
     'NEW': 'New videos',
-    'REST': 'Misc videos',
-    'ALL': 'all videos'
+    'REST': 'Misc videos'
   };
   const statsBar = document.getElementById('statsBar');
   if (statsBar) {
