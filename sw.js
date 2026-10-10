@@ -1,7 +1,12 @@
-const CACHE_NAME = 'kyokushin-cache-v1';
+const CACHE_NAME = 'kyokushin-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './style.css',
+  './app.js',
+  './kata_map.json',
+  './kata_links.json',
+  './scrape-status.json',
   './manifest.json',
   './favicon.svg',
   './icon-192.png',
