@@ -138,6 +138,17 @@
       vertical-align: middle;
       white-space: nowrap;
       flex-shrink: 0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .qs-pill-turbo:hover {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: rgba(245, 158, 11, 0.7);
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
+      color: #fde047;
+      text-decoration: none;
     }
 
     .meta {
@@ -712,7 +723,7 @@
     <header>
       <div class="header-top">
         <div>
-          <h1><span class="kanji">極真</span> Kyokushin Training <span class="qs-pill-turbo">⚡ Quick Search</span></h1>
+          <h1><span class="kanji">極真</span> Kyokushin Training <a href="./" class="qs-pill-turbo">⚡ Quick Search</a></h1>
           
           <a class="source-link" href="https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=" target="_blank" rel="noopener noreferrer">
             🔗 Original Training Page at Kyokushin.net
