@@ -1,32 +1,3 @@
-/**
- * =============================================================================================
- * [AGENT_INSTRUCTION_GUIDE: KATA_MAP & KEYWORD MATCHING RULES]
- * When updating kata keywords or scraping new video catalogs for this repository:
- * 1. NUMBER SPACING ("Sono Ichi" vs "Sonoichi"):
- *    Official Kyokushin Online video titles fluctuate between spaced ("SONO ICHI", "SONO NI")
- *    and non-spaced compound words ("SONOICHI", "SONONI"). Both MUST be retained in keywords:
- *    e.g., ["gekisai sono ichi", "gekisai sonoichi"], ["pinan sono ni", "pinan sononi"].
- * 2. COMPOUND KATA NAMES ("Tsuki no Kata"):
- *    Appears both as spaced "Tsuki no KATA" (seminars) and single word "TSUKINOKATA" (revision 2020).
- *    Always match: ["tsuki no kata", "tsukinokata", "tsukino kata"].
- * 3. ALTERNATIVE JAPANESE ALIASES:
- *    Some Katas have formal revision aliases (e.g. "GEKISAI SONO SAN(GEKISAI SHOU)").
- *    Always map aliases like "gekisai shou" to the canonical "Gekisai sono san" entry.
- * 4. PREVENTING FALSE POSITIVES (Sokugi vs Standard Taikyoku):
- *    Never use loose substring search for "Taikyoku Sono...". Always check that it is NOT preceded
- *    by "Sokugi" so Sokugi and Standard Taikyoku entries remain correctly classified in their
- *    respective belts (White vs Orange).
- * 5. CANONICAL BELT PROGRESSION & STRIPES:
- *    Keep the strict 1 to 28 sequential order as defined in kata_map.json (White -> Orange -> Blue ->
- *    Yellow -> Green -> Brown -> Dan 1 -> Dan 2 -> Dan 3 -> Dan 4 -> Dan 5).
- *    Belt stripes are explicitly defined in kata_map.json ('', 'blue', 'dan-1', 'dan-2'...) with golden stripes for Dan ranks.
- * 6. MULTI-KATA EXPANSION (OPTION 2):
- *    When a seminar or bunkai video covers multiple katas, duplicate the card under each matched kata
- *    in KATA view, but deduplicate (show single card) in SEMINAR, NEW, and MISC views.
- * 7. BUNKAI / EXPLANATION CLASSIFICATION:
- *    "Explanation" or "解説" designates Kata Bunkai (application/explanation), not seminar.
- * =============================================================================================
- */
 
 let KATA_MAP = [];
 let CATALOG_HASH = '';
@@ -90,6 +61,7 @@ function parseStripe(stripeValue) {
   };
 }
 
+// Matches kata keywords (handles spaced/unspaced numbers, compounds, aliases; excludes Taikyoku on Sokugi)
 function matchKatas(title, kataMap) {
   const t = title.toLowerCase();
   const matched = [];
@@ -111,6 +83,7 @@ function matchKatas(title, kataMap) {
   return matched;
 }
 
+// Explanation/解説 = Bunkai (not seminar). Multi-kata cards duplicated in Kata view (Option 2).
 function renderCardHtml({ item, matched, originalIdx, subIdx, isMultiKata, twoMonthsAgo }) {
   const isExplanation = /explanation|解説/i.test(item.title);
   const isBunkai = /bunkai|分解/i.test(item.title) || isExplanation;
