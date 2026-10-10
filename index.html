@@ -60,6 +60,12 @@
     8. KATA EXPLANATION IS BUNKAI (NOT SEMINAR):
        Videos titled "Kata Explanation: ..." (even if containing "(From the Online Kata Seminar)")
        represent kata technique breakdown (Bunkai) and must be tagged as Bunkai and NOT Seminar.
+    9. NEW VIDEOS & SCRAPE STATUS BEACON:
+       Each video in kata_links.json records a "firstSeen" discovery date (YYYY-MM-DD).
+       Videos younger than 2 months (60 days) from the current date are classified as New.
+       When new videos exist, the "New" filter button is styled emerald green.
+       scrape-status.json contains the SHA256 catalog hash over sorted video IDs, checked
+       periodically in the background to detect newly published video catalog updates.
     =============================================================================================
   -->
 
@@ -247,6 +253,27 @@
       font-weight: 600;
       border-color: #58a6ff;
       box-shadow: 0 0 0 1px #58a6ff;
+    }
+
+    /* "New" button emerald styling when new videos exist */
+    .filter-btn#btn-NEW.is-new-active {
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .filter-btn#btn-NEW.is-new-active:hover {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+    }
+
+    .filter-btn#btn-NEW.active {
+      background: #059669 !important;
+      border-color: #10b981 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.5) !important;
     }
 
     /* Sub-row for Belt Colors without label */
@@ -749,7 +776,8 @@
           <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
           <button class="filter-btn active" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
           <button class="filter-btn" id="btn-SEMINAR" onclick="setCategory('SEMINAR')">Seminar</button>
-          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the rest</button>
+          <button class="filter-btn is-new-active" id="btn-NEW" onclick="setCategory('NEW')">New</button>
+          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">Misc</button>
         </div>
       </div>
 
@@ -784,6 +812,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -808,6 +838,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -832,6 +864,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -856,6 +890,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-09-15"
+           data-is-new="1"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -890,6 +926,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-09-15"
+           data-is-new="1"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -924,6 +962,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-09-15"
+           data-is-new="1"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
            data-stripe="dan-4"
@@ -958,6 +998,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -982,6 +1024,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1006,6 +1050,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1040,6 +1086,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1064,6 +1112,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1088,6 +1138,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1122,6 +1174,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1146,6 +1200,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1170,6 +1226,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1194,6 +1252,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1218,6 +1278,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1242,6 +1304,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1276,6 +1340,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Seipai"
            data-belt="Dan 2"
            data-stripe="dan-2"
@@ -1310,6 +1376,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1334,6 +1402,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1358,6 +1428,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1382,6 +1454,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1406,6 +1480,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1430,6 +1506,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1454,6 +1532,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
            data-stripe="dan-3"
@@ -1488,6 +1568,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
            data-stripe="dan-4"
@@ -1522,6 +1604,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -1556,6 +1640,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -1590,6 +1676,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
            data-stripe="green"
@@ -1624,6 +1712,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
@@ -1658,6 +1748,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
            data-stripe=""
@@ -1692,6 +1784,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Saifa"
            data-belt="Brown"
            data-stripe="black"
@@ -1726,6 +1820,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Garyu"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -1760,6 +1856,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1784,6 +1882,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1808,6 +1908,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tekki sono san"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -1842,6 +1944,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tekki sono ni"
            data-belt="Brown"
            data-stripe=""
@@ -1876,6 +1980,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1900,6 +2006,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1924,6 +2032,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1948,6 +2058,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -1972,6 +2084,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sushiho"
            data-belt="Dan 4"
            data-stripe="dan-4"
@@ -2006,6 +2120,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2030,6 +2146,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
@@ -2064,6 +2182,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
            data-stripe=""
@@ -2098,6 +2218,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Saifa"
            data-belt="Brown"
            data-stripe="black"
@@ -2132,6 +2254,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -2166,6 +2290,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
            data-stripe="dan-3"
@@ -2200,6 +2326,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
            data-stripe="blue"
@@ -2234,6 +2362,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
            data-stripe=""
@@ -2268,6 +2398,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
            data-stripe="green"
@@ -2302,6 +2434,8 @@
            data-is-seminar="1"
            data-is-bunkai="0"
            data-is-multi="1"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
            data-stripe=""
@@ -2336,6 +2470,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2360,6 +2496,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2384,6 +2522,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2408,6 +2548,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2432,6 +2574,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2456,6 +2600,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2480,6 +2626,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Kanku"
            data-belt="Dan 3"
            data-stripe="dan-3"
@@ -2514,6 +2662,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2538,6 +2688,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2562,6 +2714,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
@@ -2596,6 +2750,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
            data-stripe=""
@@ -2630,6 +2786,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2654,6 +2812,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2678,6 +2838,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2702,6 +2864,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2726,6 +2890,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2750,6 +2916,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2774,6 +2942,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2798,6 +2968,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2822,6 +2994,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2846,6 +3020,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2870,6 +3046,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2894,6 +3072,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -2918,6 +3098,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
            data-stripe=""
@@ -2952,6 +3134,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
            data-stripe=""
@@ -2986,6 +3170,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Bassai"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -3020,6 +3206,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
            data-stripe="green"
@@ -3054,6 +3242,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
            data-stripe=""
@@ -3088,6 +3278,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
            data-stripe=""
@@ -3122,6 +3314,8 @@
            data-is-seminar="0"
            data-is-bunkai="1"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
            data-stripe=""
@@ -3156,6 +3350,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name=""
            data-belt=""
            data-stripe=""
@@ -3180,6 +3376,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tekki sono ichi"
            data-belt="Green"
            data-stripe="brown"
@@ -3214,6 +3412,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Seienchin"
            data-belt="Dan 1"
            data-stripe="dan-1"
@@ -3248,6 +3448,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ni"
            data-belt="Green"
            data-stripe="brown"
@@ -3282,6 +3484,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono ichi"
            data-belt="Green"
            data-stripe=""
@@ -3316,6 +3520,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sanchin"
            data-belt="Blue"
            data-stripe="yellow"
@@ -3350,6 +3556,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Saifa"
            data-belt="Brown"
            data-stripe="black"
@@ -3384,6 +3592,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Gekisai sono san"
            data-belt="Brown"
            data-stripe=""
@@ -3418,6 +3628,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Yantsu"
            data-belt="Yellow"
            data-stripe=""
@@ -3452,6 +3664,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Tsuki no Kata"
            data-belt="Yellow"
            data-stripe="green"
@@ -3486,6 +3700,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Go"
            data-belt="Green"
            data-stripe=""
@@ -3520,6 +3736,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Yon"
            data-belt="Yellow"
            data-stripe="green"
@@ -3554,6 +3772,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono San"
            data-belt="Yellow"
            data-stripe=""
@@ -3588,6 +3808,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Ni"
            data-belt="Blue"
            data-stripe=""
@@ -3622,6 +3844,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Pinan Sono Ichi"
            data-belt="Blue"
            data-stripe=""
@@ -3656,6 +3880,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sokugi Taikyoku Sono San"
            data-belt="Orange"
            data-stripe="blue"
@@ -3690,6 +3916,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sokugi Taikyoku Sono Ni"
            data-belt="Orange"
            data-stripe="blue"
@@ -3724,6 +3952,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Sokugi Taikyoku Sono Ichi"
            data-belt="White"
            data-stripe=""
@@ -3758,6 +3988,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Taikyoku Sono San"
            data-belt="Orange"
            data-stripe=""
@@ -3792,6 +4024,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Taikyoku Sono Ni"
            data-belt="White"
            data-stripe=""
@@ -3826,6 +4060,8 @@
            data-is-seminar="0"
            data-is-bunkai="0"
            data-is-multi="0"
+           data-first-seen="2026-06-01"
+           data-is-new="0"
            data-kata-name="Taikyoku Sono Ichi"
            data-belt="White"
            data-stripe=""
@@ -4238,6 +4474,8 @@
     ]
   }
 ];
+    const CATALOG_HASH = "050463fdffa3a211";
+    let isCatalogOutdated = false;
 
     const allCards = Array.from(document.querySelectorAll('.kata-card'));
     const kataGrid = document.getElementById('kataGrid');
@@ -4289,6 +4527,10 @@
     });
 
     function setCategory(cat) {
+      if (cat === 'NEW' && isCatalogOutdated) {
+        window.location.reload();
+        return;
+      }
       currentCategory = cat;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === 'btn-' + cat);
@@ -4378,6 +4620,10 @@
           if (subIdx === 0) {
             matchesCategory = isSeminar;
           }
+        } else if (currentCategory === 'NEW') {
+          if (subIdx === 0) {
+            matchesCategory = card.getAttribute('data-is-new') === '1';
+          }
         } else if (currentCategory === 'REST') {
           if (subIdx === 0) {
             matchesCategory = !isKata && !isSeminar;
@@ -4412,7 +4658,8 @@
       const labelMap = {
         'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos'),
         'SEMINAR': 'Seminar videos',
-        'REST': 'All the rest videos',
+        'NEW': 'New videos',
+        'REST': 'Misc videos',
         'ALL': 'all videos'
       };
       statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos');
@@ -4420,6 +4667,28 @@
 
     // Apply default filter and sorting on load
     filterKata();
+
+    // Background beacon check: checks scrape-status.json every 1 hour
+    function checkScrapeStatus() {
+      fetch('./scrape-status.json?t=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.hash && data.hash !== CATALOG_HASH) {
+            isCatalogOutdated = true;
+            const btnNew = document.getElementById('btn-NEW');
+            if (btnNew) {
+              btnNew.classList.add('is-new-active');
+              btnNew.title = 'New catalog updates available! Click to reload';
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Background status check note:', err);
+        });
+    }
+
+    // Run background check every 1 hour
+    setInterval(checkScrapeStatus, 60 * 60 * 1000);
 
     // Register Service Worker for PWA installability & offline caching
     if ('serviceWorker' in navigator) {

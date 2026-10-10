@@ -5,7 +5,8 @@ async function scrapeKyokushin() {
   console.log('Starting headless Chrome scraper...');
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || (fs.existsSync('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome') ? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' : undefined)
   });
 
   try {
@@ -74,8 +75,32 @@ async function scrapeKyokushin() {
 
     console.log(`Scraped ${videos.length} videos.`);
     if (videos.length > 0) {
-      fs.writeFileSync('./kata_links.json', JSON.stringify(videos, null, 2));
-      console.log('Successfully updated kata_links.json');
+      // Preserve firstSeen date for existing videos; assign today for newly discovered videos
+      const existingFirstSeen = new Map();
+      if (fs.existsSync('./kata_links.json')) {
+        try {
+          const oldList = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
+          oldList.forEach(item => {
+            if (item.id && item.firstSeen) existingFirstSeen.set(item.id, item.firstSeen);
+          });
+        } catch (e) {
+          console.warn('Could not read existing kata_links.json for firstSeen preservation:', e.message);
+        }
+      }
+
+      const today = new Date().toISOString().slice(0, 10);
+      videos.forEach(v => {
+        v.firstSeen = existingFirstSeen.get(v.id) || today;
+      });
+
+      fs.writeFileSync('./kata_links.json', JSON.stringify(videos, null, 2) + '\n');
+      console.log('Successfully updated kata_links.json (firstSeen preserved).');
+
+      // Compute catalog hash over sorted IDs
+      const crypto = require('crypto');
+      const hash = crypto.createHash('sha256').update(videos.map(v => v.id).sort().join(',')).digest('hex').slice(0, 16);
+      fs.writeFileSync('./scrape-status.json', JSON.stringify({ hash }, null, 2) + '\n');
+      console.log('Successfully updated scrape-status.json with hash:', hash);
     } else {
       console.warn('Warning: Scraper returned 0 videos, keeping existing dataset.');
     }

@@ -1,6 +1,16 @@
 const fs = require('fs');
 const videos = JSON.parse(fs.readFileSync('./kata_links.json', 'utf8'));
 
+let catalogHash = '';
+if (fs.existsSync('./scrape-status.json')) {
+  try {
+    catalogHash = JSON.parse(fs.readFileSync('./scrape-status.json', 'utf8')).hash || '';
+  } catch (e) {}
+}
+
+const twoMonthsAgo = Date.now() - 60 * 24 * 60 * 60 * 1000;
+const hasAnyNewVideos = videos.some(v => v.firstSeen && (new Date(v.firstSeen).getTime() >= twoMonthsAgo));
+
 // The 28 canonical katas in requested order with order index, belts, stripes & matching keywords (English & Japanese)
 const KATA_MAP = [
   { order: 1, name: "Taikyoku Sono Ichi", belt: "White", stripe: "", keywords: ["taikyoku sono ichi", "taikyoku sonoichi", "太極その1", "太極その一", "太極その１", "太極其の一"] },
@@ -160,6 +170,8 @@ const cardsHtml = expandedCards.map(({ item, matched, originalIdx, subIdx, isMul
     ? `${baseTitle} ${matched.name} ${matched.keywords.join(' ')}`.toLowerCase()
     : safeTitle.toLowerCase();
 
+  const isNewVideo = item.firstSeen && (new Date(item.firstSeen).getTime() >= twoMonthsAgo);
+
   return `      <div class="kata-card${isMainKata ? ' is-main-kata' : ''}" 
            data-id="${item.id}"
            data-href="${item.url}" 
@@ -171,6 +183,8 @@ const cardsHtml = expandedCards.map(({ item, matched, originalIdx, subIdx, isMul
            data-is-seminar="${isSeminar ? '1' : '0'}"
            data-is-bunkai="${isBunkai ? '1' : '0'}"
            data-is-multi="${isMultiKata ? '1' : '0'}"
+           data-first-seen="${item.firstSeen || ''}"
+           data-is-new="${isNewVideo ? '1' : '0'}"
            data-kata-name="${matched ? matched.name : ''}"
            data-belt="${matched ? matched.belt : ''}"
            data-stripe="${matched ? (matched.stripe || '') : ''}"
@@ -248,6 +262,12 @@ const html = `<!DOCTYPE html>
     8. KATA EXPLANATION IS BUNKAI (NOT SEMINAR):
        Videos titled "Kata Explanation: ..." (even if containing "(From the Online Kata Seminar)")
        represent kata technique breakdown (Bunkai) and must be tagged as Bunkai and NOT Seminar.
+    9. NEW VIDEOS & SCRAPE STATUS BEACON:
+       Each video in kata_links.json records a "firstSeen" discovery date (YYYY-MM-DD).
+       Videos younger than 2 months (60 days) from the current date are classified as New.
+       When new videos exist, the "New" filter button is styled emerald green.
+       scrape-status.json contains the SHA256 catalog hash over sorted video IDs, checked
+       periodically in the background to detect newly published video catalog updates.
     =============================================================================================
   -->
 
@@ -435,6 +455,27 @@ const html = `<!DOCTYPE html>
       font-weight: 600;
       border-color: #58a6ff;
       box-shadow: 0 0 0 1px #58a6ff;
+    }
+
+    /* "New" button emerald styling when new videos exist */
+    .filter-btn#btn-NEW.is-new-active {
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .filter-btn#btn-NEW.is-new-active:hover {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+    }
+
+    .filter-btn#btn-NEW.active {
+      background: #059669 !important;
+      border-color: #10b981 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.5) !important;
     }
 
     /* Sub-row for Belt Colors without label */
@@ -937,7 +978,8 @@ const html = `<!DOCTYPE html>
           <button class="filter-btn" id="btn-ALL" onclick="setCategory('ALL')">All</button>
           <button class="filter-btn active" id="btn-KATA" onclick="setCategory('KATA')">Kata</button>
           <button class="filter-btn" id="btn-SEMINAR" onclick="setCategory('SEMINAR')">Seminar</button>
-          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">All the rest</button>
+          <button class="filter-btn${hasAnyNewVideos ? ' is-new-active' : ''}" id="btn-NEW" onclick="setCategory('NEW')">New</button>
+          <button class="filter-btn" id="btn-REST" onclick="setCategory('REST')">Misc</button>
         </div>
       </div>
 
@@ -993,6 +1035,8 @@ ${cardsHtml}
   <script>
     // Hardcoded 28 Katas mapping with order, belts and keywords
     const KATA_MAP = ${JSON.stringify(KATA_MAP, null, 2)};
+    const CATALOG_HASH = "${catalogHash}";
+    let isCatalogOutdated = false;
 
     const allCards = Array.from(document.querySelectorAll('.kata-card'));
     const kataGrid = document.getElementById('kataGrid');
@@ -1044,6 +1088,10 @@ ${cardsHtml}
     });
 
     function setCategory(cat) {
+      if (cat === 'NEW' && isCatalogOutdated) {
+        window.location.reload();
+        return;
+      }
       currentCategory = cat;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === 'btn-' + cat);
@@ -1133,6 +1181,10 @@ ${cardsHtml}
           if (subIdx === 0) {
             matchesCategory = isSeminar;
           }
+        } else if (currentCategory === 'NEW') {
+          if (subIdx === 0) {
+            matchesCategory = card.getAttribute('data-is-new') === '1';
+          }
         } else if (currentCategory === 'REST') {
           if (subIdx === 0) {
             matchesCategory = !isKata && !isSeminar;
@@ -1167,7 +1219,8 @@ ${cardsHtml}
       const labelMap = {
         'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos'),
         'SEMINAR': 'Seminar videos',
-        'REST': 'All the rest videos',
+        'NEW': 'New videos',
+        'REST': 'Misc videos',
         'ALL': 'all videos'
       };
       statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos');
@@ -1175,6 +1228,28 @@ ${cardsHtml}
 
     // Apply default filter and sorting on load
     filterKata();
+
+    // Background beacon check: checks scrape-status.json every 1 hour
+    function checkScrapeStatus() {
+      fetch('./scrape-status.json?t=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.hash && data.hash !== CATALOG_HASH) {
+            isCatalogOutdated = true;
+            const btnNew = document.getElementById('btn-NEW');
+            if (btnNew) {
+              btnNew.classList.add('is-new-active');
+              btnNew.title = 'New catalog updates available! Click to reload';
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Background status check note:', err);
+        });
+    }
+
+    // Run background check every 1 hour
+    setInterval(checkScrapeStatus, 60 * 60 * 1000);
 
     // Register Service Worker for PWA installability & offline caching
     if ('serviceWorker' in navigator) {
