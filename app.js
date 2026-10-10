@@ -32,10 +32,21 @@ let KATA_MAP = [];
 let CATALOG_HASH = '';
 let isCatalogOutdated = false;
 let allCards = [];
+let totalVideosCount = 0;
 
 let currentCategory = 'KATA'; // Default is Kata
 let currentBelt = 'ALL';      // Default is All belts
 let pendingVideoUrl = '';
+
+// Configurable endpoints (allows query-param overrides for automated testing)
+const urlParams = (typeof window !== 'undefined' && window.location && window.location.search)
+  ? new URLSearchParams(window.location.search)
+  : null;
+const statusUrl = (urlParams && urlParams.get('statusUrl')) || './scrape-status.json';
+const linksUrl = (urlParams && urlParams.get('linksUrl')) || './kata_links.json';
+const kataMapUrl = (urlParams && urlParams.get('kataMapUrl')) || './kata_map.json';
+const pollInterval = (urlParams && parseInt(urlParams.get('pollInterval'), 10)) ||
+  ((typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) ? 1500 : 60 * 1000);
 
 function escapeHtml(str) {
   return String(str || '')
@@ -217,9 +228,11 @@ function proceedToVideo() {
   if (url) window.open(url, '_blank');
 }
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+}
 
 function setCategory(cat) {
   if (cat === 'NEW' && isCatalogOutdated) {
@@ -305,7 +318,7 @@ function filterKata() {
     const cardBelt = card.getAttribute('data-belt') || '';
     const subIdx = parseInt(card.getAttribute('data-sub-index') || '0', 10);
 
-    // Category filter: in SEMINAR, REST, and ALL views deduplicate multi-kata cards (keep only subIdx === 0)
+    // Category filter: in SEMINAR, MISC views deduplicate multi-kata cards (keep only subIdx === 0)
     let matchesCategory = false;
     if (currentCategory === 'KATA') {
       matchesCategory = isKata;
@@ -321,7 +334,7 @@ function filterKata() {
       if (subIdx === 0) {
         matchesCategory = card.getAttribute('data-is-new') === '1';
       }
-    } else if (currentCategory === 'REST') {
+    } else if (currentCategory === 'MISC') {
       if (subIdx === 0) {
         matchesCategory = !isKata && !isSeminar;
       }
@@ -355,25 +368,41 @@ function filterKata() {
     'KATA': (currentBelt !== 'ALL' ? currentBelt + ' belt kata videos' : 'Kata videos'),
     'SEMINAR': 'Seminar videos',
     'NEW': 'New videos',
-    'REST': 'Misc videos'
+    'MISC': 'Misc videos'
   };
   const statsBar = document.getElementById('statsBar');
   if (statsBar) {
-    statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos');
+    statsBar.innerText = 'Showing ' + count + ' ' + (labelMap[currentCategory] || 'videos') + ' out of ' + totalVideosCount;
   }
 }
 
-// Background beacon check: checks scrape-status.json periodically
+// Background beacon check: checks status file periodically.
+// If hash changed, verifies if any new videos exist in the updated DB before turning "New" green.
+let inspectedCatalogHash = '';
+
 function checkScrapeStatus() {
-  fetch('./scrape-status.json?t=' + Date.now())
+  fetch(statusUrl + (statusUrl.includes('?') ? '&' : '?') + 't=' + Date.now())
     .then(res => res.json())
-    .then(data => {
+    .then(async data => {
       if (data && data.hash && data.hash !== CATALOG_HASH) {
-        isCatalogOutdated = true;
-        const btnNew = document.getElementById('btn-NEW');
-        if (btnNew) {
-          btnNew.classList.add('is-new-active');
-          btnNew.title = 'New catalog updates available! Click to reload';
+        if (data.hash === inspectedCatalogHash) return; // already inspected this catalog version
+        inspectedCatalogHash = data.hash;
+
+        try {
+          const resLinks = await fetch(linksUrl + (linksUrl.includes('?') ? '&' : '?') + 't=' + Date.now());
+          const newVideos = await resLinks.json();
+          const twoMonthsAgo = Date.now() - 60 * 24 * 60 * 60 * 1000;
+          const hasNewInDb = Array.isArray(newVideos) && newVideos.some(v => v.firstSeen && (new Date(v.firstSeen).getTime() >= twoMonthsAgo));
+          if (hasNewInDb) {
+            isCatalogOutdated = true;
+            const btnNew = document.getElementById('btn-NEW');
+            if (btnNew) {
+              btnNew.classList.add('is-new-active');
+              btnNew.title = 'New videos available! Click to reload';
+            }
+          }
+        } catch (e) {
+          console.log('Background catalog check note:', e);
         }
       }
     })
@@ -387,19 +416,21 @@ async function initApp() {
   const kataGrid = document.getElementById('kataGrid');
   try {
     const [kataMapRes, videosRes, statusRes] = await Promise.all([
-      fetch('./kata_map.json').then(r => {
+      fetch(kataMapUrl).then(r => {
         if (!r.ok) throw new Error(`HTTP error ${r.status} fetching kata_map.json`);
         return r.json();
       }),
-      fetch('./kata_links.json').then(r => {
+      fetch(linksUrl).then(r => {
         if (!r.ok) throw new Error(`HTTP error ${r.status} fetching kata_links.json`);
         return r.json();
       }),
-      fetch('./scrape-status.json').then(r => r.json()).catch(() => ({}))
+      fetch(statusUrl).then(r => r.json()).catch(() => ({}))
     ]);
 
     KATA_MAP = kataMapRes;
     CATALOG_HASH = (statusRes && statusRes.hash) || '';
+    inspectedCatalogHash = CATALOG_HASH;
+    totalVideosCount = Array.isArray(videosRes) ? videosRes.length : 0;
 
     const twoMonthsAgo = Date.now() - 60 * 24 * 60 * 60 * 1000;
     const hasAnyNewVideos = videosRes.some(v => v.firstSeen && (new Date(v.firstSeen).getTime() >= twoMonthsAgo));
@@ -440,8 +471,7 @@ async function initApp() {
     // Apply default filter & sort
     filterKata();
 
-    // Start background beacon polling (every 1.5s on localhost for dev testing, 60s in production)
-    const pollInterval = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 1500 : 60 * 1000;
+    // Start background beacon polling
     setInterval(checkScrapeStatus, pollInterval);
 
   } catch (err) {
@@ -458,7 +488,7 @@ async function initApp() {
   }
 
   // Register Service Worker for PWA installability & offline caching
-  if ('serviceWorker' in navigator) {
+  if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').catch(err => {
         console.log('SW registration note:', err);
@@ -468,12 +498,26 @@ async function initApp() {
 }
 
 // Expose handlers to window for inline onclick attributes
-window.handleCardClick = handleCardClick;
-window.closeModal = closeModal;
-window.handleBackdropClick = handleBackdropClick;
-window.proceedToVideo = proceedToVideo;
-window.setCategory = setCategory;
-window.setBeltFilter = setBeltFilter;
-window.filterKata = filterKata;
+if (typeof window !== 'undefined') {
+  window.handleCardClick = handleCardClick;
+  window.closeModal = closeModal;
+  window.handleBackdropClick = handleBackdropClick;
+  window.proceedToVideo = proceedToVideo;
+  window.setCategory = setCategory;
+  window.setBeltFilter = setBeltFilter;
+  window.filterKata = filterKata;
+  window.checkScrapeStatus = checkScrapeStatus;
+}
 
-document.addEventListener('DOMContentLoaded', initApp);
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initApp);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    matchKatas,
+    parseStripe,
+    escapeHtml,
+    renderCardHtml
+  };
+}

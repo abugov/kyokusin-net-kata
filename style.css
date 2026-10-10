@@ -173,8 +173,10 @@ h1 span.kanji {
 
 .filter-tags {
   display: flex;
+  width: 100%;
   gap: 0.5rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filter-btn {
@@ -204,6 +206,7 @@ h1 span.kanji {
 }
 
 .filter-btn#btn-NEW {
+  margin-left: auto;
   transition: all 0.4s ease;
 }
 
