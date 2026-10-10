@@ -1,13 +1,21 @@
-# Kyokushin Quick Search (kyokushin-net-quick-search)
+# Kyokushin Kata Library
 
-Phase 1 implementation for indexing and browsing all kata videos from [Kyokushin Online](https://www.kyokushin.net/search-result?category=hesWJFxSJEaAHwfnbbSn&s=kata).
+Fast, client-side catalog and search for Kyokushin Online kata videos, organized by belt progression, seminars, bunkai, and recent additions.
 
-## Contents
-- `index.html`: Clean, responsive web page listing all 41 kata videos with search & filter controls.
-- `kata_links.json`: Structured JSON dataset containing titles, IDs, badges, and direct links.
+## Project Structure
 
-## Extracted Videos (41 Total)
-- Seminars & Masterclasses (Seienchin, Bassai, Sushiho, Furukawa Seiya masterclass, 2024/2023 seminars)
-- Revision Series (2025 Seipai, 2024 Garyu/Tekki, 2023 Kanku/Tekki, 2020 Standard Revisions)
-- Bunkai Kumite Series (Pinan Ichi through Go, Yantsu)
-- Standard Kata (Pinan, Taikyoku, Sokugi Taikyoku, Gekisai, Saifa, Sanchin, Tsukinokata, Yantsu, Seienchin, Bassai)
+- `index.html`, `app.js`, `style.css`: Client-side application with search, belt filters, and new video alerts.
+- `kata_map.json`: Single source of truth for canonical katas, belt progression, stripes, and keywords.
+- `kata_links.json`: Video catalog with IDs, URLs, tags, and `firstSeen` dates.
+- `scrape-status.json`: Catalog hash and timestamp for background update detection.
+- `scrape.js`: Scraper for fetching videos into the JSON database.
+
+## Development & Testing
+
+```bash
+# Run unit and E2E browser tests
+npm test
+
+# Update video catalog from Kyokushin Online
+npm run scrape
+```
