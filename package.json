@@ -4,6 +4,9 @@
   "description": "Kyokushin Karate Kata & Training Video Library",
   "main": "index.html",
   "scripts": {
+    "test": "node --test test/unit.test.js && node test/e2e.test.js",
+    "test:unit": "node --test test/unit.test.js",
+    "test:e2e": "node test/e2e.test.js",
     "scrape": "node scrape.js"
   },
   "dependencies": {
